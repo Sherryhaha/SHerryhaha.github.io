@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>noSherry</title>
+        <title>notSherry</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
@@ -12,29 +12,97 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">noSherry </a></h1>
+                <h1><a href="/">notSherry </a></h1>
                 <nav><ul>
-                    <li><a href="/category/uncategorized.html">Uncategorized</a></li>
+                    <li><a href="/category/xiang-mu.html">项目</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/hello.html">Hello</a></h1>
+                    <h1 class="entry-title"><a href="/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao.html">博物馆媒体展呈项目介绍</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2015-07-22T00:00:00+02:00">
-                Published: 三 22 七月 2015
+        <abbr class="published" title="2015-08-10T00:00:00+08:00">
+                Published: 一 10 八月 2015
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/notsherry.html">notSherry</a>
         </address>
-<p>In <a href="/category/uncategorized.html">Uncategorized</a>.</p>
-<p>tags: <a href="/tag/pelican.html">Pelican</a> <a href="/tag/markdown.html">Markdown</a> </p>
-</footer><!-- /.post-info --><p>Hello Pelican, Markdown and GitHub Pages.</p>                </article>
-<p class="paginator">
-    Page 1 / 1
-</p>
+<p>In <a href="/category/xiang-mu.html">项目</a>.</p>
+
+</footer><!-- /.post-info --><p><code>what you see is what you can get more</code></p>
+<h2>背景介绍</h2>
+<p>随着数字化与博物馆的碰撞，越来越多数字博物馆交互式鉴赏平台得以呈现，我们所做的这个小项目，是想让观光博物馆的人通过手机摄像头观看文物时，可以得到更多相关动态有趣的内容以及相应的语音讲解。</p>
+<hr />
+<h2>研究方案</h2>
+<p>此项目采用<code>CS</code>（<code>Client-Server</code>）架构实现，客户端通过摄像头获取实时帧将图片传送给服务器，服务器获取图片后对其进行图像匹配处理，返回给客户端相对应的视频地址，客户端获取视频地址后进行全屏播放。
+服务器端，需要事先存储好视频，以及每个视频对应的关键帧。</p>
+<ul>
+<li><code>Client</code>：<code>iOS</code>版和<code>android</code>版本</li>
+<li><code>Server</code>：采用<code>java-struts</code>框架</li>
+</ul>
+<hr />
+<h2>开发难点</h2>
+<h3>图像匹配算法的选择</h3>
+<p>第一、二周，寻找各种图像匹配算法，其中被我们实验过的有
+- <code>SIFT</code>（<code>Sacle-invariant Feature Transform</code>）算法
+- 感知哈希算法
+- 均值哈希算法
+- <code>surf</code>算法</p>
+<p>其中我个人认为比较好用的是<code>SIFT</code> 算法和 <strong>感知哈希算法</strong>，尤其是感知哈希算法，它的实时性占很大优势，但在匹配的准确度上不够精确。接下来分别简要阐述一下<code>SIFT</code>、感知哈希和均值哈希的算法步骤。</p>
+<p><code>Lowe</code>(作者)将<code>SIFT</code>算法分解为如下四步：</p>
+<blockquote>
+<ol>
+<li>尺度空间极值检测：搜索所有尺度上的图像位置。通过高斯微分函数来识别潜在的对于尺度和旋转不变的兴趣点。</li>
+<li>关键点定位：在每个候选的位置上，通过一个拟合精细的模型来确定位置和尺度。关键点的选择依据于它们的稳定程度。</li>
+<li>方向确定：基于图像局部的梯度方向，分配给每个关键点位置一个或多个方向。所有后面的对图像数据的操作都相对于关键点的方向、尺度和位置进行变换，从而提供对于这些变换的不变性。</li>
+<li>关键点描述：在每个关键点周围的邻域内，在选定的尺度上测量图像局部的梯度。这些梯度被变换成一种表示，这种表示允许比较大的局部形状的变形和光照变化。</li>
+</ol>
+</blockquote>
+<p>感知哈希<code>phash</code>比均值哈希要稳健，<code>phash</code>使用了<code>DCT</code>来降低频率。感知哈希算法可分为以下几个步骤：</p>
+<blockquote>
+<ol>
+<li>将图片缩小32*32最好，这样可以简化DCT计算。</li>
+<li>将图片色彩简化为灰度图像。</li>
+<li>计算DCT，使用32*32的DCT变换。</li>
+<li>DCT的结果是32<em>32的矩阵，只要保留左上角的8</em>8矩阵就可以了，因为这部分呈现了图片中的最低频率。</li>
+<li>计算DCT的平均值。</li>
+<li>根据8*8的DCT矩阵来与平均值进行比较，大于平均值的为1，小于的为0。</li>
+<li>构造图片矩阵。</li>
+</ol>
+</blockquote>
+<p><code>均值哈希</code>的步骤：</p>
+<blockquote>
+<ol>
+<li>先将图片缩小尺寸为8*8的正方形，64个像素。</li>
+<li>将图片的色彩简化为灰度图像。</li>
+<li>计算64个像素的灰度平均值。</li>
+<li>将每个像素的灰度值与平均值进行对比，若大于平均值，即为1，小于平均值即为0。</li>
+<li>将上一步得到的64个值组成的称为这个图片的指纹。</li>
+<li>若要比较两个图片，就将第五步得到的进行比较，计算不同位的个数。</li>
+</ol>
+</blockquote>
+<hr />
+<h2>研究成果</h2>
+<h3>概述</h3>
+<ul>
+<li>实现<code>android</code>、<code>iOS</code>客户端获取、上传图片到服务器</li>
+<li>实现服务器对客户端上传的图片进行图像匹配并返回视频地址</li>
+<li>实现客户端通过返回的视频地址自动全屏播放视频</li>
+<li>分别采用不同的图像匹配算法进行验证</li>
+</ul>
+<h3>待优化的问题</h3>
+<ul>
+<li><code>android</code>端目前采用的是拍照上传的模式而并非获取实时帧，可以对其获取图片的方式进行改进真正达到<code>what you see is what you can get more</code>的实时获取。</li>
+<li>图像匹配算法的优化，目前实现的算法并没有具备实时性与准确性。<code>SIFT</code>算法由于要提取特征点、进行特征点匹配等复杂的动作，使得其实时性达不到要求。感知哈希对于图片匹配的准确性有待提高。我个人觉得后期可采取利用大量图片进行试验，从而根据实际需求选择最为适合的算法</li>
+<li>对于每一个视频提取关键帧的方法以及关键帧的存贮方式。</li>
+</ul>
+<h3>本项目应用价值</h3>
+<ul>
+<li>摆脱盲目逛景点困扰，通过摄像头可以看到、听到生动形象的视频与讲解。</li>
+<li>数字化与博物馆的碰撞，不仅改变了以往人们逛博物馆的方式，也丰富了人们可以获得信息量。</li>
+</ul>                </article>
             </aside><!-- /#featured -->
         <section id="extras" class="body">
                 <div class="blogroll">
