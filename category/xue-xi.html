@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+        <meta charset="utf-8" />
+        <title>notSherry - 学习</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">notSherry </a></h1>
+                <nav><ul>
+                    <li><a href="/category/xiang-mu.html">项目</a></li>
+                    <li class="active"><a href="/category/xue-xi.html">学习</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/javaxue-xi.html">JAVA学习</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2015-03-08T00:00:00+08:00">
+                Published: 日 08 三月 2015
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/notsherry.html">notSherry</a>
+        </address>
+<p>In <a href="/category/xue-xi.html">学习</a>.</p>
+
+</footer><!-- /.post-info --><p>@(java)[2015/3/4, java, 2015/3/8]</p>
+<blockquote>
+<p>阅读了知乎上一些关于学习java的建议
+大多都是建议要先学习好java SE(standard Edition)，是基于JDK（没有它无法编译java程序）与JRE（java运行环境）
+可以先模仿着别人的代码，但一定要写，自己背着写。
+<strong>任何事情都要追求完美才敢继续往后进行是一种性格缺陷</strong></p>
+</blockquote>
+<h3>正则表达式的学习</h3>
+<p>@(正则表达式)[2015/3/8]</p>
+<blockquote>
+<p>在java 中，有关于正则表达式的包是java.util.regex,它下面包含两个类Matcher与Pattern。一些具体参数或用法，都可以参展java的说明文档</p>
+</blockquote>
+<p>从昨天开始在观看网上马士兵老师的java教程视频，学习正则表达式的使用。其中比较实用的应用就是可以抓取一个网页上特定格式的东西，如所有的email。叫做emailSpider。以下是实现配对的主要函数：</p>
+<div class="highlight"><pre><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">parse</span><span class="o">(</span><span class="n">String</span> <span class="n">line</span><span class="o">)</span> <span class="o">{</span>
+        <span class="cm">/*从文件中一行一行的读取数据，在每一行中匹配具有email格式的字符串*/</span>
+        <span class="n">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&quot;[\\w[.-]]+@[\\w[-.]]+\\.[\\w]+&quot;</span><span class="o">);</span>
+        <span class="n">Matcher</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+        <span class="k">while</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">find</span><span class="o">())</span>
+        <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">group</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</pre></div>
+
+
+<p><code>Pattern</code>将给定的正则表达式编译并赋予给Pattern类。
+生成<code>Matcher</code>实例，形象化不深入的肤浅可以理解为，Pattern对正则表达式进行编译，Matcher对它进行匹配。</p>
+<p>利用正则表达式来计算一个java程序中总共有多少行代码，多少注释，多少空行。
+其中主要的核心代码是一个函数，利用正则表达式来匹配这些可能性的行</p>
+<div class="highlight"><pre><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">parse</span><span class="o">(</span><span class="n">File</span> <span class="n">child</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">Boolean</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">child</span><span class="o">));</span>
+            <span class="n">String</span> <span class="n">line</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+            <span class="k">while</span><span class="o">((</span><span class="n">line</span><span class="o">=</span><span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())!=</span><span class="kc">null</span><span class="o">){</span>
+                <span class="cm">/*去除字符串头部与尾部的空格*/</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">trim</span><span class="o">();</span> 
+                <span class="cm">/*匹配空白的行*/</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">line</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s">&quot;^[\\s&amp;&amp;[^\\n]]*$&quot;</span><span class="o">)){</span>
+                <span class="n">whiteLines</span><span class="o">++;</span>
+                <span class="o">}</span>
+                <span class="cm">/*匹配注释行*/</span>
+                <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">line</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">&quot;/*&quot;</span><span class="o">)&amp;&amp;!</span><span class="n">line</span><span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="s">&quot;*/&quot;</span><span class="o">)){</span>
+                    <span class="n">commentLines</span><span class="o">++;</span>
+                    <span class="n">comment</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span><span class="k">if</span><span class="o">(</span><span class="kc">true</span><span class="o">==</span><span class="n">comment</span><span class="o">){</span>
+                    <span class="n">commentLines</span><span class="o">++;</span>
+                    <span class="k">if</span><span class="o">(</span><span class="n">line</span><span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="s">&quot;*/&quot;</span><span class="o">)){</span>
+                        <span class="n">comment</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+                    <span class="o">}</span>
+                <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                    <span class="n">normalLines</span><span class="o">++;</span>
+                <span class="o">}</span>
+
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">finally</span><span class="o">{</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">br</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                <span class="k">try</span><span class="o">{</span>
+                    <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                    <span class="n">br</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+                <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+</pre></div>
+
+
+<h3>JDBC</h3>
+<p><strong>JDBC</strong>叫做<code>java Database Connectivity</code>是<code>J2EE</code>的一部分。
+JDBC不同数据库有不同的对应类库。</p>
+<p><strong>JDBC</strong>编程步骤：
+1、通知DriverManager要连那种数据库，找到连接数据库的驱动包，</p>
+<h3>java web 提交表单的处理</h3>
+<p>Step1: 编写index.jsp文件
+代码如下：</p>
+<div class="highlight"><pre><span class="k">&lt;%@</span><span class="n">page</span> <span class="n">pageEncoding</span><span class="o">=</span><span class="s">&quot;GBK&quot;</span><span class="k">%&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;p&gt;</span>请输入数字。。<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+function validate_required(field,alerttxt)
+{
+with (field)
+  {
+  var x=document.getElementById(&quot;demo1&quot;).value;
+  if (isNaN(x)||x==&quot;&quot;)
+    {alert(alerttxt);return false;}
+  else {return true;}
+  }
+}
+function myFunction(thisform)
+{
+
+with(thisform){
+if(validate_required(demo,&quot;输入数字可以嘛！&quot;)==false)
+{
+ demo.focus();
+ return false;
+}
+}
+}
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;welcome&quot;</span> <span class="na">name =</span> <span class="s">&quot;formtest&quot;</span> <span class="na">method =</span><span class="s">&quot;post&quot;</span> <span class="na">onsubmit=</span><span class="s">&quot;return myFunction(this);&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">&quot;demo1&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;demo&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Submit&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+
+<p>welcome是对表单进行处理的Servlet,表单采用的提交方式是post.采用了一个函数来判断用户输入是否为数字，如果包含其他，就跳出警示窗口。</p>
+<p>Step2:编写HelloServletFromMyEclipse.java
+代码如下：</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServletFromMyEclipse</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">HelloServletFromMyEclipse</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span>
+            <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+
+        <span class="n">response</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&quot;text/html&quot;</span><span class="o">);</span>
+        <span class="n">PrintWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;欢迎来这里呀&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doPost</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span>
+            <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">req</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">&quot;gb2312&quot;</span><span class="o">);</span>  
+        <span class="n">PrintWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&quot;text/html;charset=gb2312&quot;</span><span class="o">);</span>  
+        <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">URLDecoder</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;demo&quot;</span><span class="o">),</span><span class="s">&quot;utf-8&quot;</span><span class="o">);</span>  
+        <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;myprintis&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">);</span>
+        <span class="n">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&quot;^\\d+$&quot;</span><span class="o">);</span>
+        <span class="n">Matcher</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">matches</span><span class="o">())</span>
+        <span class="o">{</span>
+            <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;true&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">else</span><span class="o">{</span>
+            <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;false&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>通过req.getParameter("demo")获得用户输入的信息，"demo"必须与表单中用于输入信息的文本区的demo一样。获得用户之后用正则来匹配是否为数字</p>
+<p>Step3:部署Servlet
+修改web.xml文件</p>
+<div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;web-app</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://java.sun.com/xml/ns/javaee&quot;</span> <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span> <span class="na">id=</span><span class="s">&quot;WebApp_ID&quot;</span> <span class="na">version=</span><span class="s">&quot;3.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;servlet&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span>HelloServlet<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="nt">&lt;servlet-class&gt;</span>com.bjsxt.servlet.HelloServletFromMyEclipse<span class="nt">&lt;/servlet-class&gt;</span>
+
+  <span class="nt">&lt;/servlet&gt;</span>
+
+  <span class="nt">&lt;servlet-mapping&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span>HelloServlet<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/welcome<span class="nt">&lt;/url-pattern&gt;</span>
+  <span class="nt">&lt;/servlet-mapping&gt;</span>
+  <span class="nt">&lt;welcome-file-list&gt;</span>
+    <span class="nt">&lt;welcome-file&gt;</span>index.html<span class="nt">&lt;/welcome-file&gt;</span>
+    <span class="nt">&lt;welcome-file&gt;</span>index.htm<span class="nt">&lt;/welcome-file&gt;</span>
+    <span class="nt">&lt;welcome-file&gt;</span>index.jsp<span class="nt">&lt;/welcome-file&gt;</span>
+    <span class="nt">&lt;welcome-file&gt;</span>default.html<span class="nt">&lt;/welcome-file&gt;</span>
+    <span class="nt">&lt;welcome-file&gt;</span>default.htm<span class="nt">&lt;/welcome-file&gt;</span>
+    <span class="nt">&lt;welcome-file&gt;</span>default.jsp<span class="nt">&lt;/welcome-file&gt;</span>
+  <span class="nt">&lt;/welcome-file-list&gt;</span>
+<span class="nt">&lt;/web-app&gt;</span>
+</pre></div>
+
+
+<h3>统计页面被访问的次数</h3>
+<p>主要代码</p>
+<div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span>
+            <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">ServletContext</span> <span class="n">context</span><span class="o">=</span><span class="n">getServletContext</span><span class="o">();</span>
+        <span class="n">Integer</span> <span class="n">count</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span><span class="n">context</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&quot;counter&quot;</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="kc">null</span><span class="o">==</span><span class="n">count</span><span class="o">){</span>
+            <span class="n">count</span><span class="o">=</span><span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">else</span><span class="o">{</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">count</span><span class="o">.</span><span class="na">intValue</span><span class="o">()+</span><span class="mi">1</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&quot;text/html;charset=gb2312&quot;</span><span class="o">);</span>
+        <span class="n">PrintWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+
+        <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;&lt;HTML&gt;&quot;</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;  &lt;HEAD&gt;&lt;TITLE&gt;页面访问统计&lt;/TITLE&gt;&lt;/HEAD&gt;&quot;</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;  &lt;BODY&gt;&quot;</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;该页面被访问了：&quot;</span><span class="o">+</span><span class="s">&quot;&lt;b&gt;&quot;</span><span class="o">+</span><span class="n">count</span><span class="o">+</span><span class="s">&quot;&lt;/b&gt;&quot;</span><span class="o">+</span><span class="s">&quot;次&quot;</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;  &lt;/BODY&gt;&quot;</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;&lt;/HTML&gt;&quot;</span><span class="o">);</span>
+        <span class="n">context</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&quot;counter&quot;</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+</pre></div>
+
+
+<p>通过getServletContext()的方法得到web应用程序的上下文对象。通过getAtrribute()方法获取属性counter的值，判断counter是否为空，为null就将它的初始值设为1，当servlet第一次被访问，设为1，以后再被访问就是加一，将count作为counter的属性保存到ServletContext对象中。</p>
+<h3>问题</h3>
+<p>在用jsp连接数据库时出现连接不了数据库的现象，一直查不出什么原因，后来借鉴网友意见，把驱动包添加到WEB_INF下的lib中，就好了==</p>
+<h3>在web客户端的三种语言</h3>
+<p>@(2015/3/17)
+html(hyper text markup language),css,javascript是web客户端的三种语言，其中javascript即可被用在客户端，也可以被用在服务器端，主要是用在客户端。</p>
+<p><strong>html</strong>
+<code>meta</code>是元数据，描述文档本身的信息</p>
+<div class="highlight"><pre><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;refresh&quot;</span> <span class="na">content =</span><span class="s">&quot;3;url=&quot;</span><span class="na">http:</span><span class="err">//</span><span class="na">www</span><span class="err">.</span><span class="na">baidu</span><span class="err">.</span><span class="na">com</span><span class="err">&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p>每隔3秒刷新当前页面到www.baidu.com</p>
+<div class="highlight"><pre><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-type&quot;</span> <span class="na">content =</span><span class="s">&quot;text/html;charset=gb2312&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p>当前页面是html格式，编码是gb2312</p>
+<div class="highlight"><pre><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;expires&quot;</span> <span class="na">content =</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p>告知浏览器不要对本网页进行缓存</p>
+<div class="highlight"><pre><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;pragma&quot;</span> <span class="na">content =</span><span class="s">&quot;no-cache&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p>不要在代理服务器上缓存</p>
+<div class="highlight"><pre><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;author&quot;</span> <span class="na">content =</span><span class="s">&quot;sgy&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p>作者</p>
+<div class="highlight"><pre><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;copyright&quot;</span> <span class="na">content =</span><span class="s">&quot;do not use this page without my permission&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<p>版权声明</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
