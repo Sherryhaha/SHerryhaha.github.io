@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>notSherry</title><link href="http://localhost/" rel="alternate"></link><link href="http://localhost/feeds/atom.xml" rel="self"></link><id>http://localhost/</id><updated>2015-08-10T00:00:00+08:00</updated><entry><title>博物馆媒体展呈项目介绍</title><link href="http://localhost/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao.html" rel="alternate"></link><updated>2015-08-10T00:00:00+08:00</updated><author><name>notSherry</name></author><id>tag:localhost,2015-08-10:bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao.html</id><summary type="html">&lt;p&gt;&lt;code&gt;what you see is what you can get more&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="_1"&gt;背景介绍&lt;/h2&gt;
+&lt;p&gt;随着数字化与博物馆的碰撞，越来越多数字博物馆交互式鉴赏平台得以呈现，我们所做的这个小项目，是想让观光博物馆的人通过手机摄像头观看文物时，可以得到更多相关动态有趣的内容以及相应的语音讲解。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2 id="_2"&gt;研究方案&lt;/h2&gt;
+&lt;p&gt;此项目采用&lt;code&gt;CS&lt;/code&gt;（&lt;code&gt;Client-Server&lt;/code&gt;）架构实现，客户端通过摄像头获取实时帧将图片传送给服务器，服务器获取图片后对其进行图像匹配处理，返回给客户端相对应的视频地址，客户端获取视频地址后进行全屏播放。
+服务器端，需要事先存储好视频，以及每个视频对应的关键帧。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Client&lt;/code&gt;：&lt;code&gt;iOS&lt;/code&gt;版和&lt;code&gt;android&lt;/code&gt;版本&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Server&lt;/code&gt;：采用&lt;code&gt;java-struts&lt;/code&gt;框架&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;h2 id="_3"&gt;开发难点&lt;/h2&gt;
+&lt;h3 id="_4"&gt;图像匹配算法的选择&lt;/h3&gt;
+&lt;p&gt;第一、二周，寻找各种图像匹配算法，其中被我们实验过的有
+- &lt;code&gt;SIFT&lt;/code&gt;（&lt;code&gt;Sacle-invariant Feature Transform&lt;/code&gt;）算法
+- 感知哈希算法
+- 均值哈希算法
+- &lt;code&gt;surf&lt;/code&gt;算法&lt;/p&gt;
+&lt;p&gt;其中我个人认为比较好用的是&lt;code&gt;SIFT&lt;/code&gt; 算法和 &lt;strong&gt;感知哈希算法&lt;/strong&gt;，尤其是感知哈希算法，它的实时性占很大优势，但在匹配的准确度上不够精确。接下来分别简要阐述一下&lt;code&gt;SIFT&lt;/code&gt;、感知哈希和均值哈希的算法步骤。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Lowe&lt;/code&gt;(作者)将&lt;code&gt;SIFT&lt;/code&gt;算法分解为如下四步：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;尺度空间极值检测：搜索所有尺度上的图像位置。通过高斯微分函数来识别潜在的对于尺度和旋转不变的兴趣点。&lt;/li&gt;
+&lt;li&gt;关键点定位：在每个候选的位置上，通过一个拟合精细的模型来确定位置和尺度。关键点的选择依据于它们的稳定程度。&lt;/li&gt;
+&lt;li&gt;方向确定：基于图像局部的梯度方向，分配给每个关键点位置一个或多个方向。所有后面的对图像数据的操作都相对于关键点的方向、尺度和位置进行变换，从而提供对于这些变换的不变性。&lt;/li&gt;
+&lt;li&gt;关键点描述：在每个关键点周围的邻域内，在选定的尺度上测量图像局部的梯度。这些梯度被变换成一种表示，这种表示允许比较大的局部形状的变形和光照变化。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;感知哈希&lt;code&gt;phash&lt;/code&gt;比均值哈希要稳健，&lt;code&gt;phash&lt;/code&gt;使用了&lt;code&gt;DCT&lt;/code&gt;来降低频率。感知哈希算法可分为以下几个步骤：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;将图片缩小32*32最好，这样可以简化DCT计算。&lt;/li&gt;
+&lt;li&gt;将图片色彩简化为灰度图像。&lt;/li&gt;
+&lt;li&gt;计算DCT，使用32*32的DCT变换。&lt;/li&gt;
+&lt;li&gt;DCT的结果是32&lt;em&gt;32的矩阵，只要保留左上角的8&lt;/em&gt;8矩阵就可以了，因为这部分呈现了图片中的最低频率。&lt;/li&gt;
+&lt;li&gt;计算DCT的平均值。&lt;/li&gt;
+&lt;li&gt;根据8*8的DCT矩阵来与平均值进行比较，大于平均值的为1，小于的为0。&lt;/li&gt;
+&lt;li&gt;构造图片矩阵。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;均值哈希&lt;/code&gt;的步骤：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;先将图片缩小尺寸为8*8的正方形，64个像素。&lt;/li&gt;
+&lt;li&gt;将图片的色彩简化为灰度图像。&lt;/li&gt;
+&lt;li&gt;计算64个像素的灰度平均值。&lt;/li&gt;
+&lt;li&gt;将每个像素的灰度值与平均值进行对比，若大于平均值，即为1，小于平均值即为0。&lt;/li&gt;
+&lt;li&gt;将上一步得到的64个值组成的称为这个图片的指纹。&lt;/li&gt;
+&lt;li&gt;若要比较两个图片，就将第五步得到的进行比较，计算不同位的个数。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;h2 id="_5"&gt;研究成果&lt;/h2&gt;
+&lt;h3 id="_6"&gt;概述&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;实现&lt;code&gt;android&lt;/code&gt;、&lt;code&gt;iOS&lt;/code&gt;客户端获取、上传图片到服务器&lt;/li&gt;
+&lt;li&gt;实现服务器对客户端上传的图片进行图像匹配并返回视频地址&lt;/li&gt;
+&lt;li&gt;实现客户端通过返回的视频地址自动全屏播放视频&lt;/li&gt;
+&lt;li&gt;分别采用不同的图像匹配算法进行验证&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="_7"&gt;待优化的问题&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;android&lt;/code&gt;端目前采用的是拍照上传的模式而并非获取实时帧，可以对其获取图片的方式进行改进真正达到&lt;code&gt;what you see is what you can get more&lt;/code&gt;的实时获取。&lt;/li&gt;
+&lt;li&gt;图像匹配算法的优化，目前实现的算法并没有具备实时性与准确性。&lt;code&gt;SIFT&lt;/code&gt;算法由于要提取特征点、进行特征点匹配等复杂的动作，使得其实时性达不到要求。感知哈希对于图片匹配的准确性有待提高。我个人觉得后期可采取利用大量图片进行试验，从而根据实际需求选择最为适合的算法&lt;/li&gt;
+&lt;li&gt;对于每一个视频提取关键帧的方法以及关键帧的存贮方式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="_8"&gt;本项目应用价值&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;摆脱盲目逛景点困扰，通过摄像头可以看到、听到生动形象的视频与讲解。&lt;/li&gt;
+&lt;li&gt;数字化与博物馆的碰撞，不仅改变了以往人们逛博物馆的方式，也丰富了人们可以获得信息量。&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>JAVA学习</title><link href="http://localhost/javaxue-xi.html" rel="alternate"></link><updated>2015-03-08T00:00:00+08:00</updated><author><name>notSherry</name></author><id>tag:localhost,2015-03-08:javaxue-xi.html</id><summary type="html">&lt;p&gt;@(java)[2015/3/4, java, 2015/3/8]&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;阅读了知乎上一些关于学习java的建议
+大多都是建议要先学习好java SE(standard Edition)，是基于JDK（没有它无法编译java程序）与JRE（java运行环境）
+可以先模仿着别人的代码，但一定要写，自己背着写。
+&lt;strong&gt;任何事情都要追求完美才敢继续往后进行是一种性格缺陷&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="_1"&gt;正则表达式的学习&lt;/h3&gt;
+&lt;p&gt;@(正则表达式)[2015/3/8]&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在java 中，有关于正则表达式的包是java.util.regex,它下面包含两个类Matcher与Pattern。一些具体参数或用法，都可以参展java的说明文档&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;从昨天开始在观看网上马士兵老师的java教程视频，学习正则表达式的使用。其中比较实用的应用就是可以抓取一个网页上特定格式的东西，如所有的email。叫做emailSpider。以下是实现配对的主要函数：&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;private&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;static&lt;/span&gt; &lt;span style="color: #00BB00; font-weight: bold"&gt;void&lt;/span&gt; &lt;span style="color: #00A000"&gt;parse&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;String line&lt;span style="color: #666666"&gt;)&lt;/span&gt; &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+        &lt;span style="color: #008800; font-style: italic"&gt;/*从文件中一行一行的读取数据，在每一行中匹配具有email格式的字符串*/&lt;/span&gt;
+        Pattern p &lt;span style="color: #666666"&gt;=&lt;/span&gt; Pattern&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;compile&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;[\\w[.-]]+@[\\w[-.]]+\\.[\\w]+&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        Matcher m &lt;span style="color: #666666"&gt;=&lt;/span&gt; p&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;matcher&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;line&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        &lt;span style="color: #AA22FF; font-weight: bold"&gt;while&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;m&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;find&lt;/span&gt;&lt;span style="color: #666666"&gt;())&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+            System&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;out&lt;/span&gt;&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;println&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;m&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;group&lt;/span&gt;&lt;span style="color: #666666"&gt;());&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+    &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;Pattern&lt;/code&gt;将给定的正则表达式编译并赋予给Pattern类。
+生成&lt;code&gt;Matcher&lt;/code&gt;实例，形象化不深入的肤浅可以理解为，Pattern对正则表达式进行编译，Matcher对它进行匹配。&lt;/p&gt;
+&lt;p&gt;利用正则表达式来计算一个java程序中总共有多少行代码，多少注释，多少空行。
+其中主要的核心代码是一个函数，利用正则表达式来匹配这些可能性的行&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;private&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;static&lt;/span&gt; &lt;span style="color: #00BB00; font-weight: bold"&gt;void&lt;/span&gt; &lt;span style="color: #00A000"&gt;parse&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;File child&lt;span style="color: #666666"&gt;)&lt;/span&gt; &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+        BufferedReader br &lt;span style="color: #666666"&gt;=&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;null&lt;/span&gt;&lt;span style="color: #666666"&gt;;&lt;/span&gt;
+        Boolean comment &lt;span style="color: #666666"&gt;=&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;false&lt;/span&gt;&lt;span style="color: #666666"&gt;;&lt;/span&gt;
+        &lt;span style="color: #AA22FF; font-weight: bold"&gt;try&lt;/span&gt; &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+            br &lt;span style="color: #666666"&gt;=&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;new&lt;/span&gt; BufferedReader&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;new&lt;/span&gt; FileReader&lt;span style="color: #666666"&gt;(&lt;/span&gt;child&lt;span style="color: #666666"&gt;));&lt;/span&gt;
+            String line &lt;span style="color: #666666"&gt;=&lt;/span&gt; &lt;span style="color: #BB4444"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;;&lt;/span&gt;
+            &lt;span style="color: #AA22FF; font-weight: bold"&gt;while&lt;/span&gt;&lt;span style="color: #666666"&gt;((&lt;/span&gt;line&lt;span style="color: #666666"&gt;=&lt;/span&gt;br&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;readLine&lt;/span&gt;&lt;span style="color: #666666"&gt;())!=&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;null&lt;/span&gt;&lt;span style="color: #666666"&gt;){&lt;/span&gt;
+                &lt;span style="color: #008800; font-style: italic"&gt;/*去除字符串头部与尾部的空格*/&lt;/span&gt;
+                line &lt;span style="color: #666666"&gt;=&lt;/span&gt; line&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;trim&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt; 
+                &lt;span style="color: #008800; font-style: italic"&gt;/*匹配空白的行*/&lt;/span&gt;
+                &lt;span style="color: #AA22FF; font-weight: bold"&gt;if&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;line&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;matches&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;^[\\s&amp;amp;&amp;amp;[^\\n]]*$&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;)){&lt;/span&gt;
+                whiteLines&lt;span style="color: #666666"&gt;++;&lt;/span&gt;
+                &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+                &lt;span style="color: #008800; font-style: italic"&gt;/*匹配注释行*/&lt;/span&gt;
+                &lt;span style="color: #AA22FF; font-weight: bold"&gt;else&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;if&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;line&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;startsWith&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;/*&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;)&amp;amp;&amp;amp;!&lt;/span&gt;line&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;endsWith&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;*/&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;)){&lt;/span&gt;
+                    commentLines&lt;span style="color: #666666"&gt;++;&lt;/span&gt;
+                    comment &lt;span style="color: #666666"&gt;=&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;true&lt;/span&gt;&lt;span style="color: #666666"&gt;;&lt;/span&gt;
+                &lt;span style="color: #666666"&gt;}&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;if&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;true&lt;/span&gt;&lt;span style="color: #666666"&gt;==&lt;/span&gt;comment&lt;span style="color: #666666"&gt;){&lt;/span&gt;
+                    commentLines&lt;span style="color: #666666"&gt;++;&lt;/span&gt;
+                    &lt;span style="color: #AA22FF; font-weight: bold"&gt;if&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;line&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;endsWith&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;*/&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;)){&lt;/span&gt;
+                        comment &lt;span style="color: #666666"&gt;=&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;false&lt;/span&gt;&lt;span style="color: #666666"&gt;;&lt;/span&gt;
+                    &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+                &lt;span style="color: #666666"&gt;}&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;else&lt;/span&gt;&lt;span style="color: #666666"&gt;{&lt;/span&gt;
+                    normalLines&lt;span style="color: #666666"&gt;++;&lt;/span&gt;
+                &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+
+            &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;}&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;catch&lt;/span&gt; &lt;span style="color: #666666"&gt;(&lt;/span&gt;FileNotFoundException e&lt;span style="color: #666666"&gt;)&lt;/span&gt; &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+            e&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;printStackTrace&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;}&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;catch&lt;/span&gt; &lt;span style="color: #666666"&gt;(&lt;/span&gt;IOException e&lt;span style="color: #666666"&gt;)&lt;/span&gt; &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+            e&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;printStackTrace&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;}&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;finally&lt;/span&gt;&lt;span style="color: #666666"&gt;{&lt;/span&gt;
+            &lt;span style="color: #AA22FF; font-weight: bold"&gt;if&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;br&lt;span style="color: #666666"&gt;!=&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;null&lt;/span&gt;&lt;span style="color: #666666"&gt;){&lt;/span&gt;
+                &lt;span style="color: #AA22FF; font-weight: bold"&gt;try&lt;/span&gt;&lt;span style="color: #666666"&gt;{&lt;/span&gt;
+                    br&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;close&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+                    br &lt;span style="color: #666666"&gt;=&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;null&lt;/span&gt;&lt;span style="color: #666666"&gt;;&lt;/span&gt;
+                &lt;span style="color: #666666"&gt;}&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;catch&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;IOException e&lt;span style="color: #666666"&gt;){&lt;/span&gt;
+                    e&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;printStackTrace&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+                &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+            &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3 id="jdbc"&gt;JDBC&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;JDBC&lt;/strong&gt;叫做&lt;code&gt;java Database Connectivity&lt;/code&gt;是&lt;code&gt;J2EE&lt;/code&gt;的一部分。
+JDBC不同数据库有不同的对应类库。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JDBC&lt;/strong&gt;编程步骤：
+1、通知DriverManager要连那种数据库，找到连接数据库的驱动包，&lt;/p&gt;
+&lt;h3 id="java-web"&gt;java web 提交表单的处理&lt;/h3&gt;
+&lt;p&gt;Step1: 编写index.jsp文件
+代码如下：&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;&amp;lt;%@&lt;/span&gt;page pageEncoding&lt;span style="color: #666666"&gt;=&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;GBK&amp;quot;&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;%&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008800"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;p&amp;gt;&lt;/span&gt;请输入数字。。&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+function validate_required(field,alerttxt)
+{
+with (field)
+  {
+  var x=document.getElementById(&amp;quot;demo1&amp;quot;).value;
+  if (isNaN(x)||x==&amp;quot;&amp;quot;)
+    {alert(alerttxt);return false;}
+  else {return true;}
+  }
+}
+function myFunction(thisform)
+{
+
+with(thisform){
+if(validate_required(demo,&amp;quot;输入数字可以嘛！&amp;quot;)==false)
+{
+ demo.focus();
+ return false;
+}
+}
+}
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;form&lt;/span&gt; &lt;span style="color: #BB4444"&gt;action=&amp;quot;welcome&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;name =&lt;/span&gt; &lt;span style="color: #BB4444"&gt;&amp;quot;formtest&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;method =&amp;quot;post&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;onsubmit=&amp;quot;return myFunction(this);&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;input&lt;/span&gt; &lt;span style="color: #BB4444"&gt;id=&amp;quot;demo1&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;type=&amp;quot;text&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;name=&amp;quot;demo&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;input&lt;/span&gt; &lt;span style="color: #BB4444"&gt;type=&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;value=&amp;quot;Submit&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;welcome是对表单进行处理的Servlet,表单采用的提交方式是post.采用了一个函数来判断用户输入是否为数字，如果包含其他，就跳出警示窗口。&lt;/p&gt;
+&lt;p&gt;Step2:编写HelloServletFromMyEclipse.java
+代码如下：&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;public&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;class&lt;/span&gt; &lt;span style="color: #0000FF"&gt;HelloServletFromMyEclipse&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;extends&lt;/span&gt; HttpServlet &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+    &lt;span style="color: #AA22FF; font-weight: bold"&gt;public&lt;/span&gt; &lt;span style="color: #00A000"&gt;HelloServletFromMyEclipse&lt;/span&gt;&lt;span style="color: #666666"&gt;()&lt;/span&gt; &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+        &lt;span style="color: #AA22FF; font-weight: bold"&gt;super&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+    &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+
+    &lt;span style="color: #AA22FF; font-weight: bold"&gt;public&lt;/span&gt; &lt;span style="color: #00BB00; font-weight: bold"&gt;void&lt;/span&gt; &lt;span style="color: #00A000"&gt;doGet&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;HttpServletRequest request&lt;span style="color: #666666"&gt;,&lt;/span&gt; HttpServletResponse response&lt;span style="color: #666666"&gt;)&lt;/span&gt;
+            &lt;span style="color: #AA22FF; font-weight: bold"&gt;throws&lt;/span&gt; ServletException&lt;span style="color: #666666"&gt;,&lt;/span&gt; IOException &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+
+        response&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;setContentType&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;text/html&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        PrintWriter out &lt;span style="color: #666666"&gt;=&lt;/span&gt; response&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;getWriter&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;print&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;欢迎来这里呀&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+    &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+    &lt;span style="color: #AA22FF; font-weight: bold"&gt;public&lt;/span&gt; &lt;span style="color: #00BB00; font-weight: bold"&gt;void&lt;/span&gt; &lt;span style="color: #00A000"&gt;doPost&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;HttpServletRequest req&lt;span style="color: #666666"&gt;,&lt;/span&gt; HttpServletResponse resp&lt;span style="color: #666666"&gt;)&lt;/span&gt;
+            &lt;span style="color: #AA22FF; font-weight: bold"&gt;throws&lt;/span&gt; ServletException&lt;span style="color: #666666"&gt;,&lt;/span&gt; IOException &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+        req&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;setCharacterEncoding&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;gb2312&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;  
+        PrintWriter out &lt;span style="color: #666666"&gt;=&lt;/span&gt; resp&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;getWriter&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+        resp&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;setContentType&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;text/html;charset=gb2312&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;  
+        String name &lt;span style="color: #666666"&gt;=&lt;/span&gt; java&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;net&lt;/span&gt;&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;URLDecoder&lt;/span&gt;&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;decode&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;req&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;getParameter&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;demo&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;),&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;  
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;println&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;myprintis&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;+&lt;/span&gt;name&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        Pattern p &lt;span style="color: #666666"&gt;=&lt;/span&gt; Pattern&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;compile&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;^\\d+$&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        Matcher m &lt;span style="color: #666666"&gt;=&lt;/span&gt; p&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;matcher&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;name&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        &lt;span style="color: #AA22FF; font-weight: bold"&gt;if&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;m&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;matches&lt;/span&gt;&lt;span style="color: #666666"&gt;())&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+            out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;println&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;true&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+        &lt;span style="color: #AA22FF; font-weight: bold"&gt;else&lt;/span&gt;&lt;span style="color: #666666"&gt;{&lt;/span&gt;
+            out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;println&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;false&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+    &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+&lt;span style="color: #666666"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;通过req.getParameter(&amp;ldquo;demo&amp;rdquo;)获得用户输入的信息，&amp;rdquo;demo&amp;rdquo;必须与表单中用于输入信息的文本区的demo一样。获得用户之后用正则来匹配是否为数字&lt;/p&gt;
+&lt;p&gt;Step3:部署Servlet
+修改web.xml文件&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #008800"&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;web-app&lt;/span&gt; &lt;span style="color: #BB4444"&gt;xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;xmlns=&amp;quot;http://java.sun.com/xml/ns/javaee&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;xsi:schemaLocation=&amp;quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;id=&amp;quot;WebApp_ID&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;version=&amp;quot;3.0&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;servlet&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;servlet-name&amp;gt;&lt;/span&gt;HelloServlet&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/servlet-name&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;servlet-class&amp;gt;&lt;/span&gt;com.bjsxt.servlet.HelloServletFromMyEclipse&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/servlet-class&amp;gt;&lt;/span&gt;
+
+  &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/servlet&amp;gt;&lt;/span&gt;
+
+  &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;servlet-mapping&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;servlet-name&amp;gt;&lt;/span&gt;HelloServlet&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/servlet-name&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;/welcome&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+  &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/servlet-mapping&amp;gt;&lt;/span&gt;
+  &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;welcome-file-list&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;welcome-file&amp;gt;&lt;/span&gt;index.html&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/welcome-file&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;welcome-file&amp;gt;&lt;/span&gt;index.htm&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/welcome-file&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;welcome-file&amp;gt;&lt;/span&gt;index.jsp&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/welcome-file&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;welcome-file&amp;gt;&lt;/span&gt;default.html&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/welcome-file&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;welcome-file&amp;gt;&lt;/span&gt;default.htm&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/welcome-file&amp;gt;&lt;/span&gt;
+    &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;welcome-file&amp;gt;&lt;/span&gt;default.jsp&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/welcome-file&amp;gt;&lt;/span&gt;
+  &lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/welcome-file-list&amp;gt;&lt;/span&gt;
+&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;/web-app&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3 id="_2"&gt;统计页面被访问的次数&lt;/h3&gt;
+&lt;p&gt;主要代码&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;public&lt;/span&gt; &lt;span style="color: #00BB00; font-weight: bold"&gt;void&lt;/span&gt; &lt;span style="color: #00A000"&gt;doGet&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;HttpServletRequest req&lt;span style="color: #666666"&gt;,&lt;/span&gt; HttpServletResponse resp&lt;span style="color: #666666"&gt;)&lt;/span&gt;
+            &lt;span style="color: #AA22FF; font-weight: bold"&gt;throws&lt;/span&gt; ServletException&lt;span style="color: #666666"&gt;,&lt;/span&gt; IOException &lt;span style="color: #666666"&gt;{&lt;/span&gt;
+        ServletContext context&lt;span style="color: #666666"&gt;=&lt;/span&gt;getServletContext&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+        Integer count &lt;span style="color: #666666"&gt;=&lt;/span&gt; &lt;span style="color: #666666"&gt;(&lt;/span&gt;Integer&lt;span style="color: #666666"&gt;)&lt;/span&gt;context&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;getAttribute&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;counter&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        &lt;span style="color: #AA22FF; font-weight: bold"&gt;if&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;null&lt;/span&gt;&lt;span style="color: #666666"&gt;==&lt;/span&gt;count&lt;span style="color: #666666"&gt;){&lt;/span&gt;
+            count&lt;span style="color: #666666"&gt;=&lt;/span&gt;&lt;span style="color: #AA22FF; font-weight: bold"&gt;new&lt;/span&gt; Integer&lt;span style="color: #666666"&gt;(1);&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+        &lt;span style="color: #AA22FF; font-weight: bold"&gt;else&lt;/span&gt;&lt;span style="color: #666666"&gt;{&lt;/span&gt;
+            count &lt;span style="color: #666666"&gt;=&lt;/span&gt; &lt;span style="color: #AA22FF; font-weight: bold"&gt;new&lt;/span&gt; Integer&lt;span style="color: #666666"&gt;(&lt;/span&gt;count&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;intValue&lt;/span&gt;&lt;span style="color: #666666"&gt;()+1);&lt;/span&gt;
+        &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+        resp&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;setContentType&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;text/html;charset=gb2312&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        PrintWriter out &lt;span style="color: #666666"&gt;=&lt;/span&gt; resp&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;getWriter&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;println&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;&amp;lt;HTML&amp;gt;&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;println&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;  &amp;lt;HEAD&amp;gt;&amp;lt;TITLE&amp;gt;页面访问统计&amp;lt;/TITLE&amp;gt;&amp;lt;/HEAD&amp;gt;&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;println&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;  &amp;lt;BODY&amp;gt;&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;print&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;该页面被访问了：&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;+&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;&amp;lt;b&amp;gt;&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;+&lt;/span&gt;count&lt;span style="color: #666666"&gt;+&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;&amp;lt;/b&amp;gt;&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;+&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;次&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;println&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;  &amp;lt;/BODY&amp;gt;&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;println&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;&amp;lt;/HTML&amp;gt;&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        context&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;setAttribute&lt;/span&gt;&lt;span style="color: #666666"&gt;(&lt;/span&gt;&lt;span style="color: #BB4444"&gt;&amp;quot;counter&amp;quot;&lt;/span&gt;&lt;span style="color: #666666"&gt;,&lt;/span&gt; count&lt;span style="color: #666666"&gt;);&lt;/span&gt;
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;flush&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+        out&lt;span style="color: #666666"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;close&lt;/span&gt;&lt;span style="color: #666666"&gt;();&lt;/span&gt;
+    &lt;span style="color: #666666"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;通过getServletContext()的方法得到web应用程序的上下文对象。通过getAtrribute()方法获取属性counter的值，判断counter是否为空，为null就将它的初始值设为1，当servlet第一次被访问，设为1，以后再被访问就是加一，将count作为counter的属性保存到ServletContext对象中。&lt;/p&gt;
+&lt;h3 id="_3"&gt;问题&lt;/h3&gt;
+&lt;p&gt;在用jsp连接数据库时出现连接不了数据库的现象，一直查不出什么原因，后来借鉴网友意见，把驱动包添加到WEB_INF下的lib中，就好了==&lt;/p&gt;
+&lt;h3 id="web"&gt;在web客户端的三种语言&lt;/h3&gt;
+&lt;p&gt;@(2015/3/17)
+html(hyper text markup language),css,javascript是web客户端的三种语言，其中javascript即可被用在客户端，也可以被用在服务器端，主要是用在客户端。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;html&lt;/strong&gt;
+&lt;code&gt;meta&lt;/code&gt;是元数据，描述文档本身的信息&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;meta&lt;/span&gt; &lt;span style="color: #BB4444"&gt;http-equiv=&amp;quot;refresh&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;content =&amp;quot;3;url=&amp;quot;http:&lt;/span&gt;&lt;span style="border: 1px solid #FF0000"&gt;//&lt;/span&gt;&lt;span style="color: #BB4444"&gt;www&lt;/span&gt;&lt;span style="border: 1px solid #FF0000"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;baidu&lt;/span&gt;&lt;span style="border: 1px solid #FF0000"&gt;.&lt;/span&gt;&lt;span style="color: #BB4444"&gt;com&lt;/span&gt;&lt;span style="border: 1px solid #FF0000"&gt;&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;每隔3秒刷新当前页面到www.baidu.com&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;meta&lt;/span&gt; &lt;span style="color: #BB4444"&gt;http-equiv=&amp;quot;content-type&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;content =&amp;quot;text/html;charset=gb2312&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;当前页面是html格式，编码是gb2312&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;meta&lt;/span&gt; &lt;span style="color: #BB4444"&gt;http-equiv=&amp;quot;expires&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;content =&amp;quot;0&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;告知浏览器不要对本网页进行缓存&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;meta&lt;/span&gt; &lt;span style="color: #BB4444"&gt;http-equiv=&amp;quot;pragma&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;content =&amp;quot;no-cache&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;不要在代理服务器上缓存&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;meta&lt;/span&gt; &lt;span style="color: #BB4444"&gt;name=&amp;quot;author&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;content =&amp;quot;sgy&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;作者&lt;/p&gt;
+&lt;div class="codehilite" style="background: #f8f8f8"&gt;&lt;pre style="line-height: 125%"&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;lt;meta&lt;/span&gt; &lt;span style="color: #BB4444"&gt;name=&amp;quot;copyright&amp;quot;&lt;/span&gt; &lt;span style="color: #BB4444"&gt;content =&amp;quot;do not use this page without my permission&amp;quot;&lt;/span&gt;&lt;span style="color: #008000; font-weight: bold"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;版权声明&lt;/p&gt;</summary></entry></feed>
