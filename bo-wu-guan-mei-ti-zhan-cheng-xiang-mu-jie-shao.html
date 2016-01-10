@@ -1,64 +1,101 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>    博物馆媒体展呈项目介绍
-</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-            <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/normalize.css">
-        <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-        <link href='//fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/font-awesome.min.css">
-        <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/main.css">
+<html lang="zh_cn"
+>
+<head>
+    <title>博物馆媒体展呈项目介绍 - notSherry</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/blog.css">
-    <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/github.css">
-        <script src="http://sherryhaha.github.io/theme/js/vendor/modernizr-2.6.2.min.js"></script>
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
 
-        <div id="wrapper">
-<header id="sidebar" class="side-shadow">
-    <hgroup id="site-header">
-        <a id="site-title" href="http://sherryhaha.github.io"><h1><i class="icon-coffee"></i> notSherry</h1></a>
-        <p id="site-desc"></p>
-    </hgroup>
-    <nav>
-        <ul id="nav-links">
-                <li><a href="http://sherryhaha.github.io/blog">Blog</a></li>
-                <li><a href="http://sherryhaha.github.io/contact">Contact</a></li>
-                <li><a href="http://sherryhaha.github.io/pages/projects">Projects</a></li>
-        </ul>
-    </nav>
-<footer id="site-info">
-    <p>
-        Proudly powered by <a href="http://getpelican.com/" target="pelican">Pelican</a> and <a href="http://python.org/" target="python">Python</a>. Theme by <a href="https://github.com/hdra/pelican-cait" target="github">hndr</a>.
-    </p>
-    <p>
-        Textures by <a href="http://subtlepatterns.com/" target="subtlepatterns">Subtle Pattern</a>. Font Awesome by <a href="http://fortawesome.github.io/Font-Awesome/" target="github">Dave Grandy</a>.
-    </p>
-</footer></header>
-    <div id="post-container">
-        <ol id="post-list">
-            <li>
-                <article class="post-entry">
-                    <header class="entry-header">
-                        <time class="post-time" datetime="2015-08-10T00:00:00+08:00" pubdate>
-                            一 10 八月 2015
-                        </time>
-                        <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao.html" rel="bookmark"><h1>博物馆媒体展呈项目介绍</h1></a>
-                    </header>
 
-                    <section class="post-content">
-                        <p><code>what you see is what you can get more</code></p>
+<link rel="canonical" href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao.html">
+
+        <meta name="author" content="notSherry" />
+        <meta name="description" content="what you see is what you can get more 背景介绍 随着数字化与博物馆的碰撞，越来越多数字博物馆交互式鉴赏平台得以呈现，我们所做的这个小项目，是想让观光博物馆的人通过手机摄像头观看文物时，可以得到更多相关动态有趣的内容以及相应的语音讲解。 研究方案 此项目采用CS（Client-Server）架构实现，客户端通过摄像头获取实时帧将图片传送给服务器，服务器获取图片后对其进行图像匹配处理，返回给客户端相对应的视频地址，客户端获取视频地址后进行全屏播放。 服务器端，需要事先存储好视频，以及每个视频对应的关键帧。 Client：iOS版和android版本 Server：采用java-struts框架 开发难点 图像匹配算法的选择 第一、二周，寻找各种图像匹配算法，其中被我们实验过的有 - SIFT（Sacle-invariant Feature Transform）算法 - 感知哈希算法 - 均值哈希算法 - surf ..." />
+
+        <meta property="og:site_name" content="notSherry" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="博物馆媒体展呈项目介绍"/>
+        <meta property="og:url" content="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao.html"/>
+        <meta property="og:description" content="what you see is what you can get more 背景介绍 随着数字化与博物馆的碰撞，越来越多数字博物馆交互式鉴赏平台得以呈现，我们所做的这个小项目，是想让观光博物馆的人通过手机摄像头观看文物时，可以得到更多相关动态有趣的内容以及相应的语音讲解。 研究方案 此项目采用CS（Client-Server）架构实现，客户端通过摄像头获取实时帧将图片传送给服务器，服务器获取图片后对其进行图像匹配处理，返回给客户端相对应的视频地址，客户端获取视频地址后进行全屏播放。 服务器端，需要事先存储好视频，以及每个视频对应的关键帧。 Client：iOS版和android版本 Server：采用java-struts框架 开发难点 图像匹配算法的选择 第一、二周，寻找各种图像匹配算法，其中被我们实验过的有 - SIFT（Sacle-invariant Feature Transform）算法 - 感知哈希算法 - 均值哈希算法 - surf ..."/>
+        <meta property="article:published_time" content="2015-08-10" />
+            <meta property="article:section" content="项目" />
+            <meta property="article:author" content="notSherry" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://sherryhaha.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://sherryhaha.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://sherryhaha.github.io/" class="navbar-brand">
+notSherry            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://sherryhaha.github.io/category/misc.html">Misc</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://sherryhaha.github.io/category/xiang-mu.html">项目</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://sherryhaha.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao.html"
+                       rel="bookmark"
+                       title="Permalink to 博物馆媒体展呈项目介绍">
+                        博物馆媒体展呈项目介绍
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-08-10T00:00:00+08:00"> 一 10 八月 2015</time>
+    </span>
+
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p><code>what you see is what you can get more</code></p>
 <h2 id="_1">背景介绍</h2>
 <p>随着数字化与博物馆的碰撞，越来越多数字博物馆交互式鉴赏平台得以呈现，我们所做的这个小项目，是想让观光博物馆的人通过手机摄像头观看文物时，可以得到更多相关动态有趣的内容以及相应的语音讲解。</p>
 <hr />
@@ -130,18 +167,80 @@
 <li>摆脱盲目逛景点困扰，通过摄像头可以看到、听到生动形象的视频与讲解。</li>
 <li>数字化与博物馆的碰撞，不仅改变了以往人们逛博物馆的方式，也丰富了人们可以获得信息量。</li>
 </ul>
-                    </section>
-                    <hr/>
-                    <aside class="post-meta">
-                        <p>Category: <a href="http://sherryhaha.github.io/category/xiang-mu.html">项目</a></p>
-                    </aside>
-                    <hr/>
-                </article>
-            </li>
-        </ol>
-    </div>
-        </div>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
 
-        <script src="http://sherryhaha.github.io/theme/js/main.js"></script>
-    </body>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="#"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg"></i> You can add links in your config file</a></li>
+                <li class="list-group-item"><a href="#"><i class="fa fa-another-social-link-square fa-lg"></i> Another social link</a></li>
+              </ul>
+            </li>
+
+
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://jinja.pocoo.org/" target="_blank">
+                Jinja2
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="#" target="_blank">
+                You can modify those links in your config file
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 notSherry
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://sherryhaha.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://sherryhaha.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
+
+
+</body>
 </html>
