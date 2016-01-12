@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh_cn"
+>
+<head>
+    <title>Two Sum - notSherry</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://sherryhaha.github.io/two-sum.html">
+
+        <meta name="author" content="notSherry" />
+        <meta name="keywords" content="Leetcode" />
+        <meta name="description" content="问题描述hash Array Given an array of integers, find two numbers such that they add up to a specific target number. The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your ..." />
+
+        <meta property="og:site_name" content="notSherry" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Two Sum"/>
+        <meta property="og:url" content="http://sherryhaha.github.io/two-sum.html"/>
+        <meta property="og:description" content="问题描述hash Array Given an array of integers, find two numbers such that they add up to a specific target number. The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your ..."/>
+        <meta property="article:published_time" content="2015-06-20" />
+            <meta property="article:section" content="刷题" />
+            <meta property="article:tag" content="Leetcode" />
+            <meta property="article:author" content="notSherry" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://sherryhaha.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://sherryhaha.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://sherryhaha.github.io/" class="navbar-brand">
+notSherry            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/about.html">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://sherryhaha.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://sherryhaha.github.io/two-sum.html"
+                       rel="bookmark"
+                       title="Permalink to Two Sum">
+                        Two Sum
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-06-20T00:00:00+08:00"> 六 20 六月 2015</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://sherryhaha.github.io/tag/leetcode.html">Leetcode</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h4 id="hash-array">问题描述<code>hash</code> <code>Array</code></h4>
+<blockquote>
+<p>Given an array of integers, find two numbers such that they add up to a specific target number.
+The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.
+You may assume that each input would have exactly one solution.
+Input: numbers={2, 7, 11, 15}, target=9
+Output: index1=1, index2=2</p>
+</blockquote>
+<hr />
+<p><strong>c语言解决</strong>：
+由于这个问题有时间上的限制，我一开始想到的是用双重循环，外循环num2=target-nums[i]，然后再内循环从i+1一直找到数组的尾部寻找有没有num2 的存在，这样的时间复杂度是n^2，没有被AC。</p>
+<p>然后我看到题目的标签提示是hash，就去网上学了一下hash.
+哈希表是基于快速存取设计的，是典型的<code>空间换时间</code>，此数据结构可以理解为一个线性表，但其中的元素不是紧密排列的，存在空隙。哈希表是根据关键值直接进行访问的数据结构。是通过将关键值映射到表中一个位置进行访问，加快查找速度。所以做题思路就是先根据nums[]构建一个哈希表，然后再哈希表中查找num2.
+构建哈希表的复杂度是n，查找的复杂度是1.</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">*</span> <span style="color: #00A000">twoSum</span>(<span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">*</span> nums, <span style="color: #00BB00; font-weight: bold">int</span> numsSize, <span style="color: #00BB00; font-weight: bold">int</span> target) {
+
+    <span style="color: #00BB00; font-weight: bold">int</span> i<span style="color: #666666">=0</span>,num1,num2;
+    <span style="color: #00BB00; font-weight: bold">int</span> hashAddress1,hashAddress2;
+    <span style="color: #00BB00; font-weight: bold">int</span> hashlength<span style="color: #666666">=102400</span>;
+    <span style="color: #00BB00; font-weight: bold">int</span> hash[<span style="color: #666666">102400</span>];
+    <span style="color: #008800; font-style: italic">//将数组的所有元素初始化为-1.</span>
+    memset(hash,<span style="color: #666666">-1</span>,<span style="color: #AA22FF; font-weight: bold">sizeof</span>(hash));
+    <span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #666666">*</span>p;
+    p <span style="color: #666666">=</span> (<span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">*</span>)malloc(<span style="color: #666666">2*</span><span style="color: #AA22FF; font-weight: bold">sizeof</span>(<span style="color: #00BB00; font-weight: bold">int</span>));
+
+    <span style="color: #008800; font-style: italic">//判断输入的数组不为空且多于一个元素</span>
+    <span style="color: #AA22FF; font-weight: bold">if</span>(nums<span style="color: #666666">==</span><span style="color: #AA22FF">NULL</span><span style="color: #666666">||</span>numsSize<span style="color: #666666">&lt;2</span>){
+        <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF">NULL</span>;
+    }
+    <span style="color: #008800; font-style: italic">//构建哈希表</span>
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i<span style="color: #666666">=0</span>;i<span style="color: #666666">&lt;</span>numsSize;i<span style="color: #666666">++</span>){
+
+        hashAddress1 <span style="color: #666666">=</span> abs(nums[i]) <span style="color: #666666">%</span> hashlength;
+        <span style="color: #008800; font-style: italic">//如果产生了冲突，就用线性探测法来解决</span>
+        <span style="color: #AA22FF; font-weight: bold">while</span>(hash[hashAddress1]<span style="color: #666666">!=-1</span>){
+            hashAddress1 <span style="color: #666666">=</span> (<span style="color: #666666">++</span>hashAddress1) <span style="color: #666666">%</span> hashlength;
+        }
+        hash[hashAddress1] <span style="color: #666666">=</span> i;
+    }
+    <span style="color: #008800; font-style: italic">//查找哈希表</span>
+    i<span style="color: #666666">=0</span>;
+    <span style="color: #AA22FF; font-weight: bold">while</span>(i<span style="color: #666666">&lt;</span>numsSize){
+        num1<span style="color: #666666">=</span>nums[i];
+        num2<span style="color: #666666">=</span>target<span style="color: #666666">-</span>nums[i];
+        hashAddress2 <span style="color: #666666">=</span>abs(num2) <span style="color: #666666">%</span> hashlength;
+        <span style="color: #AA22FF; font-weight: bold">while</span>((hash[hashAddress2]<span style="color: #666666">!=-1</span> <span style="color: #666666">&amp;&amp;</span> nums[hash[hashAddress2]]<span style="color: #666666">!=</span>num2)<span style="color: #666666">||</span>(i<span style="color: #666666">==</span>hash[hashAddress2])){
+            hashAddress2 <span style="color: #666666">=</span> (<span style="color: #666666">++</span>hashAddress2) <span style="color: #666666">%</span> hashlength; 
+        }
+        <span style="color: #AA22FF; font-weight: bold">if</span>(hash[hashAddress2]<span style="color: #666666">==-1</span>)
+        {
+            i<span style="color: #666666">++</span>;
+            <span style="color: #AA22FF; font-weight: bold">continue</span>;
+        }
+        <span style="color: #AA22FF; font-weight: bold">if</span>(hash[hashAddress2]<span style="color: #666666">&gt;</span>i){
+            p[<span style="color: #666666">0</span>]<span style="color: #666666">=</span>i<span style="color: #666666">+1</span>;
+            p[<span style="color: #666666">1</span>]<span style="color: #666666">=</span>hash[hashAddress2]<span style="color: #666666">+1</span>;
+            <span style="color: #AA22FF; font-weight: bold">break</span>;
+        }
+    }
+    <span style="color: #AA22FF; font-weight: bold">return</span> p;
+}
+</pre></div>
+
+
+<p><strong><em>java版</em></strong>
+java中有map接口，真是太好用了。用HashMap来实现。用HashMap来存储数组中的值和index.HashMap中查询键值对的开销是固定的，因此在性能上得到很大的提升。
+该题中应用数组的值来做index索引来检索index。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #AA22FF; font-weight: bold">class</span> <span style="color: #0000FF">Solution</span> <span style="color: #666666">{</span>
+    <span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">[]</span> <span style="color: #00A000">twoSum</span><span style="color: #666666">(</span><span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">[]</span> nums<span style="color: #666666">,</span> <span style="color: #00BB00; font-weight: bold">int</span> target<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+        <span style="color: #008800; font-style: italic">//声明哈希表</span>
+        Map map <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">new</span> HashMap<span style="color: #666666">();</span>
+        <span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">[]</span> res <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">new</span> <span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">[2];</span>
+        <span style="color: #008800; font-style: italic">//创建哈希表</span>
+        <span style="color: #AA22FF; font-weight: bold">for</span><span style="color: #666666">(</span><span style="color: #00BB00; font-weight: bold">int</span> i <span style="color: #666666">=</span> <span style="color: #666666">0;</span>i<span style="color: #666666">&lt;</span>nums<span style="color: #666666">.</span><span style="color: #BB4444">length</span><span style="color: #666666">;</span>i<span style="color: #666666">++){</span>
+            map<span style="color: #666666">.</span><span style="color: #BB4444">put</span><span style="color: #666666">(</span>nums<span style="color: #666666">[</span>i<span style="color: #666666">],</span> i<span style="color: #666666">);</span>
+        <span style="color: #666666">}</span>
+        <span style="color: #008800; font-style: italic">//查找哈希表，注意得到的index1不能等于index2</span>
+        <span style="color: #AA22FF; font-weight: bold">for</span><span style="color: #666666">(</span><span style="color: #00BB00; font-weight: bold">int</span> i <span style="color: #666666">=</span> <span style="color: #666666">0;</span>i<span style="color: #666666">&lt;</span>nums<span style="color: #666666">.</span><span style="color: #BB4444">length</span><span style="color: #666666">;</span>i<span style="color: #666666">++){</span>
+            <span style="color: #00BB00; font-weight: bold">int</span> numb <span style="color: #666666">=</span> target <span style="color: #666666">-</span> nums<span style="color: #666666">[</span>i<span style="color: #666666">];</span>
+            <span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span>map<span style="color: #666666">.</span><span style="color: #BB4444">get</span><span style="color: #666666">(</span>numb<span style="color: #666666">)!=</span><span style="color: #AA22FF; font-weight: bold">null</span> <span style="color: #666666">&amp;&amp;</span> <span style="color: #666666">(</span><span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">)</span>map<span style="color: #666666">.</span><span style="color: #BB4444">get</span><span style="color: #666666">(</span>numb<span style="color: #666666">)!=</span>i <span style="color: #666666">){</span>
+                res<span style="color: #666666">[0]</span> <span style="color: #666666">=</span> i <span style="color: #666666">+</span> <span style="color: #666666">1;</span>
+                res<span style="color: #666666">[1]</span> <span style="color: #666666">=</span> <span style="color: #666666">(</span><span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">)</span>map<span style="color: #666666">.</span><span style="color: #BB4444">get</span><span style="color: #666666">(</span>numb<span style="color: #666666">)+1;</span>
+                <span style="color: #AA22FF; font-weight: bold">break</span><span style="color: #666666">;</span>
+            <span style="color: #666666">}</span>
+        <span style="color: #666666">}</span>
+        <span style="color: #AA22FF; font-weight: bold">return</span> res<span style="color: #666666">;</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span>
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+
+
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="/two-sum.html" data-title="Two Sum" data-url="http://sherryhaha.github.io/two-sum.html">
+<!-- 多说评论框 end --></div>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"notSherry"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://sherryhaha.github.io"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pat.html">
+                            PAT
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/about.html">
+                            About
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao.html">
+                            博物馆媒体展呈项目介绍
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pai-xu.html">
+                            排序
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/balanced-binary-tree.html">
+                            Balanced Binary Tree
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/javaxue-xi.html">
+                            <i class="fa fa-folder-open fa-lg"></i> java学习
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/misc.html">
+                            <i class="fa fa-folder-open fa-lg"></i> misc
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/shua-ti.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 刷题
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/xiang-mu.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 项目
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="http://sherryhaha.github.io/tag/leetcode.html">
+                            Leetcode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/jdbc.html">
+                            JDBC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/javazheng-ze-biao-da.html">
+                            java正则表达
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/tu-xiang-pi-pei.html">
+                            图像匹配
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/android.html">
+                            android
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/suan-fa.html">
+                            算法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/java.html">
+                            java
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/pat.html">
+                            pat
+                        </a>
+                    </li>
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://xuweitao.me/" target="_blank">
+                wuli涛涛
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 notSherry
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://sherryhaha.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://sherryhaha.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
+
+
+
+</body>
+</html>

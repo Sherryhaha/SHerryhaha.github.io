@@ -118,7 +118,123 @@ Input</p>
                 </div>
             </article>
             <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/pai-xu.html">排序</a></h2>
+                <div class="summary"><p>@(刷题生活)</p>
+<h3 id="_1">排序方法</h3>
+<blockquote>
+<p><strong>选择排序</strong>：<code>低效，n平方`` 不稳定</code></p>
+<blockquote>
+<p>扫描整个列表找出最小值，将它与列表第一个位置的值交换
+扫描剩余部分的列表，找出最小值，与该列表第二个位置处的值交换
+对列表中的每一个位置继续使用该过程</p>
+</blockquote>
+</blockquote>
+<hr />
+<blockquote>
+<p><strong>插入排序</strong> ：<code>低效 n平方</code> <code>稳定</code></p>
+<blockquote>
+<p>对列表的头两个值进行排序，将第三个值插入到前两个值的恰当位置，将第四个值插入到列表前三个值的恰当位置......</p>
+</blockquote>
+</blockquote>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">insertSort</span>(<span style="color: #00BB00; font-weight: bold">int</span> data[],<span style="color: #00BB00; font-weight: bold">int</span> len){
+    <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">int</span> index <span style="color: #666666">=</span> <span style="color: #666666">1</span>;index <span style="color: #666666">&lt;</span> len;index<span style="color: #666666">++</span>){
+        <span style="color: #00BB00; font-weight: bold">int</span> key <span style="color: #666666">=</span> data[index];
+        <span style="color: #00BB00; font-weight: bold">int</span> position <span style="color: #666666">=</span> index;
+        <span style="color: #AA22FF; font-weight: bold">while</span>(position <span style="color: #666666">&gt;</span> <span style="color: #666666">0&amp;&amp;</span> data[position<span style="color: #666666">-1</span>] <span style="color: #666666">&gt;</span> key){
+            data[position] <span style="color: #666666">=</span> data[position ...</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/pai-xu.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/balanced-binary-tree.html">Balanced Binary Tree</a></h2>
+                <div class="summary"><p>问题描述：
+Given a binary tree, determine if it is height-balanced.</p>
+<p>For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+用了两个递归，一个递归来判断是否是平衡树，一个递归用来求左右子树的高度。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/**</span>
+<span style="color: #008800; font-style: italic"> * Definition for a binary tree node.</span>
+<span style="color: #008800; font-style: italic"> * struct ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/balanced-binary-tree.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/container-with-most-water.html">Container With Most Water</a></h2>
+                <div class="summary"><p>Given n non-negative integers a1, a2, &hellip;, an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container ...</p>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/container-with-most-water.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/count-primes.html">Count primes</a></h2>
+                <div class="summary"><blockquote>
+<p>Count the number of prime numbers less than a non-negative number, n.</p>
+</blockquote>
+<p>问题解析：最容易想到的办法就是内循环判断是不是素数，外循环判断每一个小于n的数字，但是这样的话会超时，并不符合时间要求。
+然后到网上看到了一种筛选素数的方法：<a href="http://zh.wikipedia.org/wiki/%E5%9F%83%E6%8B%89%E6%89%98%E6%96%AF%E7%89%B9%E5%B0%BC%E7%AD%9B%E6%B3%95">埃拉托斯特尼筛法</a></p>
+<p>详细列出算法如下：
+列出2以后的所有序列：
+2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+标出序列中的第一个素数，也就是2，序列变成：
+2 3 ...</p>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/count-primes.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/happy-number.html">Happy Number</a></h2>
+                <div class="summary"><blockquote>
+<p>A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does ...</p></blockquote>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/happy-number.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/minimum-depth-of-binary-tree.html">Minimum Depth of Binary Tree</a></h2>
+                <div class="summary"><p>Given a binary tree, find its minimum depth.
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.</p>
+<p>求一颗二叉树的最小深度。当二叉树只有一个节点时，它的深度是为1.</p>
+<p>可以用递归求，求分别递归求左子树与右子树的深度，然后比较深度小的那个加一，值得注意的是，当一个节点，只有左子结点（或只有右子节点）时，这时他并不是一个叶子节点，还需要向下继续求深度，所以右子节点不能返回一个比左子结点求出的深度小的值，就付给他一个较大的值就可以了。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/**</span>
+<span style="color: #008800; font-style: italic"> * Definition for a binary tree ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/minimum-depth-of-binary-tree.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/palindrome-linked-list.html">Palindrome Linked List</a></h2>
+                <div class="summary"><p>问题描述：判断一个单链表是否是回文，即正着读和反向读是一样的</p>
+<p>问题分析：
+采用c语言书写，首先找到链表的中间节点，然后将中间节点以后的反转，比较两个半链表是否一样。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">struct</span> ListNode {
+      <span style="color: #00BB00; font-weight: bold">int</span> val;
+      <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>next;
+  };
+<span style="color: #008800; font-style: italic">//找中间节点，利用快指针和慢指针来控制</span>
+<span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> <span style="color: #00A000">getMid</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> head)
+    {<span style="color: #008800; font-style: italic">// at least two nodes</span>
+      <span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> slow <span style="color: #666666">=</span> head;
+      <span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> fast <span style="color: #666666">=</span> head;
+      <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> preslow <span style="color: #666666">=</span> head;
+      <span style="color: #008800; font-style: italic">//控制偶数链表时返回中间的第二个节点</span>
+      <span style="color: #AA22FF; font-weight: bold">while</span>(fast<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span><span style="color: #666666">&amp;&amp;</span>fast<span style="color: #666666">-&gt;</span>next<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span>){
+           fast<span style="color: #666666">=</span>fast<span style="color: #666666">-&gt;</span>next<span style="color: #666666">-&gt;</span>next ...</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/palindrome-linked-list.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
 
+        <ul class="pagination">
+                <li class="prev disabled"><a href="#">&laquo;</a></li>
+                    <li class="active"><a
+                            href="http://sherryhaha.github.io/author/notsherry.html">1</a></li>
+                    <li class=""><a
+                            href="http://sherryhaha.github.io/author/notsherry2.html">2</a></li>
+                <li class="next"><a
+                        href="http://sherryhaha.github.io/author/notsherry2.html">&raquo;</a></li>
+        </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -148,14 +264,34 @@ Input</p>
                             博物馆媒体展呈项目介绍
                         </a>
                     </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pai-xu.html">
+                            排序
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/balanced-binary-tree.html">
+                            Balanced Binary Tree
+                        </a>
+                    </li>
                 </ul>
             </li>
 
             <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
                 <ul class="list-group" id="categories">
                     <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/javaxue-xi.html">
+                            <i class="fa fa-folder-open fa-lg"></i> java学习
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="http://sherryhaha.github.io/category/misc.html">
                             <i class="fa fa-folder-open fa-lg"></i> misc
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/shua-ti.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 刷题
                         </a>
                     </li>
                     <li class="list-group-item">
@@ -168,6 +304,26 @@ Input</p>
 
             <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="http://sherryhaha.github.io/tag/leetcode.html">
+                            Leetcode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/jdbc.html">
+                            JDBC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/javazheng-ze-biao-da.html">
+                            java正则表达
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/tu-xiang-pi-pei.html">
+                            图像匹配
+                        </a>
+                    </li>
                     <li class="list-group-item tag-4">
                         <a href="http://sherryhaha.github.io/tag/android.html">
                             android
@@ -179,13 +335,13 @@ Input</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tag/pat.html">
-                            pat
+                        <a href="http://sherryhaha.github.io/tag/java.html">
+                            java
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tag/tu-xiang-pi-pei.html">
-                            图像匹配
+                        <a href="http://sherryhaha.github.io/tag/pat.html">
+                            pat
                         </a>
                     </li>
                 </ul>

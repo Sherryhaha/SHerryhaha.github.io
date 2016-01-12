@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh_cn"
+>
+<head>
+    <title>Happy Number - notSherry</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://sherryhaha.github.io/happy-number.html">
+
+        <meta name="author" content="notSherry" />
+        <meta name="keywords" content="Leetcode" />
+        <meta name="description" content="A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does ..." />
+
+        <meta property="og:site_name" content="notSherry" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Happy Number"/>
+        <meta property="og:url" content="http://sherryhaha.github.io/happy-number.html"/>
+        <meta property="og:description" content="A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does ..."/>
+        <meta property="article:published_time" content="2015-06-20" />
+            <meta property="article:section" content="刷题" />
+            <meta property="article:tag" content="Leetcode" />
+            <meta property="article:author" content="notSherry" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://sherryhaha.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://sherryhaha.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://sherryhaha.github.io/" class="navbar-brand">
+notSherry            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/about.html">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://sherryhaha.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://sherryhaha.github.io/happy-number.html"
+                       rel="bookmark"
+                       title="Permalink to Happy Number">
+                        Happy Number
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-06-20T00:00:00+08:00"> 六 20 六月 2015</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://sherryhaha.github.io/tag/leetcode.html">Leetcode</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <blockquote>
+<p>A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.
+Example: 19 is a happy number
+    12 + 92 = 82
+    82 + 22 = 68
+    62 + 82 = 100
+    12 + 02 + 02 = 1</p>
+</blockquote>
+<p>此题有两个关键，一个是如何将一个数一位一位的拆开进行平方和求解。一个是如何较为快速的判断在这个过程中有没有出现循环，或平方和是不是1。
+<strong><em>c语言版本</em></strong>
+对于求解一个数的各位平方和，可以采用一直除10取余数的方法，对于happy number的判断，我还是采用了哈希表的方法，就是将每一次的平方和放入哈希表中，当然在放的时候先检查一下，该数值是否为1，为1就直接返回true，证明这个数是个happy number.还要判断一下这个数是否在哈希表中已经存在了，如果已经存在了就不要放入哈希表中，并且返回false,因为说明结果产生了循环。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #00BB00; font-weight: bold">bool</span> <span style="color: #00A000">isHappy</span>(<span style="color: #00BB00; font-weight: bold">int</span> n) {
+    <span style="color: #00BB00; font-weight: bold">int</span> hash[<span style="color: #666666">1024</span>],hashlength<span style="color: #666666">=1024</span>,hashAddress1,sum<span style="color: #666666">=0</span>;
+    memset(hash,<span style="color: #666666">-1</span>,<span style="color: #AA22FF; font-weight: bold">sizeof</span>(hash));
+
+    <span style="color: #AA22FF; font-weight: bold">while</span>(sum<span style="color: #666666">!=1</span>){
+        <span style="color: #008800; font-style: italic">//计算一个整数各个位的和,sum的值就是和值。</span>
+        <span style="color: #AA22FF; font-weight: bold">while</span>(n<span style="color: #666666">&gt;0</span>){
+            sum <span style="color: #666666">+=</span> (n<span style="color: #666666">%10</span>)<span style="color: #666666">*</span>(n<span style="color: #666666">%10</span>);
+            n <span style="color: #666666">=</span> n<span style="color: #666666">/10</span>;
+        }
+
+        <span style="color: #AA22FF; font-weight: bold">if</span>(sum <span style="color: #666666">==</span> <span style="color: #666666">1</span>){
+                <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF">true</span>;
+            }
+        <span style="color: #008800; font-style: italic">//将值映射到哈希表上 </span>
+        hashAddress1 <span style="color: #666666">=</span> sum <span style="color: #666666">%</span> hashlength;
+        <span style="color: #AA22FF; font-weight: bold">if</span>(hash[hashAddress1]<span style="color: #666666">==</span>sum){
+            <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF">false</span>;
+        }
+        <span style="color: #AA22FF; font-weight: bold">while</span>(hash[hashAddress1]<span style="color: #666666">!=-1</span>){
+            hashAddress1 <span style="color: #666666">=</span> (<span style="color: #666666">++</span>hashAddress1)<span style="color: #666666">%</span>hashlength;
+            <span style="color: #AA22FF; font-weight: bold">if</span>(hash[hashAddress1]<span style="color: #666666">==</span>sum){
+                <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF">false</span>;
+            }
+        }
+            hash[hashAddress1] <span style="color: #666666">=</span> sum;
+            n <span style="color: #666666">=</span> sum;
+            sum <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+    }
+
+}
+</pre></div>
+
+
+<p><strong><em>java版本</em></strong>
+跟c的思路一样，只是java有HashSet接口，所以写起来没c麻烦.
+所以我正好学习了一下HashSet 。HashSet是基于HashMap实现的，HashSet底层采用HashMap来保存所有的元素。所以放入HashSet中的集合元素实际上是由HashMap的Key来保存，而HashMap的value存储了一个PRESENT，是一个静态的Object对象。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #00BB00; font-weight: bold">boolean</span> <span style="color: #00A000">isHappy</span><span style="color: #666666">(</span><span style="color: #00BB00; font-weight: bold">int</span> n<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+        <span style="color: #00BB00; font-weight: bold">long</span> ln <span style="color: #666666">=</span> n<span style="color: #666666">;</span>
+        Set<span style="color: #666666">&lt;</span>Long<span style="color: #666666">&gt;</span> set <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">new</span> HashSet<span style="color: #666666">&lt;</span>Long<span style="color: #666666">&gt;();</span>
+        <span style="color: #00BB00; font-weight: bold">long</span> sum <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+        <span style="color: #AA22FF; font-weight: bold">while</span><span style="color: #666666">(</span>sum<span style="color: #666666">!=1){</span>
+            sum <span style="color: #666666">=</span> <span style="color: #666666">0;</span>
+            <span style="color: #AA22FF; font-weight: bold">while</span><span style="color: #666666">(</span>ln<span style="color: #666666">&gt;0){</span>
+            <span style="color: #008800; font-style: italic">//求ln%10的平法</span>
+                sum<span style="color: #666666">+=</span>Math<span style="color: #666666">.</span><span style="color: #BB4444">pow</span><span style="color: #666666">(</span>ln<span style="color: #666666">%10,</span> <span style="color: #666666">2);</span>
+                ln <span style="color: #666666">=</span> ln<span style="color: #666666">/10;</span>
+            <span style="color: #666666">}</span>
+            <span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span>sum <span style="color: #666666">==</span> <span style="color: #666666">1){</span>
+                <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF; font-weight: bold">true</span><span style="color: #666666">;</span>
+            <span style="color: #666666">}</span>
+            <span style="color: #008800; font-style: italic">//检查集合中是否已经存在sum</span>
+            <span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span>set<span style="color: #666666">.</span><span style="color: #BB4444">contains</span><span style="color: #666666">(</span>sum<span style="color: #666666">)){</span>
+                <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF; font-weight: bold">false</span><span style="color: #666666">;</span>
+            <span style="color: #666666">}</span>
+            set<span style="color: #666666">.</span><span style="color: #BB4444">add</span><span style="color: #666666">(</span>sum<span style="color: #666666">);</span>
+            ln <span style="color: #666666">=</span> sum<span style="color: #666666">;</span>
+        <span style="color: #666666">}</span>
+        <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF; font-weight: bold">false</span><span style="color: #666666">;</span>
+    <span style="color: #666666">}</span>
+</pre></div>
+
+
+<p><strong><em>更精短的c语言实现方法</em></strong>
+利用的是一个fact：所有[2,6]的数字都不是happy number,还有一个数学发现就是，所有不以1结束的数字，都会以4结束无尽循环，（4-&gt;16-&gt;37-&gt;58-&gt;89-&gt;145-&gt;42-&gt;20-&gt;4）所谓的快乐数与不快乐数，都只是数学家们观察而发现的，现在还没有什么用处，也没有证明。以下就是用上述事实来进行的程序判断</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #00BB00; font-weight: bold">bool</span> <span style="color: #00A000">isHappy</span>(<span style="color: #00BB00; font-weight: bold">int</span> n) {
+    <span style="color: #AA22FF; font-weight: bold">while</span>(n<span style="color: #666666">&gt;6</span>){
+        <span style="color: #00BB00; font-weight: bold">int</span> sum <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+        <span style="color: #AA22FF; font-weight: bold">while</span>(n){
+            sum<span style="color: #666666">+=</span>(n<span style="color: #666666">%10</span>)<span style="color: #666666">*</span>(n<span style="color: #666666">%10</span>);
+            n<span style="color: #666666">/=10</span>;}
+        n <span style="color: #666666">=</span> next;
+    }
+    <span style="color: #AA22FF; font-weight: bold">return</span> n<span style="color: #666666">==1</span>;
+}
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+
+
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="/happy-number.html" data-title="Happy Number" data-url="http://sherryhaha.github.io/happy-number.html">
+<!-- 多说评论框 end --></div>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"notSherry"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://sherryhaha.github.io"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pat.html">
+                            PAT
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/about.html">
+                            About
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao.html">
+                            博物馆媒体展呈项目介绍
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pai-xu.html">
+                            排序
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/balanced-binary-tree.html">
+                            Balanced Binary Tree
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/javaxue-xi.html">
+                            <i class="fa fa-folder-open fa-lg"></i> java学习
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/misc.html">
+                            <i class="fa fa-folder-open fa-lg"></i> misc
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/shua-ti.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 刷题
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/category/xiang-mu.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 项目
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="http://sherryhaha.github.io/tag/leetcode.html">
+                            Leetcode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/jdbc.html">
+                            JDBC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/javazheng-ze-biao-da.html">
+                            java正则表达
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/tu-xiang-pi-pei.html">
+                            图像匹配
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/android.html">
+                            android
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/suan-fa.html">
+                            算法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/java.html">
+                            java
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/pat.html">
+                            pat
+                        </a>
+                    </li>
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://xuweitao.me/" target="_blank">
+                wuli涛涛
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 notSherry
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://sherryhaha.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://sherryhaha.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
+
+
+
+</body>
+</html>
