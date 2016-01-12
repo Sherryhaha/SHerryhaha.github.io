@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh_cn"
+>
+<head>
+    <title>PAT - notSherry</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://sherryhaha.github.io/pat/">
+
+        <meta name="author" content="notSherry" />
+        <meta name="keywords" content="pat,算法" />
+        <meta name="description" content="@(刷题生活) 1002 A+B for Polynomials (25) 时间限制400 ms 内存限制65536 kB 代码长度限制16000 B This time, you are supposed to find A+B where A and B are two polynomials. 2 Input Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of ..." />
+
+        <meta property="og:site_name" content="notSherry" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="PAT"/>
+        <meta property="og:url" content="http://sherryhaha.github.io/pat/"/>
+        <meta property="og:description" content="@(刷题生活) 1002 A+B for Polynomials (25) 时间限制400 ms 内存限制65536 kB 代码长度限制16000 B This time, you are supposed to find A+B where A and B are two polynomials. 2 Input Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of ..."/>
+        <meta property="article:published_time" content="2016-01-08" />
+            <meta property="article:section" content="misc" />
+            <meta property="article:tag" content="pat" />
+            <meta property="article:tag" content="算法" />
+            <meta property="article:author" content="notSherry" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://sherryhaha.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://sherryhaha.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://sherryhaha.github.io/" class="navbar-brand">
+notSherry            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/about.html">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://sherryhaha.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://sherryhaha.github.io/pat/"
+                       rel="bookmark"
+                       title="Permalink to PAT">
+                        PAT
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-01-08T00:00:00+08:00"> 五 08 一月 2016</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://sherryhaha.github.io/tags/pat/index.html">pat</a>
+        /
+	<a href="http://sherryhaha.github.io/tags/suan-fa/index.html">算法</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>@(刷题生活)</p>
+<h3 id="1002">1002</h3>
+<ol>
+<li>A+B for Polynomials (25)</li>
+</ol>
+<p>时间限制400 ms  内存限制65536 kB 代码长度限制16000 B </p>
+<p>This time, you are supposed to find A+B where A and B are two polynomials.
+2
+Input</p>
+<p>Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of a polynomial: K N1 aN1 N2 aN2 &hellip; NK aNK, where K is the number of nonzero terms in the polynomial, Ni and aNi (i=1, 2, &hellip;, K) are the exponents and coefficients, respectively. It is given that 1 &lt;= K &lt;= 10，0 &lt;= NK &lt; &hellip; &lt; N2 &lt; N1 &lt;=1000.</p>
+<p>Output</p>
+<p>For each test case you should output the sum of A and B in one line, with the same format as the input. Notice that there must be NO extra space at the end of each line. Please be accurate to 1 decimal place.</p>
+<p>Sample Input
+2 1 2.4 0 3.2
+2 2 1.5 1 0.5
+Sample Output
+3 2 1.5 1 2.9 0 3.2</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/*</span>
+<span style="color: #008800; font-style: italic">这题用了hash映射，将指数为Nk的系数映射到数组A[Nk]中。</span>
+<span style="color: #008800; font-style: italic">*/</span>
+
+
+
+<span style="color: #008800">#include&lt;stdio.h&gt;</span>
+<span style="color: #008800">#define maxn  1024            </span><span style="color: #008800; font-style: italic">//一开始我用的const int maxn=9;但是编译错误了,c里面好像是不能这么用设置成9并不能通过，要改成1024???为什么呢</span>
+                             <span style="color: #008800; font-style: italic">//因为虽然1&lt;=k&lt;=10但k代表的是非0多项式的个数，所以总共不止k个</span>
+
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+
+    <span style="color: #00BB00; font-weight: bold">double</span> A[maxn]<span style="color: #666666">=</span>{<span style="color: #666666">0</span>},co<span style="color: #666666">=0</span>;           <span style="color: #008800; font-style: italic">//给数组A赋值为全0</span>
+    <span style="color: #00BB00; font-weight: bold">int</span> k<span style="color: #666666">=0</span>,k2 <span style="color: #666666">=</span> <span style="color: #666666">0</span>,i<span style="color: #666666">=0</span>,e<span style="color: #666666">=0</span>;
+    <span style="color: #008800; font-style: italic">//输入第一个多项式</span>
+    scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>k);
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;</span> k;i<span style="color: #666666">++</span>){
+        scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>e);
+        scanf(<span style="color: #BB4444">&quot;%lf&quot;</span>,<span style="color: #666666">&amp;</span>A[e]);
+    }
+
+    <span style="color: #008800; font-style: italic">//输入第二个多项式并进行相加运算</span>
+    scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>k);
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;</span> k;i<span style="color: #666666">++</span>){
+        scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>e);
+        scanf(<span style="color: #BB4444">&quot;%lf&quot;</span>,<span style="color: #666666">&amp;</span>co);
+        A[e] <span style="color: #666666">=</span> A[e] <span style="color: #666666">+</span> co;           <span style="color: #008800; font-style: italic">//进行加法运算  </span>
+    }
+
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i<span style="color: #666666">&lt;</span>maxn;i<span style="color: #666666">++</span>){
+        <span style="color: #AA22FF; font-weight: bold">if</span>(A[i]<span style="color: #666666">!=0</span>) k2<span style="color: #666666">++</span>;
+    }
+    printf(<span style="color: #BB4444">&quot;%d&quot;</span>,k2);              <span style="color: #008800; font-style: italic">//输出多项式中非0的项目个数</span>
+
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> maxn<span style="color: #666666">-1</span>;i<span style="color: #666666">&gt;=0</span>;i<span style="color: #666666">--</span>){
+        <span style="color: #AA22FF; font-weight: bold">if</span>(A[i]<span style="color: #666666">!=0</span>){
+            printf(<span style="color: #BB4444">&quot; %d %.1lf&quot;</span>,i,A[i]);
+        }
+    }
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+}
+</pre></div>
+
+
+<h3 id="1003">1003</h3>
+<p>As an emergency rescue team leader of a city, you are given a special map of your country. The map shows several scattered(分散) cities connected by some roads. Amount of rescue teams in each city and the length of each road between any pair of cities are marked on the map. When there is an emergency call to you from some other city, your job is to lead your men to the place as quickly as possible, and at the mean time, call up as many hands on the way as possible.</p>
+<p>Input</p>
+<p>Each input file contains one test case. For each test case, the first line contains 4 positive integers: N (&lt;= 500) - the number of cities (and the cities are numbered from 0 to N-1), M - the number of roads, C1 and C2 - the cities that you are currently in and that you must save, respectively. The next line contains N integers, where the i-th integer is the number of rescue teams in the i-th city. Then M lines follow, each describes a road with three integers c1, c2 and L, which are the pair of cities connected by a road and the length of that road, respectively. It is guaranteed that there exists at least one path from C1 to C2.</p>
+<p>Output</p>
+<p>For each test case, print in one line two numbers: the number of different shortest paths between C1 and C2, and the maximum amount of rescue teams you can possibly gather.
+All the numbers in a line must be separated by exactly one space, and there is no extra space allowed at the end of a line.</p>
+<p>Sample Input
+5 6 0 2
+1 2 1 5 3
+0 1 1
+0 2 2
+0 3 1
+1 2 1
+2 4 1
+3 4 1
+Sample Output
+2 4</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/*这题是求图上的两点之间最短路径有几条。用深度优先来求。</span>
+<span style="color: #008800; font-style: italic">*/</span>
+
+<span style="color: #008800">#include&lt;stdio.h&gt;</span>
+<span style="color: #008800">#include&lt;limits.h&gt; </span><span style="color: #008800; font-style: italic">//为了用INT_MAX,表示整数的最大数值</span>
+
+<span style="color: #008800">#define MAX 1024</span>
+<span style="color: #008800; font-style: italic">//声明全局变量</span>
+<span style="color: #00BB00; font-weight: bold">int</span> count,max,predist,n,visit[MAX],dist[MAX][MAX],countTeam[MAX];;
+
+<span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">dfs</span>(<span style="color: #00BB00; font-weight: bold">int</span> start,<span style="color: #00BB00; font-weight: bold">int</span> end,<span style="color: #00BB00; font-weight: bold">int</span> d,<span style="color: #00BB00; font-weight: bold">int</span> team);
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+    <span style="color: #00BB00; font-weight: bold">int</span> m,start,end,i,c1,c2,j,dis;  
+    predist <span style="color: #666666">=</span> INT_MAX,count <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+    scanf(<span style="color: #BB4444">&quot;%d %d %d %d&quot;</span>,<span style="color: #666666">&amp;</span>n,<span style="color: #666666">&amp;</span>m,<span style="color: #666666">&amp;</span>start,<span style="color: #666666">&amp;</span>end);
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i<span style="color: #666666">&lt;</span>n;i<span style="color: #666666">++</span>){
+        scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>countTeam[i]);
+    }
+    <span style="color: #008800; font-style: italic">//初始化visit数组为0，dist数组为INT_MAX</span>
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i<span style="color: #666666">&lt;</span>n;i<span style="color: #666666">++</span>){
+        visit[i] <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+        <span style="color: #AA22FF; font-weight: bold">for</span>(j <span style="color: #666666">=</span> <span style="color: #666666">0</span>;j<span style="color: #666666">&lt;</span>n;j<span style="color: #666666">++</span>){
+            dist[i][j] <span style="color: #666666">=</span> INT_MAX;
+        }
+    }
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i<span style="color: #666666">&lt;</span>m;i<span style="color: #666666">++</span>){
+        scanf(<span style="color: #BB4444">&quot;%d %d %d&quot;</span>,<span style="color: #666666">&amp;</span>c1,<span style="color: #666666">&amp;</span>c2,<span style="color: #666666">&amp;</span>dis);
+        <span style="color: #AA22FF; font-weight: bold">if</span>(dist[c1][c2]<span style="color: #666666">&gt;</span>dis){
+            dist[c1][c2] <span style="color: #666666">=</span> dist[c2][c1] <span style="color: #666666">=</span> dis;  <span style="color: #008800; font-style: italic">//这边注意，要将两个数组值都赋值</span>
+        }
+    }
+    dfs(start,end,<span style="color: #666666">0</span>,countTeam[start]);
+
+    printf(<span style="color: #BB4444">&quot;%d %d</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BB4444">&quot;</span>,count,max);
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+
+}
+
+<span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">dfs</span>(<span style="color: #00BB00; font-weight: bold">int</span> p,<span style="color: #00BB00; font-weight: bold">int</span> end,<span style="color: #00BB00; font-weight: bold">int</span> d,<span style="color: #00BB00; font-weight: bold">int</span> team){
+    <span style="color: #008800; font-style: italic">//当已经达到最终的节点时，判断距离是否比已有的距离小，是的话就将最小距离的变量值改变，如果相等，就比较哪个队伍多，将队伍多的值付给现有的</span>
+    <span style="color: #008800; font-style: italic">//队伍最大值。</span>
+    <span style="color: #AA22FF; font-weight: bold">if</span>(p<span style="color: #666666">==</span>end){
+        <span style="color: #AA22FF; font-weight: bold">if</span>(d<span style="color: #666666">&lt;</span>predist){
+            count <span style="color: #666666">=</span> <span style="color: #666666">1</span>;  <span style="color: #008800; font-style: italic">//输出有几条最短路径</span>
+            predist <span style="color: #666666">=</span> d;  <span style="color: #008800; font-style: italic">//predist一开始被赋值为INT_MAX</span>
+            max <span style="color: #666666">=</span> team;
+        }<span style="color: #AA22FF; font-weight: bold">else</span> <span style="color: #AA22FF; font-weight: bold">if</span>(d <span style="color: #666666">==</span> predist){
+            count<span style="color: #666666">++</span>;
+            <span style="color: #AA22FF; font-weight: bold">if</span>(team<span style="color: #666666">&gt;</span>max) max <span style="color: #666666">=</span> team;
+        }
+        <span style="color: #AA22FF; font-weight: bold">return</span>;
+    }
+    <span style="color: #AA22FF; font-weight: bold">if</span>(d <span style="color: #666666">&gt;</span> predist) <span style="color: #AA22FF; font-weight: bold">return</span>;
+    <span style="color: #00BB00; font-weight: bold">int</span> i;
+    <span style="color: #008800; font-style: italic">//递归调用dfs.</span>
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i<span style="color: #666666">&lt;</span>n;i<span style="color: #666666">++</span>){
+    <span style="color: #008800; font-style: italic">//如果城市没有被访问过（即visit[i]==0）而且两个城市之间是可连同的</span>
+        <span style="color: #AA22FF; font-weight: bold">if</span>(visit[i]<span style="color: #666666">==0&amp;&amp;</span>dist[p][i]<span style="color: #666666">!=</span>INT_MAX){
+            visit[i] <span style="color: #666666">=</span> <span style="color: #666666">1</span>;
+            dfs(i,end,d<span style="color: #666666">+</span>dist[p][i],team<span style="color: #666666">+</span>countTeam[i]);
+            visit[i] <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+        }
+    }
+
+}
+</pre></div>
+
+
+<h3 id="1004">1004</h3>
+<p>Counting Leaves (30)</p>
+<p>A family hierarchy is usually presented by a pedigree tree. Your job is to count those family members who have no child.</p>
+<p>Input
+Each input file contains one test case. Each case starts with a line containing 0 &lt; N &lt; 100, the number of nodes in a tree, and M (&lt; N), the number of non-leaf nodes. Then M lines follow, each in the format:</p>
+<p>ID K ID[1] ID[2] &hellip; ID[K]
+where ID is a two-digit number representing a given non-leaf node, K is the number of its children, followed by a sequence of two-digit ID&rsquo;s of its children. For the sake of simplicity, let us fix the root ID to be 01.</p>
+<p>Output
+For each test case, you are supposed to count those family members who have no child for every seniority level starting from the root. The numbers must be printed in a line, separated by a space, and there must be no extra space at the end of each line.</p>
+<p>The sample case represents a tree with only 2 nodes, where 01 is the root and 02 is its only child. Hence on the root 01 level, there is 0 leaf node; and on the next level, there is 1 leaf node. Then we should output &ldquo;0 1&rdquo; in a line.</p>
+<p>Sample Input
+2 1
+01 1 02
+Sample Output
+0 1</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/**</span>
+<span style="color: #008800; font-style: italic">*题目的大概意思是求一棵树每层的没有孩子节点的节点数</span>
+<span style="color: #008800; font-style: italic">**/</span>
+<span style="color: #008800">#include&lt;stdio.h&gt;</span>
+<span style="color: #008800; font-style: italic">/**</span>
+<span style="color: #008800; font-style: italic">*调用一个深度优先遍历的函数</span>
+<span style="color: #008800; font-style: italic">**/</span>
+<span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">dfs</span>(<span style="color: #00BB00; font-weight: bold">int</span> ids,<span style="color: #00BB00; font-weight: bold">int</span> level,<span style="color: #00BB00; font-weight: bold">int</span> no[],<span style="color: #00BB00; font-weight: bold">int</span> chil[][<span style="color: #666666">110</span>],<span style="color: #00BB00; font-weight: bold">int</span> node){
+    <span style="color: #00BB00; font-weight: bold">int</span> i,flag<span style="color: #666666">=0</span>;
+    <span style="color: #AA22FF; font-weight: bold">if</span>(no[level] <span style="color: #666666">==</span> <span style="color: #666666">-1</span>) no[level] <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">1</span>;i <span style="color: #666666">&lt;=</span> node;i<span style="color: #666666">++</span>){
+        <span style="color: #AA22FF; font-weight: bold">if</span>(chil[ids][i]<span style="color: #666666">==1</span>){
+            flag <span style="color: #666666">=</span> <span style="color: #666666">1</span>;
+            <span style="color: #008800; font-style: italic">//递归调用,这里体现了是深度优先，遍历该ids的孩子i节点，在level+1层</span>
+            <span style="color: #AA22FF; font-weight: bold">if</span>(level<span style="color: #666666">+1</span> <span style="color: #666666">&lt;=</span> node) dfs(i,level<span style="color: #666666">+1</span>,no,chil,node);
+        }
+    }
+    <span style="color: #AA22FF; font-weight: bold">if</span>(flag <span style="color: #666666">==</span> <span style="color: #666666">0</span> ) no[level]<span style="color: #666666">++</span>;
+}
+
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+    <span style="color: #00BB00; font-weight: bold">int</span> nochild[<span style="color: #666666">110</span>],chi[<span style="color: #666666">110</span>][<span style="color: #666666">110</span>];
+    <span style="color: #00BB00; font-weight: bold">int</span> n,m,i,j,id,child,son;
+    <span style="color: #008800; font-style: italic">// 初始化存贮每层没有孩子节点的节点总数，初始化二维数组代表每个i号节点所有的子节点编号，用j来记录子节点的编号，数组元素为1代表这个位置是有子节点</span>
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;=</span> <span style="color: #666666">100</span>;i<span style="color: #666666">++</span>){
+        nochild[i] <span style="color: #666666">=</span> <span style="color: #666666">-1</span>;
+        <span style="color: #AA22FF; font-weight: bold">for</span>(j <span style="color: #666666">=</span> <span style="color: #666666">0</span>;j <span style="color: #666666">&lt;=100</span>;j<span style="color: #666666">++</span>){
+            chi[i][j] <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+        }
+    }
+
+    scanf(<span style="color: #BB4444">&quot;%d%d&quot;</span>,<span style="color: #666666">&amp;</span>n,<span style="color: #666666">&amp;</span>m);
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">1</span>;i<span style="color: #666666">&lt;=</span>m;i<span style="color: #666666">++</span>){
+        scanf(<span style="color: #BB4444">&quot;%d%d&quot;</span>,<span style="color: #666666">&amp;</span>id,<span style="color: #666666">&amp;</span>child);
+        <span style="color: #AA22FF; font-weight: bold">for</span>(j <span style="color: #666666">=</span> <span style="color: #666666">1</span>;j <span style="color: #666666">&lt;=</span> child;j<span style="color: #666666">++</span>){
+            scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>son);
+            chi[id][son] <span style="color: #666666">=</span> <span style="color: #666666">1</span>;
+        }
+    }
+
+    dfs(<span style="color: #666666">1</span>,<span style="color: #666666">1</span>,nochild,chi,n);
+
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">1</span>;i <span style="color: #666666">&lt;=</span>n;i<span style="color: #666666">++</span>){
+        <span style="color: #AA22FF; font-weight: bold">if</span>(nochild[i] <span style="color: #666666">&gt;</span> <span style="color: #666666">-1&amp;&amp;</span>i<span style="color: #666666">==1</span>) printf(<span style="color: #BB4444">&quot;%d&quot;</span>,nochild[i]);
+        <span style="color: #AA22FF; font-weight: bold">else</span> <span style="color: #AA22FF; font-weight: bold">if</span>(nochild[i] <span style="color: #666666">&gt;</span> <span style="color: #666666">-1</span>) printf(<span style="color: #BB4444">&quot; %d&quot;</span>,nochild[i]);
+    }
+    printf(<span style="color: #BB4444">&quot;</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BB4444">&quot;</span>);
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+}
+</pre></div>
+
+
+<h3 id="1005">1005</h3>
+<p>Spell It Right (20)</p>
+<p>Given a non-negative integer N, your task is to compute the sum of all the digits of N, and output every digit of the sum in English.</p>
+<p>Input Specification:</p>
+<p>Each input file contains one test case. Each case occupies one line which contains an N (&lt;= 10100).</p>
+<p>Output Specification:</p>
+<p>For each test case, output in one line the digits of the sum in English words. There must be one space between two consecutive words, but no extra space at the end of a line.</p>
+<p>Sample Input:
+12345
+Sample Output:
+one five</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800">#include&lt;stdio.h&gt;</span>
+
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+    <span style="color: #00BB00; font-weight: bold">char</span> num[<span style="color: #666666">101</span>];  <span style="color: #008800; font-style: italic">//开一个字符数组101长度，可以存储题目要求的长最多101的整数</span>
+    <span style="color: #00BB00; font-weight: bold">int</span> sum <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+    <span style="color: #00BB00; font-weight: bold">char</span> result[<span style="color: #666666">4</span>];
+    <span style="color: #00BB00; font-weight: bold">char</span> ten[<span style="color: #666666">10</span>][<span style="color: #666666">10</span>]<span style="color: #666666">=</span>{<span style="color: #BB4444">&quot;zero&quot;</span>,<span style="color: #BB4444">&quot;one&quot;</span>,<span style="color: #BB4444">&quot;two&quot;</span>,<span style="color: #BB4444">&quot;three&quot;</span>,<span style="color: #BB4444">&quot;four&quot;</span>,<span style="color: #BB4444">&quot;five&quot;</span>,<span style="color: #BB4444">&quot;six&quot;</span>,<span style="color: #BB4444">&quot;seven&quot;</span>,<span style="color: #BB4444">&quot;eight&quot;</span>,<span style="color: #BB4444">&quot;nine&quot;</span>};
+    <span style="color: #00BB00; font-weight: bold">int</span> i,a,b,c,d;
+    scanf(<span style="color: #BB4444">&quot;%s&quot;</span>,num);
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;num[i]<span style="color: #666666">!=</span><span style="color: #BB4444">&#39;\0&#39;</span>;i<span style="color: #666666">++</span>){
+        sum <span style="color: #666666">=</span> sum <span style="color: #666666">+</span> (num[i]<span style="color: #666666">-</span><span style="color: #BB4444">&#39;0&#39;</span>);
+    }
+    <span style="color: #AA22FF; font-weight: bold">if</span>(sum<span style="color: #666666">&gt;=0&amp;&amp;</span>sum<span style="color: #666666">&lt;=9</span>){
+        printf(<span style="color: #BB4444">&quot;%s&quot;</span>,ten[sum]);
+    }
+    <span style="color: #AA22FF; font-weight: bold">else</span> <span style="color: #AA22FF; font-weight: bold">if</span>(sum<span style="color: #666666">&gt;=10&amp;&amp;</span>sum<span style="color: #666666">&lt;=99</span>){
+        a <span style="color: #666666">=</span> sum<span style="color: #666666">/10</span>;
+        b <span style="color: #666666">=</span> sum<span style="color: #666666">%10</span>;
+        printf(<span style="color: #BB4444">&quot;%s %s&quot;</span>,ten[a],ten[b]);
+    }
+    <span style="color: #AA22FF; font-weight: bold">else</span>
+    {
+        a <span style="color: #666666">=</span> sum<span style="color: #666666">/10</span>;
+        c <span style="color: #666666">=</span> sum<span style="color: #666666">%10</span>;
+        d <span style="color: #666666">=</span> a;
+        a <span style="color: #666666">=</span> a<span style="color: #666666">/10</span>;
+        b <span style="color: #666666">=</span> d<span style="color: #666666">%10</span>;
+        printf(<span style="color: #BB4444">&quot;%s %s %s&quot;</span>,ten[a],ten[b],ten[c]);
+    }
+    <span style="color: #008800; font-style: italic">//for(i = 0;i&lt;10;i++){</span>
+        <span style="color: #008800; font-style: italic">//printf(&quot;%s\n&quot;,ten[i]);}</span>
+    <span style="color: #008800; font-style: italic">//printf(&quot;%s\n&quot;,sum);</span>
+    <span style="color: #008800; font-style: italic">//printf(&quot;%d\n&quot;,sum);</span>
+
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+}
+</pre></div>
+
+
+<h3 id="1006">1006</h3>
+<p>Sign In and Sign Out (25)</p>
+<p>At the beginning of every day, the first person who signs in the computer room will unlock the door, and the last one who signs out will lock the door. Given the records of signing in&rsquo;s and out&rsquo;s, you are supposed to find the ones who have unlocked and locked the door on that day.</p>
+<p>Input Specification:</p>
+<p>Each input file contains one test case. Each case contains the records for one day. The case starts with a positive integer M, which is the total number of records, followed by M lines, each in the format:</p>
+<p>ID_number Sign_in_time Sign_out_time
+where times are given in the format HH:MM:SS, and ID number is a string with no more than 15 characters.</p>
+<p>Output Specification:</p>
+<p>For each test case, output in one line the ID numbers of the persons who have unlocked and locked the door on that day. The two ID numbers must be separated by one space.</p>
+<p>Note: It is guaranteed that the records are consistent. That is, the sign in time must be earlier than the sign out time for each person, and there are no two persons sign in or out at the same moment.</p>
+<p>Sample Input:
+3
+CS301111 15:30:28 17:00:10
+SC3021234 08:00:00 11:25:25
+CS301133 21:45:00 21:58:40
+Sample Output:
+SC3021234 CS301133</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/*</span>
+<span style="color: #008800; font-style: italic">    基于时间的比较</span>
+<span style="color: #008800; font-style: italic">*/</span>
+
+
+<span style="color: #008800">#include&lt;stdio.h&gt;</span>
+
+<span style="color: #AA22FF; font-weight: bold">struct</span> Record{
+    <span style="color: #00BB00; font-weight: bold">char</span> ID[<span style="color: #666666">15</span>];     <span style="color: #008800; font-style: italic">//工号</span>
+    <span style="color: #00BB00; font-weight: bold">int</span> in;         <span style="color: #008800; font-style: italic">//sign in 时间</span>
+    <span style="color: #00BB00; font-weight: bold">int</span> out;        <span style="color: #008800; font-style: italic">//sign out 时间</span>
+};
+
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+    <span style="color: #00BB00; font-weight: bold">int</span> m,i;
+    <span style="color: #AA22FF; font-weight: bold">struct</span> Record p,p_in,p_out;  <span style="color: #008800; font-style: italic">//这边要记得加struct</span>
+    <span style="color: #00BB00; font-weight: bold">int</span> h1,m1,s1,h2,m2,s2;
+    scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>m);
+    <span style="color: #AA22FF; font-weight: bold">if</span>(m <span style="color: #666666">==</span> <span style="color: #666666">0</span>) <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+    scanf(<span style="color: #BB4444">&quot;%s%d%*c%d%*c%d %d%*c%d%*c%d&quot;</span>,p.ID,<span style="color: #666666">&amp;</span>h1,<span style="color: #666666">&amp;</span>m1,<span style="color: #666666">&amp;</span>s1,<span style="color: #666666">&amp;</span>h2,<span style="color: #666666">&amp;</span>m2,<span style="color: #666666">&amp;</span>s2);
+    p.in <span style="color: #666666">=</span> h1<span style="color: #666666">*3600+</span>m1<span style="color: #666666">*60+</span>s1;     <span style="color: #008800; font-style: italic">//将时间转换为秒来进行比较</span>
+    p.out <span style="color: #666666">=</span> h2<span style="color: #666666">*3600+</span>m2<span style="color: #666666">*60+</span>s2;
+    p_in <span style="color: #666666">=</span> p_out<span style="color: #666666">=</span>p;
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">1</span>;i <span style="color: #666666">&lt;</span> m;i<span style="color: #666666">++</span>){
+        scanf(<span style="color: #BB4444">&quot;%s%d%*c%d%*c%d %d%*c%d%*c%d&quot;</span>,p.ID,<span style="color: #666666">&amp;</span>h1,<span style="color: #666666">&amp;</span>m1,<span style="color: #666666">&amp;</span>s1,<span style="color: #666666">&amp;</span>h2,<span style="color: #666666">&amp;</span>m2,<span style="color: #666666">&amp;</span>s2);  <span style="color: #008800; font-style: italic">//   %*c代表忽略输入的这个字符</span>
+        p.in <span style="color: #666666">=</span> h1<span style="color: #666666">*3600+</span>m1<span style="color: #666666">*60+</span>s1;
+        p.out <span style="color: #666666">=</span> h2<span style="color: #666666">*3600+</span>m2<span style="color: #666666">*60+</span>s2;
+        <span style="color: #AA22FF; font-weight: bold">if</span>(p.in<span style="color: #666666">&lt;</span>p_in.in) p_in <span style="color: #666666">=</span> p;
+        <span style="color: #AA22FF; font-weight: bold">if</span>(p.out<span style="color: #666666">&gt;</span>p_out.out) p_out <span style="color: #666666">=</span> p;
+    }
+
+    printf(<span style="color: #BB4444">&quot;%s %s&quot;</span>,p_in.ID,p_out.ID);
+
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+}
+</pre></div>
+
+
+<h3 id="1007">1007</h3>
+<p>Maximum Subsequence Sum (25)</p>
+<p>Given a sequence of K integers { N1, N2, &hellip;, NK }. A continuous subsequence is defined to be { Ni, Ni+1, &hellip;, Nj } where 1 &lt;= i &lt;= j &lt;= K. The Maximum Subsequence is the continuous subsequence which has the largest sum of its elements. For example, given sequence { -2, 11, -4, 13, -5, -2 }, its maximum subsequence is { 11, -4, 13 } with the largest sum being 20.</p>
+<p>Now you are supposed to find the largest sum, together with the first and the last numbers of the maximum subsequence.</p>
+<p>Input Specification:</p>
+<p>Each input file contains one test case. Each case occupies two lines. The first line contains a positive integer K (&lt;= 10000). The second line contains K numbers, separated by a space.</p>
+<p>Output Specification:</p>
+<p>For each test case, output in one line the largest sum, together with the first and the last numbers of the maximum subsequence. The numbers must be separated by one space, but there must be no extra space at the end of a line. In case that the maximum subsequence is not unique, output the one with the smallest indices i and j (as shown by the sample case). If all the K numbers are negative, then its maximum sum is defined to be 0, and you are supposed to output the first and the last numbers of the whole sequence.</p>
+<p>Sample Input:
+10
+-10 1 2 3 4 -5 -23 3 7 -21
+Sample Output:
+10 1 4</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/*</span>
+<span style="color: #008800; font-style: italic">一开始我理解错了题目的意思，题目的意思是输出sum以及子序列的第一个值和最后一个值，而不是我理解的第一个下标和最后一个下标</span>
+
+
+<span style="color: #008800; font-style: italic">*/</span>
+
+<span style="color: #008800">#include&lt;stdio.h&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </span>
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+    <span style="color: #00BB00; font-weight: bold">int</span> n,i,j,num[<span style="color: #666666">10000</span>],count,sum,temp,start,end,a;  <span style="color: #008800; font-style: italic">//num数组一开始初始化为1024出错，要初始化为10000</span>
+    count <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+    scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>n);
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;</span> n;i<span style="color: #666666">++</span>){
+        scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>num[i]);
+        <span style="color: #AA22FF; font-weight: bold">if</span>(num[i]<span style="color: #666666">&gt;0||</span>num[i] <span style="color: #666666">==</span> <span style="color: #666666">0</span>)  count<span style="color: #666666">++</span>;
+    }
+    <span style="color: #008800; font-style: italic">//如果所有的输入都是负数，就将和设为0，第一个数为第一个，最后一个数为最后一个，也可以映射出最后的和一定是大于等于0</span>
+    <span style="color: #AA22FF; font-weight: bold">if</span>(count <span style="color: #666666">==</span> <span style="color: #666666">0</span>){
+        printf(<span style="color: #BB4444">&quot;0 %d %d&quot;</span>,num[<span style="color: #666666">0</span>],num[n<span style="color: #666666">-1</span>]);
+        <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+    }
+    sum <span style="color: #666666">=</span> <span style="color: #666666">-1</span>;                       <span style="color: #008800; font-style: italic">//一开始我将sum的初始值赋值成num[0]出错。</span>
+
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;</span> n;i<span style="color: #666666">++</span>){
+        a <span style="color: #666666">=</span> i;
+        temp <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+        <span style="color: #AA22FF; font-weight: bold">for</span>(j <span style="color: #666666">=</span> i;j <span style="color: #666666">&lt;</span> n;j<span style="color: #666666">++</span>){
+            temp <span style="color: #666666">=</span> temp <span style="color: #666666">+</span> num[j];
+            <span style="color: #AA22FF; font-weight: bold">if</span>(temp <span style="color: #666666">&gt;</span> sum){
+                sum <span style="color: #666666">=</span> temp;
+                start <span style="color: #666666">=</span> num[a];
+                end <span style="color: #666666">=</span> num[j]; 
+            }
+        }
+    }
+
+    printf(<span style="color: #BB4444">&quot;%d %d %d&quot;</span>,sum,start,end);
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+}
+</pre></div>
+
+
+<h1 id="1008-elevator">1008    Elevator</h1>
+<p>The highest building in our city has only one elevator. A request list is made up with N positive numbers. The numbers denote at which floors the elevator will stop, in specified order. It costs 6 seconds to move the elevator up one floor, and 4 seconds to move down one floor. The elevator will stay for 5 seconds at each stop.</p>
+<p>For a given request list, you are to compute the total time spent to fulfill the requests on the list. The elevator is on the 0th floor at the beginning and does not have to return to the ground floor when the requests are fulfilled.</p>
+<p>Input Specification:</p>
+<p>Each input file contains one test case. Each case contains a positive integer N, followed by N positive numbers. All the numbers in the input are less than 100.</p>
+<p>Output Specification:</p>
+<p>For each test case, print the total time on a single line.</p>
+<p>Sample Input:
+3 2 3 1
+Sample Output:
+41</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/**</span>
+<span style="color: #008800; font-style: italic">*1008</span>
+<span style="color: #008800; font-style: italic">**/</span>
+<span style="color: #008800">#include&lt;stdio.h&gt;</span>
+<span style="color: #008800">#include&lt;math.h&gt;</span>
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+    <span style="color: #00BB00; font-weight: bold">int</span> n,i,j,a[<span style="color: #666666">20000</span>],D_value,time;
+    a[<span style="color: #666666">0</span>] <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+    time <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+    scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>n);
+    <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">1</span>;i <span style="color: #666666">&lt;=</span> n;i<span style="color: #666666">++</span>){
+        scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>a[i]);
+        D_value <span style="color: #666666">=</span> a[i] <span style="color: #666666">-</span> a[i<span style="color: #666666">-1</span>];
+        <span style="color: #AA22FF; font-weight: bold">if</span>(D_value<span style="color: #666666">&gt;0</span>){
+            time <span style="color: #666666">=</span> time <span style="color: #666666">+</span> D_value<span style="color: #666666">*6+5</span>;
+        }
+        <span style="color: #AA22FF; font-weight: bold">if</span>(D_value<span style="color: #666666">&lt;0</span>){
+            time <span style="color: #666666">=</span> time <span style="color: #666666">+</span> abs(D_value)<span style="color: #666666">*4+5</span>;
+        }
+        <span style="color: #AA22FF; font-weight: bold">if</span>(D_value <span style="color: #666666">==</span> <span style="color: #666666">0</span>){               <span style="color: #008800; font-style: italic">//这边不要忘记了，一开始没有加，如果还是本层有人要上的话，就要将时间再多停留5S</span>
+            time <span style="color: #666666">=</span> time <span style="color: #666666">+</span> <span style="color: #666666">5</span>;            
+        }
+    }
+    printf(<span style="color: #BB4444">&quot;%d&quot;</span>,time);
+}
+</pre></div>
+
+
+<h1 id="1009-product-of-polynomials">1009   Product of Polynomials</h1>
+<p>This time, you are supposed to find A*B where A and B are two polynomials.</p>
+<p>Input Specification:</p>
+<p>Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of a polynomial: K N1 aN1 N2 aN2 &hellip; NK aNK, where K is the number of nonzero terms in the polynomial, Ni and aNi (i=1, 2, &hellip;, K) are the exponents and coefficients, respectively. It is given that 1 &lt;= K &lt;= 10, 0 &lt;= NK &lt; &hellip; &lt; N2 &lt; N1 &lt;=1000.</p>
+<p>Output Specification:</p>
+<p>For each test case you should output the product of A and B in one line, with the same format as the input. Notice that there must be NO extra space at the end of each line. Please be accurate up to 1 decimal place.</p>
+<p>Sample Input
+2 1 2.4 0 3.2
+2 2 1.5 1 0.5
+Sample Output
+3 3 3.6 2 6.0 1 1.6</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800">#include&lt;stdio.h&gt;</span>
+<span style="color: #008800">#include&lt;stdlib.h&gt;</span>
+
+<span style="color: #AA22FF; font-weight: bold">typedef</span> <span style="color: #AA22FF; font-weight: bold">struct</span> p1{           <span style="color: #008800; font-style: italic">//这边的结构体必须要这样定义</span>
+    <span style="color: #00BB00; font-weight: bold">int</span> expo;                    
+    <span style="color: #00BB00; font-weight: bold">double</span> coe;
+}po;
+
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+    <span style="color: #00BB00; font-weight: bold">int</span> k1,k2,i,j,max,expo,count <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+     po <span style="color: #666666">*</span>a,<span style="color: #666666">*</span>b,<span style="color: #666666">*</span>c;
+    <span style="color: #AA22FF; font-weight: bold">while</span>(scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>k1)<span style="color: #666666">!=</span>EOF){
+        a <span style="color: #666666">=</span> (po<span style="color: #666666">*</span>)malloc(k1<span style="color: #666666">*</span><span style="color: #AA22FF; font-weight: bold">sizeof</span>(po));      <span style="color: #008800; font-style: italic">//开辟空间给数组a</span>
+        <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;</span> k1;i<span style="color: #666666">++</span>){
+            scanf(<span style="color: #BB4444">&quot;%d %lf&quot;</span>,<span style="color: #666666">&amp;</span>a[i].expo,<span style="color: #666666">&amp;</span>a[i].coe);
+        }
+        scanf(<span style="color: #BB4444">&quot;%d&quot;</span>,<span style="color: #666666">&amp;</span>k2);
+        b <span style="color: #666666">=</span> (po<span style="color: #666666">*</span>)malloc(k2<span style="color: #666666">*</span><span style="color: #AA22FF; font-weight: bold">sizeof</span>(po));      <span style="color: #008800; font-style: italic">//开辟空间给数组b</span>
+        <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;</span> k2;i<span style="color: #666666">++</span>){
+            scanf(<span style="color: #BB4444">&quot;%d %lf&quot;</span>,<span style="color: #666666">&amp;</span>b[i].expo,<span style="color: #666666">&amp;</span>b[i].coe);
+        }
+        max <span style="color: #666666">=</span> a[<span style="color: #666666">0</span>].expo <span style="color: #666666">+</span> b[<span style="color: #666666">0</span>].expo;
+        c <span style="color: #666666">=</span> (po<span style="color: #666666">*</span>)malloc((max<span style="color: #666666">+1</span>)<span style="color: #666666">*</span><span style="color: #AA22FF; font-weight: bold">sizeof</span>(po));<span style="color: #008800; font-style: italic">//为最后的成绩结果分配max+1的空间，因为指数是按递减进行排列的，所以直接先求出最大的指数是多少</span>
+        <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;</span> max<span style="color: #666666">+1</span>;i<span style="color: #666666">++</span>){
+            c[i].expo <span style="color: #666666">=</span> i;
+            c[i].coe <span style="color: #666666">=</span> <span style="color: #666666">0</span>;                   
+        }
+        <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;</span> k1;i<span style="color: #666666">++</span>){
+            <span style="color: #AA22FF; font-weight: bold">for</span>(j <span style="color: #666666">=</span> <span style="color: #666666">0</span>;j <span style="color: #666666">&lt;</span> k2;j<span style="color: #666666">++</span>){
+                expo <span style="color: #666666">=</span> a[i].expo <span style="color: #666666">+</span> b[j].expo;
+                c[expo].coe <span style="color: #666666">+=</span> a[i].coe<span style="color: #666666">*</span>b[j].coe; <span style="color: #008800; font-style: italic">//直接将指数作为下标，这样易于将指数相同的结合</span>
+            }
+        }
+        <span style="color: #AA22FF; font-weight: bold">for</span>(i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">&lt;=</span> max;i<span style="color: #666666">++</span>){
+            <span style="color: #AA22FF; font-weight: bold">if</span>(c[i].coe<span style="color: #666666">!=0</span>)       <span style="color: #008800; font-style: italic">//这边算是考虑到了系数为0的情况</span>
+            {
+                count<span style="color: #666666">++</span>;
+            }
+        }
+        printf(<span style="color: #BB4444">&quot;%d&quot;</span>,count);
+        <span style="color: #AA22FF; font-weight: bold">for</span>(i<span style="color: #666666">=</span>max;i<span style="color: #666666">&gt;=0</span>;i<span style="color: #666666">--</span>){
+            <span style="color: #AA22FF; font-weight: bold">if</span>(c[i].coe<span style="color: #666666">!=0</span>){
+                printf(<span style="color: #BB4444">&quot; %d %.1lf&quot;</span>,i,c[i].coe);
+            }
+        }
+    }
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+}
+</pre></div>
+
+
+<h1 id="1010-radix-25">1010     Radix (25)</h1>
+<p>Given a pair of positive integers, for example, 6 and 110, can this equation 6 = 110 be true? The answer is &ldquo;yes&rdquo;, if 6 is a decimal number and 110 is a binary number.</p>
+<p>Now for any pair of positive integers N1 and N2, your task is to find the radix of one number while that of the other is given.</p>
+<p>Input Specification:</p>
+<p>Each input file contains one test case. Each case occupies a line which contains 4 positive integers:
+N1 N2 tag radix
+Here N1 and N2 each has no more than 10 digits. A digit is less than its radix and is chosen from the set {0-9, a-z} where 0-9 represent the decimal numbers 0-9, and a-z represent the decimal numbers 10-35. The last number &ldquo;radix&rdquo; is the radix of N1 if &ldquo;tag&rdquo; is 1, or of N2 if &ldquo;tag&rdquo; is 2.</p>
+<p>Output Specification:</p>
+<p>For each test case, print in one line the radix of the other number so that the equation N1 = N2 is true. If the equation is impossible, print &ldquo;Impossible&rdquo;. If the solution is not unique, output the smallest possible radix.</p>
+<p>Sample Input 1:
+6 110 1 10
+Sample Output 1:
+2
+Sample Input 2:
+1 ab 1 2
+Sample Output 2:
+Impossible</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800">#include&lt;stdio.h&gt;</span>
+
+<span style="color: #008800; font-style: italic">//有一个过不了</span>
+<span style="color: #008800">#define  max  10240000</span>
+
+<span style="color: #00BB00; font-weight: bold">char</span>  N[<span style="color: #666666">3</span>][max];
+<span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> radix,num1,tag;
+<span style="color: #008800; font-style: italic">//将数字转化为长整型</span>
+<span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">tolongint</span>(<span style="color: #00BB00; font-weight: bold">char</span> s[max],<span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> dig){
+    <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> ans<span style="color: #666666">=0</span>;  
+    <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> d<span style="color: #666666">=1</span>; 
+    <span style="color: #00BB00; font-weight: bold">int</span> len<span style="color: #666666">=0</span>;
+    <span style="color: #AA22FF; font-weight: bold">while</span>(s[len]<span style="color: #666666">!=</span><span style="color: #BB4444">&#39;\0&#39;</span>){
+            len<span style="color: #666666">++</span>;
+    }
+    <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">int</span> i<span style="color: #666666">=</span>len<span style="color: #666666">-1</span>;i<span style="color: #666666">&gt;=0</span>;i<span style="color: #666666">--</span>)  
+    {  
+        <span style="color: #00BB00; font-weight: bold">int</span> num;  
+        <span style="color: #AA22FF; font-weight: bold">if</span>(s[i]<span style="color: #666666">&gt;=</span><span style="color: #BB4444">&#39;0&#39;</span> <span style="color: #666666">&amp;&amp;</span> s[i]<span style="color: #666666">&lt;=</span><span style="color: #BB4444">&#39;9&#39;</span>) num<span style="color: #666666">=</span>s[i]<span style="color: #666666">-</span><span style="color: #BB4444">&#39;0&#39;</span>;  
+        <span style="color: #AA22FF; font-weight: bold">else</span> num<span style="color: #666666">=</span>s[i]<span style="color: #666666">-</span><span style="color: #BB4444">&#39;a&#39;</span><span style="color: #666666">+10</span>;  
+
+        ans<span style="color: #666666">=</span>ans<span style="color: #666666">+</span>num<span style="color: #666666">*</span>d;  
+        d<span style="color: #666666">*=</span>dig;  
+    }  
+    <span style="color: #AA22FF; font-weight: bold">return</span> ans;  
+
+}
+
+
+<span style="color: #008800; font-style: italic">//比较如果以dig为奇数，另一个数化为长整型后与num1比较的大小</span>
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">cmp</span>(<span style="color: #00BB00; font-weight: bold">char</span> s[max],<span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span>  dig)  
+{  
+    <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> ans<span style="color: #666666">=0</span>;  
+    <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> d<span style="color: #666666">=1</span>;  
+    <span style="color: #00BB00; font-weight: bold">int</span> len<span style="color: #666666">=0</span>;
+    <span style="color: #AA22FF; font-weight: bold">while</span>(s[len]<span style="color: #666666">!=</span><span style="color: #BB4444">&#39;\0&#39;</span>){
+            len<span style="color: #666666">++</span>;
+    }
+    <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">int</span> i<span style="color: #666666">=</span>len <span style="color: #666666">-</span> <span style="color: #666666">1</span>;i<span style="color: #666666">&gt;=0</span>;i<span style="color: #666666">--</span>)  
+    {  
+        <span style="color: #00BB00; font-weight: bold">int</span> num;  
+        <span style="color: #AA22FF; font-weight: bold">if</span>(s[i]<span style="color: #666666">&gt;=</span><span style="color: #BB4444">&#39;0&#39;</span> <span style="color: #666666">&amp;&amp;</span> s[i]<span style="color: #666666">&lt;=</span><span style="color: #BB4444">&#39;9&#39;</span>) num<span style="color: #666666">=</span>s[i]<span style="color: #666666">-</span><span style="color: #BB4444">&#39;0&#39;</span>;  
+        <span style="color: #AA22FF; font-weight: bold">else</span> num<span style="color: #666666">=</span>s[i]<span style="color: #666666">-</span><span style="color: #BB4444">&#39;a&#39;</span><span style="color: #666666">+10</span>;  
+
+        ans<span style="color: #666666">=</span>ans<span style="color: #666666">+</span>num<span style="color: #666666">*</span>d;  
+        <span style="color: #AA22FF; font-weight: bold">if</span>(ans<span style="color: #666666">&gt;</span>num1) <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">1</span>;  
+        d<span style="color: #666666">*=</span>dig;  
+    }  
+    <span style="color: #AA22FF; font-weight: bold">if</span>(ans<span style="color: #666666">==</span>num1) <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;  
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">-1</span>;  
+}  
+
+<span style="color: #008800; font-style: italic">//找出给出的数中最大的数字</span>
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">Maxnum</span>(<span style="color: #00BB00; font-weight: bold">char</span> s[max])  
+{  
+    <span style="color: #00BB00; font-weight: bold">int</span> d<span style="color: #666666">=-1</span>;  
+    <span style="color: #00BB00; font-weight: bold">int</span> len<span style="color: #666666">=0</span>;
+    <span style="color: #AA22FF; font-weight: bold">while</span>(s[len]<span style="color: #666666">!=</span><span style="color: #BB4444">&#39;\0&#39;</span>){
+            len<span style="color: #666666">++</span>;
+    }
+    <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">int</span> i<span style="color: #666666">=0</span>;i<span style="color: #666666">&lt;</span>len;i<span style="color: #666666">++</span>)  
+    {  
+        <span style="color: #00BB00; font-weight: bold">int</span> num;  
+        <span style="color: #AA22FF; font-weight: bold">if</span>(s[i]<span style="color: #666666">&gt;=</span><span style="color: #BB4444">&#39;0&#39;</span> <span style="color: #666666">&amp;&amp;</span> s[i]<span style="color: #666666">&lt;=</span><span style="color: #BB4444">&#39;9&#39;</span>) num<span style="color: #666666">=</span>s[i]<span style="color: #666666">-</span><span style="color: #BB4444">&#39;0&#39;</span>;  
+        <span style="color: #AA22FF; font-weight: bold">else</span> num<span style="color: #666666">=</span>s[i]<span style="color: #666666">-</span><span style="color: #BB4444">&#39;a&#39;</span><span style="color: #666666">+10</span>;  
+
+        <span style="color: #AA22FF; font-weight: bold">if</span>(num<span style="color: #666666">&gt;</span>d) d<span style="color: #666666">=</span>num;  
+    }  
+    <span style="color: #AA22FF; font-weight: bold">return</span> d<span style="color: #666666">+1</span>;  
+} 
+
+
+<span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">Max</span>(<span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> a,<span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> b)  
+{  
+    <span style="color: #AA22FF; font-weight: bold">return</span> a<span style="color: #666666">&gt;</span>b<span style="color: #666666">?</span><span style="color: #A0A000">a</span>:b;  
+} 
+
+  <span style="color: #008800; font-style: italic">//利用二分法来找基数</span>
+<span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">BinarySearch</span>(<span style="color: #00BB00; font-weight: bold">int</span> cur)  
+{  
+    <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> L<span style="color: #666666">=</span>Maxnum(N[cur]);  
+    <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> R<span style="color: #666666">=</span>Max(L,num1),M;  
+
+    <span style="color: #AA22FF; font-weight: bold">while</span>(L<span style="color: #666666">&lt;=</span>R)  
+    {  
+        M<span style="color: #666666">=</span>(L<span style="color: #666666">+</span>R)<span style="color: #666666">/2</span>;  
+        <span style="color: #00BB00; font-weight: bold">int</span> res<span style="color: #666666">=</span>cmp(N[cur],M);  
+
+        <span style="color: #AA22FF; font-weight: bold">if</span>(res<span style="color: #666666">==0</span>) <span style="color: #AA22FF; font-weight: bold">return</span> M;  
+        <span style="color: #AA22FF; font-weight: bold">else</span> <span style="color: #AA22FF; font-weight: bold">if</span>(res<span style="color: #666666">==1</span>) R<span style="color: #666666">=</span>M<span style="color: #666666">-1</span>;  
+        <span style="color: #AA22FF; font-weight: bold">else</span> L<span style="color: #666666">=</span>M<span style="color: #666666">+1</span>;  
+    }  
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">-1</span>;  
+} 
+
+
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+    <span style="color: #008800; font-style: italic">//long long int i,num,d=1;</span>
+
+    <span style="color: #AA22FF; font-weight: bold">while</span>(scanf(<span style="color: #BB4444">&quot;%s %s %lld %lld&quot;</span>,<span style="color: #666666">&amp;</span>N[<span style="color: #666666">1</span>],<span style="color: #666666">&amp;</span>N[<span style="color: #666666">2</span>],<span style="color: #666666">&amp;</span>tag,<span style="color: #666666">&amp;</span>radix)<span style="color: #666666">!=</span>EOF){
+    <span style="color: #AA22FF; font-weight: bold">if</span>(N[<span style="color: #666666">1</span>]<span style="color: #666666">==</span><span style="color: #BB4444">&quot;1&quot;</span><span style="color: #666666">&amp;&amp;</span>N[<span style="color: #666666">2</span>]<span style="color: #666666">==</span><span style="color: #BB4444">&quot;1&quot;</span>)      <span style="color: #008800; font-style: italic">//1上面是&quot;&quot;而不是&#39;&#39;</span>
+    {
+        printf(<span style="color: #BB4444">&quot;2</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BB4444">&quot;</span>);
+        <span style="color: #AA22FF; font-weight: bold">continue</span>;
+    }
+    <span style="color: #AA22FF; font-weight: bold">else</span> <span style="color: #AA22FF; font-weight: bold">if</span>(N[<span style="color: #666666">1</span>]<span style="color: #666666">==</span>N[<span style="color: #666666">2</span>]){
+        printf(<span style="color: #BB4444">&quot;%d</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BB4444">&quot;</span>,radix);
+        <span style="color: #AA22FF; font-weight: bold">continue</span>;
+    }
+
+    num1<span style="color: #666666">=</span>tolongint(N[tag],radix);  
+
+        <span style="color: #00BB00; font-weight: bold">int</span> cur;  
+        <span style="color: #AA22FF; font-weight: bold">if</span>(tag<span style="color: #666666">==1</span>) cur<span style="color: #666666">=2</span>;  
+        <span style="color: #AA22FF; font-weight: bold">else</span> cur<span style="color: #666666">=1</span>;  
+
+        <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">long</span> <span style="color: #00BB00; font-weight: bold">int</span> ans <span style="color: #666666">=</span> BinarySearch(cur);  
+
+        <span style="color: #AA22FF; font-weight: bold">if</span>(ans<span style="color: #666666">==-1</span>) printf(<span style="color: #BB4444">&quot;Impossible</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BB4444">&quot;</span>);  
+        <span style="color: #AA22FF; font-weight: bold">else</span> printf(<span style="color: #BB4444">&quot;%d</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BB4444">&quot;</span>,ans); 
+    }  
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;  
+
+}
+</pre></div>
+
+
+<h1 id="1011-world-cup-betting-20">1011  World Cup Betting (20)</h1>
+<p>With the 2010 FIFA World Cup running, football fans the world over were becoming increasingly excited as the best players from the best teams doing battles for the World Cup trophy in South Africa. Similarly, football betting fans were putting their money where their mouths were, by laying all manner of World Cup bets.</p>
+<p>Chinese Football Lottery provided a &ldquo;Triple Winning&rdquo; game. The rule of winning was simple: first select any three of the games. Then for each selected game, bet on one of the three possible results &ndash; namely W for win, T for tie, and L for lose. There was an odd assigned to each result. The winner&rsquo;s odd would be the product of the three odds times 65%.</p>
+<p>For example, 3 games&rsquo; odds are given as the following:</p>
+<p>W    T    L
+1.1  2.5  1.7
+1.2  3.0  1.6
+4.1  1.2  1.1
+To obtain the maximum profit, one must buy W for the 3rd game, T for the 2nd game, and T for the 1st game. If each bet takes 2 yuans, then the maximum profit would be (4.1<em>3.0</em>2.5<em>65%-1)</em>2 = 37.98 yuans (accurate up to 2 decimal places).</p>
+<p>Input</p>
+<p>Each input file contains one test case. Each case contains the betting information of 3 games. Each game occupies a line with three distinct odds corresponding to W, T and L.</p>
+<p>Output</p>
+<p>For each test case, print in one line the best bet of each game, and the maximum profit accurate up to 2 decimal places. The characters and the number must be separated by one space.</p>
+<p>Sample Input
+1.1 2.5 1.7
+1.2 3.0 1.6
+4.1 1.2 1.1
+Sample Output
+T T W 37.98</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800">#include&lt;stdio.h&gt;</span>
+
+<span style="color: #AA22FF; font-weight: bold">struct</span> game{
+    <span style="color: #00BB00; font-weight: bold">double</span> W;
+    <span style="color: #00BB00; font-weight: bold">double</span> T;
+    <span style="color: #00BB00; font-weight: bold">double</span> L;
+};
+
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">main</span>(){
+    <span style="color: #AA22FF; font-weight: bold">struct</span> game bet[<span style="color: #666666">3</span>];
+    <span style="color: #00BB00; font-weight: bold">int</span> i <span style="color: #666666">=0</span>,j<span style="color: #666666">=0</span>,Mflag,mflag,sflag;
+    <span style="color: #00BB00; font-weight: bold">double</span> result<span style="color: #666666">=1</span>,tmp,max;
+    <span style="color: #00BB00; font-weight: bold">char</span> tag[<span style="color: #666666">3</span>] <span style="color: #666666">=</span> {<span style="color: #BB4444">&#39;W&#39;</span>,<span style="color: #BB4444">&#39;T&#39;</span>,<span style="color: #BB4444">&#39;L&#39;</span>};
+    <span style="color: #AA22FF; font-weight: bold">for</span>( i <span style="color: #666666">=</span> <span style="color: #666666">0</span>;i <span style="color: #666666">!=</span> <span style="color: #666666">3</span>;i<span style="color: #666666">++</span>){
+        max <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+        <span style="color: #00BB00; font-weight: bold">int</span> pos <span style="color: #666666">=</span> <span style="color: #666666">-1</span>;
+        <span style="color: #AA22FF; font-weight: bold">for</span>(j <span style="color: #666666">=</span> <span style="color: #666666">0</span>;j <span style="color: #666666">!=</span> <span style="color: #666666">3</span>;j<span style="color: #666666">++</span>){
+
+            scanf(<span style="color: #BB4444">&quot;%lf&quot;</span>,<span style="color: #666666">&amp;</span>tmp);
+            <span style="color: #008800; font-style: italic">//</span>
+            <span style="color: #AA22FF; font-weight: bold">if</span>((tmp<span style="color: #666666">-</span>max)<span style="color: #666666">&gt;1e-6</span>){
+                max <span style="color: #666666">=</span> tmp;
+                pos <span style="color: #666666">=</span> j;
+            }
+        }
+        result <span style="color: #666666">*=</span> max; 
+        printf(<span style="color: #BB4444">&quot;%c &quot;</span>,tag[pos]);
+    }
+
+    result <span style="color: #666666">=</span> (result<span style="color: #666666">*0.65-1</span>)<span style="color: #666666">*2</span>;
+    printf(<span style="color: #BB4444">&quot;%0.2f&quot;</span>,result);
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+
+}
+</pre></div>
+
+
+<h1 id="1012-the-best-rank-25">1012    The Best Rank (25)</h1>
+<p>To evaluate the performance of our first year CS majored students, we consider their grades of three courses only: C - C Programming Language, M - Mathematics (Calculus or Linear Algebra), and E - English. At the mean time, we encourage students by emphasizing on their best ranks &ndash; that is, among the four ranks with respect to the three courses and the average grade, we print the best rank for each student.</p>
+<p>For example, The grades of C, M, E and A - Average of 4 students are given as the following:</p>
+<p>StudentID  C  M  E  A
+310101     98 85 88 90
+310102     70 95 88 84
+310103     82 87 94 88
+310104     91 91 91 91
+Then the best ranks for all the students are No.1 since the 1st one has done the best in C Programming Language, while the 2nd one in Mathematics, the 3rd one in English, and the last one in average.</p>
+<p>Input</p>
+<p>Each input file contains one test case. Each case starts with a line containing 2 numbers N and M (&lt;=2000), which are the total number of students, and the number of students who would check their ranks, respectively. Then N lines follow, each contains a student ID which is a string of 6 digits, followed by the three integer grades (in the range of [0, 100]) of that student in the order of C, M and E. Then there are M lines, each containing a student ID.</p>
+<p>Output</p>
+<p>For each of the M students, print in one line the best rank for him/her, and the symbol of the corresponding rank, separated by a space.</p>
+<p>The priorities of the ranking methods are ordered as A &gt; C &gt; M &gt; E. Hence if there are two or more ways for a student to obtain the same best rank, output the one with the highest priority.</p>
+<p>If a student is not on the grading list, simply output &ldquo;N/A&rdquo;.</p>
+<p>Sample Input
+5 6
+310101 98 85 88
+310102 70 95 88
+310103 82 87 94
+310104 91 91 91
+310105 85 90 90
+310101
+310102
+310103
+310104
+310105
+999999
+Sample Output
+1 C
+1 M
+1 E
+1 A
+3 A
+N/A</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%">
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+
+
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="/pat/" data-title="PAT" data-url="http://sherryhaha.github.io/pat/">
+<!-- 多说评论框 end --></div>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"notSherry"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://sherryhaha.github.io"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pat/">
+                            PAT
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/about/">
+                            About
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao/">
+                            博物馆媒体展呈项目介绍
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pai-xu/">
+                            排序
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/balanced-binary-tree/">
+                            Balanced Binary Tree
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/javaxue-xi/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> java学习
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/misc/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> misc
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/shua-ti/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 刷题
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/xiang-mu/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 项目
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="http://sherryhaha.github.io/tags/leetcode/index.html">
+                            Leetcode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
+                            算法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/jdbc/index.html">
+                            JDBC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/pat/index.html">
+                            pat
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/tu-xiang-pi-pei/index.html">
+                            图像匹配
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/android/index.html">
+                            android
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/java/index.html">
+                            java
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/javazheng-ze-biao-da/index.html">
+                            java正则表达
+                        </a>
+                    </li>
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://xuweitao.me/" target="_blank">
+                wuli涛涛
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 notSherry
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://sherryhaha.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://sherryhaha.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
+
+
+
+</body>
+</html>

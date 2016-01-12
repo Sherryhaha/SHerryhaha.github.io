@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh_cn"
+>
+<head>
+    <title>排序 - notSherry</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://sherryhaha.github.io/pai-xu/">
+
+        <meta name="author" content="notSherry" />
+        <meta name="keywords" content="Leetcode" />
+        <meta name="description" content="@(刷题生活) 排序方法 选择排序：低效，n平方`` 不稳定 扫描整个列表找出最小值，将它与列表第一个位置的值交换 扫描剩余部分的列表，找出最小值，与该列表第二个位置处的值交换 对列表中的每一个位置继续使用该过程 插入排序 ：低效 n平方 稳定 对列表的头两个值进行排序，将第三个值插入到前两个值的恰当位置，将第四个值插入到列表前三个值的恰当位置...... void insertSort(int data[],int len){ for(int index = 1;index &lt; len;index++){ int key = data[index]; int position = index; while(position &gt; 0&amp;&amp; data[position-1] &gt; key){ data[position] = data[position ..." />
+
+        <meta property="og:site_name" content="notSherry" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="排序"/>
+        <meta property="og:url" content="http://sherryhaha.github.io/pai-xu/"/>
+        <meta property="og:description" content="@(刷题生活) 排序方法 选择排序：低效，n平方`` 不稳定 扫描整个列表找出最小值，将它与列表第一个位置的值交换 扫描剩余部分的列表，找出最小值，与该列表第二个位置处的值交换 对列表中的每一个位置继续使用该过程 插入排序 ：低效 n平方 稳定 对列表的头两个值进行排序，将第三个值插入到前两个值的恰当位置，将第四个值插入到列表前三个值的恰当位置...... void insertSort(int data[],int len){ for(int index = 1;index &lt; len;index++){ int key = data[index]; int position = index; while(position &gt; 0&amp;&amp; data[position-1] &gt; key){ data[position] = data[position ..."/>
+        <meta property="article:published_time" content="2015-07-28" />
+            <meta property="article:section" content="刷题" />
+            <meta property="article:tag" content="Leetcode" />
+            <meta property="article:author" content="notSherry" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://sherryhaha.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://sherryhaha.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://sherryhaha.github.io/" class="navbar-brand">
+notSherry            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/about.html">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://sherryhaha.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://sherryhaha.github.io/pai-xu/"
+                       rel="bookmark"
+                       title="Permalink to 排序">
+                        排序
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-07-28T00:00:00+08:00"> 二 28 七月 2015</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://sherryhaha.github.io/tags/leetcode/index.html">Leetcode</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>@(刷题生活)</p>
+<h3 id="_1">排序方法</h3>
+<blockquote>
+<p><strong>选择排序</strong>：<code>低效，n平方`` 不稳定</code></p>
+<blockquote>
+<p>扫描整个列表找出最小值，将它与列表第一个位置的值交换
+扫描剩余部分的列表，找出最小值，与该列表第二个位置处的值交换
+对列表中的每一个位置继续使用该过程</p>
+</blockquote>
+</blockquote>
+<hr />
+<blockquote>
+<p><strong>插入排序</strong> ：<code>低效 n平方</code> <code>稳定</code></p>
+<blockquote>
+<p>对列表的头两个值进行排序，将第三个值插入到前两个值的恰当位置，将第四个值插入到列表前三个值的恰当位置......</p>
+</blockquote>
+</blockquote>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">insertSort</span>(<span style="color: #00BB00; font-weight: bold">int</span> data[],<span style="color: #00BB00; font-weight: bold">int</span> len){
+    <span style="color: #AA22FF; font-weight: bold">for</span>(<span style="color: #00BB00; font-weight: bold">int</span> index <span style="color: #666666">=</span> <span style="color: #666666">1</span>;index <span style="color: #666666">&lt;</span> len;index<span style="color: #666666">++</span>){
+        <span style="color: #00BB00; font-weight: bold">int</span> key <span style="color: #666666">=</span> data[index];
+        <span style="color: #00BB00; font-weight: bold">int</span> position <span style="color: #666666">=</span> index;
+        <span style="color: #AA22FF; font-weight: bold">while</span>(position <span style="color: #666666">&gt;</span> <span style="color: #666666">0&amp;&amp;</span> data[position<span style="color: #666666">-1</span>] <span style="color: #666666">&gt;</span> key){
+            data[position] <span style="color: #666666">=</span> data[position <span style="color: #666666">-1</span>];
+            position<span style="color: #666666">--</span>;
+        }
+        data[position] <span style="color: #666666">=</span> key;
+    }
+}
+</pre></div>
+
+
+<hr />
+<blockquote>
+<p><strong>冒泡排序</strong>：<code>低效 n平方</code> <code>稳定</code></p>
+<blockquote>
+<p>扫描列表邻接元素，如果不是按照相对顺序排列则将他们交换，每经过一轮，冒泡排序算法都会将最大值移到最终的位置</p>
+</blockquote>
+</blockquote>
+<hr />
+<blockquote>
+<p><strong>快速排序</strong>：<code>高效 nlogn</code> <code>不稳定</code></p>
+<blockquote>
+<p>是所有排序算法中最高效的一种，采用了分治的思想：先保证列表的前半部分都小于后半部分，然后再对前半部分和后半部分排序，这样整个列表就有序了。</p>
+</blockquote>
+</blockquote>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">quickSort</span>(<span style="color: #00BB00; font-weight: bold">int</span> data[],<span style="color: #00BB00; font-weight: bold">int</span> low,<span style="color: #00BB00; font-weight: bold">int</span> high){
+    <span style="color: #AA22FF; font-weight: bold">if</span>(low <span style="color: #666666">&lt;</span> high){
+        <span style="color: #008800; font-style: italic">//create partition</span>
+        <span style="color: #00BB00; font-weight: bold">int</span> indexofpartition <span style="color: #666666">=</span> partition(data,min,max);
+        <span style="color: #008800; font-style: italic">//sort the left partition</span>
+        quickSort(data,min,indexofpartition <span style="color: #666666">-</span> <span style="color: #666666">1</span>);
+        <span style="color: #008800; font-style: italic">//sort the right partition</span>
+        quickSort(data,indexofpartion <span style="color: #666666">+</span> <span style="color: #666666">1</span>,max);
+    }
+}
+
+
+
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">partition</span>(<span style="color: #00BB00; font-weight: bold">int</span> data[],<span style="color: #00BB00; font-weight: bold">int</span> low,<span style="color: #00BB00; font-weight: bold">int</span> high){
+    <span style="color: #00BB00; font-weight: bold">int</span> partitiononelement;
+    <span style="color: #00BB00; font-weight: bold">int</span> left,right;
+    <span style="color: #00BB00; font-weight: bold">int</span> middle <span style="color: #666666">=</span> (min <span style="color: #666666">+</span> max)<span style="color: #666666">/2</span>;
+     <span style="color: #008800; font-style: italic">//using the middle data as the partition element</span>
+    partitiononelement <span style="color: #666666">=</span> data[middle];
+    swap(data,middle,low);
+    left <span style="color: #666666">=</span> low;
+    right <span style="color: #666666">=</span> high;
+
+    <span style="color: #AA22FF; font-weight: bold">while</span>(left <span style="color: #666666">&lt;</span> right){
+        <span style="color: #008800; font-style: italic">//search an element that is big than the partition element</span>
+        <span style="color: #AA22FF; font-weight: bold">while</span>(left<span style="color: #666666">&lt;</span>right<span style="color: #666666">&amp;&amp;</span>data[left]<span style="color: #666666">&lt;=</span>partitiononelement){
+            left<span style="color: #666666">++</span>;
+        }
+        <span style="color: #008800; font-style: italic">//search an element that is small than the partition element</span>
+        <span style="color: #AA22FF; font-weight: bold">while</span>(data[right]<span style="color: #666666">&gt;</span>partitiononelement){
+            right<span style="color: #666666">--</span>;
+        }
+        <span style="color: #AA22FF; font-weight: bold">if</span>(left <span style="color: #666666">&lt;</span> right){
+            swap(data,left,right);
+        }
+    }
+    swap(data,low,right);
+    <span style="color: #AA22FF; font-weight: bold">return</span> right;
+}
+
+<span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">swap</span>(<span style="color: #00BB00; font-weight: bold">int</span> data[],<span style="color: #00BB00; font-weight: bold">int</span> a,<span style="color: #00BB00; font-weight: bold">int</span> b){
+    <span style="color: #00BB00; font-weight: bold">int</span> tmp;
+    tmp <span style="color: #666666">=</span> data[a];
+    data[a] <span style="color: #666666">=</span> data[b];
+    data[b] <span style="color: #666666">=</span> tmp;
+}
+</pre></div>
+
+
+<hr />
+<blockquote>
+<p><strong>归并排序（merge sort）</strong> <code>nlog2n最坏</code> <code>稳定</code> </p>
+<blockquote>
+<p>将列表分成两个大约相等的部分，对每一个部分递归调用其自身。继续该列表的递归分解，直至达到该递归的基本情形，这时该列表被分割成长度为1的列表，然后随着程序控制权传回至该递归调用结构，该算法将两个递归调用所产生的那两个排序子列表归并为一个排序列表。</p>
+</blockquote>
+</blockquote>
+<p>快速排序是目前基于比较的内部排序中被认为是最好的方法，当待排序的关键字是随机分布时，快速排序的平均时间最短；堆排序所需的辅助空间少于快速排序，并且不会出现快速排序可能出现的最坏情况。这两种排序都是不稳定的。若要求排序稳定，则可选用归并排序。</p>
+<h4 id="_2">查找</h4>
+<p><strong>线性顺序查找</strong></p>
+<p><strong>二分查找</strong></p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">Search</span>(<span style="color: #00BB00; font-weight: bold">int</span> a[],<span style="color: #00BB00; font-weight: bold">int</span> key,<span style="color: #00BB00; font-weight: bold">int</span> len){
+    <span style="color: #00BB00; font-weight: bold">int</span> low <span style="color: #666666">=</span> <span style="color: #666666">0</span>,hight <span style="color: #666666">=</span> len <span style="color: #666666">-</span> <span style="color: #666666">1</span>,mid;
+    <span style="color: #AA22FF; font-weight: bold">while</span>(low <span style="color: #666666">&lt;=</span> high){
+        mid <span style="color: #666666">=</span> (low<span style="color: #666666">+</span>high)<span style="color: #666666">/2</span>;
+        <span style="color: #AA22FF; font-weight: bold">if</span>(a[mid] <span style="color: #666666">==</span> key) <span style="color: #AA22FF; font-weight: bold">return</span> mid;
+        <span style="color: #AA22FF; font-weight: bold">else</span> <span style="color: #AA22FF; font-weight: bold">if</span>(a[mid]<span style="color: #666666">&lt;</span>key) low <span style="color: #666666">=</span> mid <span style="color: #666666">+</span> <span style="color: #666666">1</span>;
+        <span style="color: #AA22FF; font-weight: bold">else</span> high <span style="color: #666666">=</span> mid <span style="color: #666666">-</span> <span style="color: #666666">1</span>;
+    }
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">-1</span>;      <span style="color: #008800; font-style: italic">//没有找到的时候  </span>
+}
+</pre></div>
+
+
+<p><strong>哈希查找</strong>
+哈希查找的操作步骤：</p>
+<p>1)       用给定的哈希函数构造哈希表；</p>
+<p>2)       根据选择的冲突处理方法解决地址冲突；</p>
+<p>3)       在哈希表的基础上执行哈希查找。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%">Hash<span style="border: 1px solid #FF0000">表检索数据</span>
+<span style="color: #00BB00; font-weight: bold">int</span> searchHash(<span style="color: #00BB00; font-weight: bold">int</span> hash[],<span style="color: #00BB00; font-weight: bold">int</span> hashLength,<span style="color: #00BB00; font-weight: bold">int</span> key){
+    <span style="color: #00BB00; font-weight: bold">int</span> hashAddress <span style="color: #666666">=</span> key<span style="color: #666666">%</span>hashLength;
+    <span style="color: #AA22FF; font-weight: bold">if</span>(hash[hashAddress]<span style="color: #666666">!=0&amp;&amp;</span>hash[hashAddress]<span style="color: #666666">!=</span>key){
+        hashAddress <span style="color: #666666">=</span> (<span style="color: #666666">++</span>hashAddress)<span style="color: #666666">%</span>hashLength;
+    }
+    <span style="color: #AA22FF; font-weight: bold">if</span>(hash[hashAddress] <span style="color: #666666">==</span> <span style="color: #666666">0</span>){
+        <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">-1</span>;
+    }
+    <span style="color: #AA22FF; font-weight: bold">else</span>{
+        <span style="color: #AA22FF; font-weight: bold">return</span> hashAddress;
+    }
+}
+
+
+<span style="color: #008800; font-style: italic">//数据插入hash表</span>
+
+<span style="color: #00BB00; font-weight: bold">void</span> insertHash(<span style="color: #00BB00; font-weight: bold">int</span> hash[],<span style="color: #00BB00; font-weight: bold">int</span> hashLength,<span style="color: #00BB00; font-weight: bold">int</span> data){
+    <span style="color: #00BB00; font-weight: bold">int</span> hashAddress <span style="color: #666666">=</span> data<span style="color: #666666">%</span>hashLength;
+    <span style="color: #AA22FF; font-weight: bold">while</span>(hash[hashAddress]<span style="color: #666666">!=0</span>){
+        <span style="color: #008800; font-style: italic">//用开放寻址找</span>
+        hashAddress <span style="color: #666666">=</span> (<span style="color: #666666">++</span>hashAddress)<span style="color: #666666">%</span>hashLength;
+    }
+    hash[hashAddress] <span style="color: #666666">=</span> data;
+}
+</pre></div>
+
+
+<blockquote>
+<p><code>tips</code>
+- strlen可以用来求字符数组的长度，不可以用来求整数数组的长度，它是找到&rsquo;\0&rsquo;来标记结束，但是整数的0就会是&rsquo;\0&rsquo;
+- sizeof(data)/sizeof(int)求的是数组长度。如data[200]求出来就是200，不会在意里面真实有多少。</p>
+</blockquote>
+            </div>
+            <!-- /.entry-content -->
+
+
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="/pai-xu/" data-title="排序" data-url="http://sherryhaha.github.io/pai-xu/">
+<!-- 多说评论框 end --></div>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"notSherry"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://sherryhaha.github.io"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pat/">
+                            PAT
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/about/">
+                            About
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao/">
+                            博物馆媒体展呈项目介绍
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pai-xu/">
+                            排序
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/balanced-binary-tree/">
+                            Balanced Binary Tree
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/javaxue-xi/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> java学习
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/misc/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> misc
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/shua-ti/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 刷题
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/xiang-mu/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 项目
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="http://sherryhaha.github.io/tags/leetcode/index.html">
+                            Leetcode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
+                            算法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/jdbc/index.html">
+                            JDBC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/pat/index.html">
+                            pat
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/tu-xiang-pi-pei/index.html">
+                            图像匹配
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/android/index.html">
+                            android
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/java/index.html">
+                            java
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/javazheng-ze-biao-da/index.html">
+                            java正则表达
+                        </a>
+                    </li>
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://xuweitao.me/" target="_blank">
+                wuli涛涛
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 notSherry
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://sherryhaha.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://sherryhaha.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
+
+
+
+</body>
+</html>

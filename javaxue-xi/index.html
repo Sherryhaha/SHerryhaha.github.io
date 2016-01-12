@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh_cn"
+>
+<head>
+    <title>JAVA学习 - notSherry</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://sherryhaha.github.io/javaxue-xi/">
+
+        <meta name="author" content="notSherry" />
+        <meta name="keywords" content="java,java正则表达,JDBC" />
+        <meta name="description" content="阅读了知乎上一些关于学习java的建议 大多都是建议要先学习好java SE(standard Edition)，是基于JDK（没有它无法编译java程序）与JRE（java运行环境） 可以先模仿着别人的代码，但一定要写，自己背着写。 任何事情都要追求完美才敢继续往后进行是一种性格缺陷 正则表达式的学习 @(正则表达式)[2015/3/8] 在java 中，有关于正则表达式的包是java.util.regex,它下面包含两个类Matcher与Pattern。一些具体参数或用法，都可以参展java的说明文档 从昨天开始在观看网上马士兵老师的java教程视频，学习正则表达式的使用。其中比较实用的应用就是可以抓取一个网页上特定格式的东西，如所有的email。叫做emailSpider。以下是实现配对的主要函数： private static void parse(String line) { /*从文件中一行一行的读取数据，在每一行中匹配具有email格式的字符串*/ Pattern p = Pattern.compile(&#34;[\\w[.-]]+@[\\w[-.]]+\\.[\\w]+&#34;); Matcher m = p ..." />
+
+        <meta property="og:site_name" content="notSherry" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="JAVA学习"/>
+        <meta property="og:url" content="http://sherryhaha.github.io/javaxue-xi/"/>
+        <meta property="og:description" content="阅读了知乎上一些关于学习java的建议 大多都是建议要先学习好java SE(standard Edition)，是基于JDK（没有它无法编译java程序）与JRE（java运行环境） 可以先模仿着别人的代码，但一定要写，自己背着写。 任何事情都要追求完美才敢继续往后进行是一种性格缺陷 正则表达式的学习 @(正则表达式)[2015/3/8] 在java 中，有关于正则表达式的包是java.util.regex,它下面包含两个类Matcher与Pattern。一些具体参数或用法，都可以参展java的说明文档 从昨天开始在观看网上马士兵老师的java教程视频，学习正则表达式的使用。其中比较实用的应用就是可以抓取一个网页上特定格式的东西，如所有的email。叫做emailSpider。以下是实现配对的主要函数： private static void parse(String line) { /*从文件中一行一行的读取数据，在每一行中匹配具有email格式的字符串*/ Pattern p = Pattern.compile(&#34;[\\w[.-]]+@[\\w[-.]]+\\.[\\w]+&#34;); Matcher m = p ..."/>
+        <meta property="article:published_time" content="2015-03-08" />
+            <meta property="article:section" content="java学习" />
+            <meta property="article:tag" content="java" />
+            <meta property="article:tag" content="java正则表达" />
+            <meta property="article:tag" content="JDBC" />
+            <meta property="article:author" content="notSherry" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://sherryhaha.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://sherryhaha.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://sherryhaha.github.io/" class="navbar-brand">
+notSherry            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/about.html">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://sherryhaha.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://sherryhaha.github.io/javaxue-xi/"
+                       rel="bookmark"
+                       title="Permalink to JAVA学习">
+                        JAVA学习
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-03-08T00:00:00+08:00"> 日 08 三月 2015</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://sherryhaha.github.io/tags/java/index.html">java</a>
+        /
+	<a href="http://sherryhaha.github.io/tags/javazheng-ze-biao-da/index.html">java正则表达</a>
+        /
+	<a href="http://sherryhaha.github.io/tags/jdbc/index.html">JDBC</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <blockquote>
+<p>阅读了知乎上一些关于学习java的建议
+大多都是建议要先学习好java SE(standard Edition)，是基于JDK（没有它无法编译java程序）与JRE（java运行环境）
+可以先模仿着别人的代码，但一定要写，自己背着写。
+<strong>任何事情都要追求完美才敢继续往后进行是一种性格缺陷</strong></p>
+</blockquote>
+<h3 id="_1">正则表达式的学习</h3>
+<p>@(正则表达式)[2015/3/8]</p>
+<blockquote>
+<p>在java 中，有关于正则表达式的包是java.util.regex,它下面包含两个类Matcher与Pattern。一些具体参数或用法，都可以参展java的说明文档</p>
+</blockquote>
+<p>从昨天开始在观看网上马士兵老师的java教程视频，学习正则表达式的使用。其中比较实用的应用就是可以抓取一个网页上特定格式的东西，如所有的email。叫做emailSpider。以下是实现配对的主要函数：</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">private</span> <span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">parse</span><span style="color: #666666">(</span>String line<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+        <span style="color: #008800; font-style: italic">/*从文件中一行一行的读取数据，在每一行中匹配具有email格式的字符串*/</span>
+        Pattern p <span style="color: #666666">=</span> Pattern<span style="color: #666666">.</span><span style="color: #BB4444">compile</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;[\\w[.-]]+@[\\w[-.]]+\\.[\\w]+&quot;</span><span style="color: #666666">);</span>
+        Matcher m <span style="color: #666666">=</span> p<span style="color: #666666">.</span><span style="color: #BB4444">matcher</span><span style="color: #666666">(</span>line<span style="color: #666666">);</span>
+        <span style="color: #AA22FF; font-weight: bold">while</span><span style="color: #666666">(</span>m<span style="color: #666666">.</span><span style="color: #BB4444">find</span><span style="color: #666666">())</span>
+        <span style="color: #666666">{</span>
+            System<span style="color: #666666">.</span><span style="color: #BB4444">out</span><span style="color: #666666">.</span><span style="color: #BB4444">println</span><span style="color: #666666">(</span>m<span style="color: #666666">.</span><span style="color: #BB4444">group</span><span style="color: #666666">());</span>
+        <span style="color: #666666">}</span>
+    <span style="color: #666666">}</span>
+</pre></div>
+
+
+<p><code>Pattern</code>将给定的正则表达式编译并赋予给Pattern类。
+生成<code>Matcher</code>实例，形象化不深入的肤浅可以理解为，Pattern对正则表达式进行编译，Matcher对它进行匹配。</p>
+<p>利用正则表达式来计算一个java程序中总共有多少行代码，多少注释，多少空行。
+其中主要的核心代码是一个函数，利用正则表达式来匹配这些可能性的行</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">private</span> <span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">parse</span><span style="color: #666666">(</span>File child<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+        BufferedReader br <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">null</span><span style="color: #666666">;</span>
+        Boolean comment <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">false</span><span style="color: #666666">;</span>
+        <span style="color: #AA22FF; font-weight: bold">try</span> <span style="color: #666666">{</span>
+            br <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">new</span> BufferedReader<span style="color: #666666">(</span><span style="color: #AA22FF; font-weight: bold">new</span> FileReader<span style="color: #666666">(</span>child<span style="color: #666666">));</span>
+            String line <span style="color: #666666">=</span> <span style="color: #BB4444">&quot;&quot;</span><span style="color: #666666">;</span>
+            <span style="color: #AA22FF; font-weight: bold">while</span><span style="color: #666666">((</span>line<span style="color: #666666">=</span>br<span style="color: #666666">.</span><span style="color: #BB4444">readLine</span><span style="color: #666666">())!=</span><span style="color: #AA22FF; font-weight: bold">null</span><span style="color: #666666">){</span>
+                <span style="color: #008800; font-style: italic">/*去除字符串头部与尾部的空格*/</span>
+                line <span style="color: #666666">=</span> line<span style="color: #666666">.</span><span style="color: #BB4444">trim</span><span style="color: #666666">();</span> 
+                <span style="color: #008800; font-style: italic">/*匹配空白的行*/</span>
+                <span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span>line<span style="color: #666666">.</span><span style="color: #BB4444">matches</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;^[\\s&amp;&amp;[^\\n]]*$&quot;</span><span style="color: #666666">)){</span>
+                whiteLines<span style="color: #666666">++;</span>
+                <span style="color: #666666">}</span>
+                <span style="color: #008800; font-style: italic">/*匹配注释行*/</span>
+                <span style="color: #AA22FF; font-weight: bold">else</span> <span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span>line<span style="color: #666666">.</span><span style="color: #BB4444">startsWith</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;/*&quot;</span><span style="color: #666666">)&amp;&amp;!</span>line<span style="color: #666666">.</span><span style="color: #BB4444">endsWith</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;*/&quot;</span><span style="color: #666666">)){</span>
+                    commentLines<span style="color: #666666">++;</span>
+                    comment <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">true</span><span style="color: #666666">;</span>
+                <span style="color: #666666">}</span><span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span><span style="color: #AA22FF; font-weight: bold">true</span><span style="color: #666666">==</span>comment<span style="color: #666666">){</span>
+                    commentLines<span style="color: #666666">++;</span>
+                    <span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span>line<span style="color: #666666">.</span><span style="color: #BB4444">endsWith</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;*/&quot;</span><span style="color: #666666">)){</span>
+                        comment <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">false</span><span style="color: #666666">;</span>
+                    <span style="color: #666666">}</span>
+                <span style="color: #666666">}</span><span style="color: #AA22FF; font-weight: bold">else</span><span style="color: #666666">{</span>
+                    normalLines<span style="color: #666666">++;</span>
+                <span style="color: #666666">}</span>
+
+            <span style="color: #666666">}</span>
+        <span style="color: #666666">}</span> <span style="color: #AA22FF; font-weight: bold">catch</span> <span style="color: #666666">(</span>FileNotFoundException e<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+            e<span style="color: #666666">.</span><span style="color: #BB4444">printStackTrace</span><span style="color: #666666">();</span>
+        <span style="color: #666666">}</span> <span style="color: #AA22FF; font-weight: bold">catch</span> <span style="color: #666666">(</span>IOException e<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+            e<span style="color: #666666">.</span><span style="color: #BB4444">printStackTrace</span><span style="color: #666666">();</span>
+        <span style="color: #666666">}</span><span style="color: #AA22FF; font-weight: bold">finally</span><span style="color: #666666">{</span>
+            <span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span>br<span style="color: #666666">!=</span><span style="color: #AA22FF; font-weight: bold">null</span><span style="color: #666666">){</span>
+                <span style="color: #AA22FF; font-weight: bold">try</span><span style="color: #666666">{</span>
+                    br<span style="color: #666666">.</span><span style="color: #BB4444">close</span><span style="color: #666666">();</span>
+                    br <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">null</span><span style="color: #666666">;</span>
+                <span style="color: #666666">}</span><span style="color: #AA22FF; font-weight: bold">catch</span><span style="color: #666666">(</span>IOException e<span style="color: #666666">){</span>
+                    e<span style="color: #666666">.</span><span style="color: #BB4444">printStackTrace</span><span style="color: #666666">();</span>
+                <span style="color: #666666">}</span>
+            <span style="color: #666666">}</span>
+        <span style="color: #666666">}</span>
+</pre></div>
+
+
+<h3 id="jdbc">JDBC</h3>
+<p><strong>JDBC</strong>叫做<code>java Database Connectivity</code>是<code>J2EE</code>的一部分。
+JDBC不同数据库有不同的对应类库。</p>
+<p><strong>JDBC</strong>编程步骤：
+1、通知DriverManager要连那种数据库，找到连接数据库的驱动包，</p>
+<h3 id="java-web">java web 提交表单的处理</h3>
+<p>Step1: 编写index.jsp文件
+代码如下：</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">&lt;%@</span>page pageEncoding<span style="color: #666666">=</span><span style="color: #BB4444">&quot;GBK&quot;</span><span style="color: #AA22FF; font-weight: bold">%&gt;</span>
+<span style="color: #008800">&lt;!DOCTYPE html&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;html&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;body&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;p&gt;</span>请输入数字。。<span style="color: #008000; font-weight: bold">&lt;/p&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;script&gt;</span>
+function validate_required(field,alerttxt)
+{
+with (field)
+  {
+  var x=document.getElementById(&quot;demo1&quot;).value;
+  if (isNaN(x)||x==&quot;&quot;)
+    {alert(alerttxt);return false;}
+  else {return true;}
+  }
+}
+function myFunction(thisform)
+{
+
+with(thisform){
+if(validate_required(demo,&quot;输入数字可以嘛！&quot;)==false)
+{
+ demo.focus();
+ return false;
+}
+}
+}
+<span style="color: #008000; font-weight: bold">&lt;/script&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;form</span> <span style="color: #BB4444">action=&quot;welcome&quot;</span> <span style="color: #BB4444">name =</span> <span style="color: #BB4444">&quot;formtest&quot;</span> <span style="color: #BB4444">method =&quot;post&quot;</span> <span style="color: #BB4444">onsubmit=&quot;return myFunction(this);&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;input</span> <span style="color: #BB4444">id=&quot;demo1&quot;</span> <span style="color: #BB4444">type=&quot;text&quot;</span> <span style="color: #BB4444">name=&quot;demo&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;input</span> <span style="color: #BB4444">type=&quot;submit&quot;</span> <span style="color: #BB4444">value=&quot;Submit&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/form&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/body&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/html&gt;</span>
+</pre></div>
+
+
+<p>welcome是对表单进行处理的Servlet,表单采用的提交方式是post.采用了一个函数来判断用户输入是否为数字，如果包含其他，就跳出警示窗口。</p>
+<p>Step2:编写HelloServletFromMyEclipse.java
+代码如下：</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #AA22FF; font-weight: bold">class</span> <span style="color: #0000FF">HelloServletFromMyEclipse</span> <span style="color: #AA22FF; font-weight: bold">extends</span> HttpServlet <span style="color: #666666">{</span>
+    <span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #00A000">HelloServletFromMyEclipse</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+        <span style="color: #AA22FF; font-weight: bold">super</span><span style="color: #666666">();</span>
+    <span style="color: #666666">}</span>
+
+    <span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">doGet</span><span style="color: #666666">(</span>HttpServletRequest request<span style="color: #666666">,</span> HttpServletResponse response<span style="color: #666666">)</span>
+            <span style="color: #AA22FF; font-weight: bold">throws</span> ServletException<span style="color: #666666">,</span> IOException <span style="color: #666666">{</span>
+
+        response<span style="color: #666666">.</span><span style="color: #BB4444">setContentType</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;text/html&quot;</span><span style="color: #666666">);</span>
+        PrintWriter out <span style="color: #666666">=</span> response<span style="color: #666666">.</span><span style="color: #BB4444">getWriter</span><span style="color: #666666">();</span>
+        out<span style="color: #666666">.</span><span style="color: #BB4444">print</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;欢迎来这里呀&quot;</span><span style="color: #666666">);</span>
+    <span style="color: #666666">}</span>
+    <span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">doPost</span><span style="color: #666666">(</span>HttpServletRequest req<span style="color: #666666">,</span> HttpServletResponse resp<span style="color: #666666">)</span>
+            <span style="color: #AA22FF; font-weight: bold">throws</span> ServletException<span style="color: #666666">,</span> IOException <span style="color: #666666">{</span>
+        req<span style="color: #666666">.</span><span style="color: #BB4444">setCharacterEncoding</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;gb2312&quot;</span><span style="color: #666666">);</span>  
+        PrintWriter out <span style="color: #666666">=</span> resp<span style="color: #666666">.</span><span style="color: #BB4444">getWriter</span><span style="color: #666666">();</span>
+        resp<span style="color: #666666">.</span><span style="color: #BB4444">setContentType</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;text/html;charset=gb2312&quot;</span><span style="color: #666666">);</span>  
+        String name <span style="color: #666666">=</span> java<span style="color: #666666">.</span><span style="color: #BB4444">net</span><span style="color: #666666">.</span><span style="color: #BB4444">URLDecoder</span><span style="color: #666666">.</span><span style="color: #BB4444">decode</span><span style="color: #666666">(</span>req<span style="color: #666666">.</span><span style="color: #BB4444">getParameter</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;demo&quot;</span><span style="color: #666666">),</span><span style="color: #BB4444">&quot;utf-8&quot;</span><span style="color: #666666">);</span>  
+        out<span style="color: #666666">.</span><span style="color: #BB4444">println</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;myprintis&quot;</span><span style="color: #666666">+</span>name<span style="color: #666666">);</span>
+        Pattern p <span style="color: #666666">=</span> Pattern<span style="color: #666666">.</span><span style="color: #BB4444">compile</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;^\\d+$&quot;</span><span style="color: #666666">);</span>
+        Matcher m <span style="color: #666666">=</span> p<span style="color: #666666">.</span><span style="color: #BB4444">matcher</span><span style="color: #666666">(</span>name<span style="color: #666666">);</span>
+        <span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span>m<span style="color: #666666">.</span><span style="color: #BB4444">matches</span><span style="color: #666666">())</span>
+        <span style="color: #666666">{</span>
+            out<span style="color: #666666">.</span><span style="color: #BB4444">println</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;true&quot;</span><span style="color: #666666">);</span>
+        <span style="color: #666666">}</span>
+        <span style="color: #AA22FF; font-weight: bold">else</span><span style="color: #666666">{</span>
+            out<span style="color: #666666">.</span><span style="color: #BB4444">println</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;false&quot;</span><span style="color: #666666">);</span>
+        <span style="color: #666666">}</span>
+    <span style="color: #666666">}</span>
+<span style="color: #666666">}</span>
+</pre></div>
+
+
+<p>通过req.getParameter(&ldquo;demo&rdquo;)获得用户输入的信息，&rdquo;demo&rdquo;必须与表单中用于输入信息的文本区的demo一样。获得用户之后用正则来匹配是否为数字</p>
+<p>Step3:部署Servlet
+修改web.xml文件</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;web-app</span> <span style="color: #BB4444">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span style="color: #BB4444">xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;</span> <span style="color: #BB4444">xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span> <span style="color: #BB4444">id=&quot;WebApp_ID&quot;</span> <span style="color: #BB4444">version=&quot;3.0&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;servlet&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;servlet-name&gt;</span>HelloServlet<span style="color: #008000; font-weight: bold">&lt;/servlet-name&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;servlet-class&gt;</span>com.bjsxt.servlet.HelloServletFromMyEclipse<span style="color: #008000; font-weight: bold">&lt;/servlet-class&gt;</span>
+
+  <span style="color: #008000; font-weight: bold">&lt;/servlet&gt;</span>
+
+  <span style="color: #008000; font-weight: bold">&lt;servlet-mapping&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;servlet-name&gt;</span>HelloServlet<span style="color: #008000; font-weight: bold">&lt;/servlet-name&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;url-pattern&gt;</span>/welcome<span style="color: #008000; font-weight: bold">&lt;/url-pattern&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/servlet-mapping&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;welcome-file-list&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;welcome-file&gt;</span>index.html<span style="color: #008000; font-weight: bold">&lt;/welcome-file&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;welcome-file&gt;</span>index.htm<span style="color: #008000; font-weight: bold">&lt;/welcome-file&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;welcome-file&gt;</span>index.jsp<span style="color: #008000; font-weight: bold">&lt;/welcome-file&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;welcome-file&gt;</span>default.html<span style="color: #008000; font-weight: bold">&lt;/welcome-file&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;welcome-file&gt;</span>default.htm<span style="color: #008000; font-weight: bold">&lt;/welcome-file&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;welcome-file&gt;</span>default.jsp<span style="color: #008000; font-weight: bold">&lt;/welcome-file&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/welcome-file-list&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/web-app&gt;</span>
+</pre></div>
+
+
+<h3 id="_2">统计页面被访问的次数</h3>
+<p>主要代码</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">public</span> <span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">doGet</span><span style="color: #666666">(</span>HttpServletRequest req<span style="color: #666666">,</span> HttpServletResponse resp<span style="color: #666666">)</span>
+            <span style="color: #AA22FF; font-weight: bold">throws</span> ServletException<span style="color: #666666">,</span> IOException <span style="color: #666666">{</span>
+        ServletContext context<span style="color: #666666">=</span>getServletContext<span style="color: #666666">();</span>
+        Integer count <span style="color: #666666">=</span> <span style="color: #666666">(</span>Integer<span style="color: #666666">)</span>context<span style="color: #666666">.</span><span style="color: #BB4444">getAttribute</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;counter&quot;</span><span style="color: #666666">);</span>
+        <span style="color: #AA22FF; font-weight: bold">if</span><span style="color: #666666">(</span><span style="color: #AA22FF; font-weight: bold">null</span><span style="color: #666666">==</span>count<span style="color: #666666">){</span>
+            count<span style="color: #666666">=</span><span style="color: #AA22FF; font-weight: bold">new</span> Integer<span style="color: #666666">(1);</span>
+        <span style="color: #666666">}</span>
+        <span style="color: #AA22FF; font-weight: bold">else</span><span style="color: #666666">{</span>
+            count <span style="color: #666666">=</span> <span style="color: #AA22FF; font-weight: bold">new</span> Integer<span style="color: #666666">(</span>count<span style="color: #666666">.</span><span style="color: #BB4444">intValue</span><span style="color: #666666">()+1);</span>
+        <span style="color: #666666">}</span>
+        resp<span style="color: #666666">.</span><span style="color: #BB4444">setContentType</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;text/html;charset=gb2312&quot;</span><span style="color: #666666">);</span>
+        PrintWriter out <span style="color: #666666">=</span> resp<span style="color: #666666">.</span><span style="color: #BB4444">getWriter</span><span style="color: #666666">();</span>
+
+        out<span style="color: #666666">.</span><span style="color: #BB4444">println</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;&lt;HTML&gt;&quot;</span><span style="color: #666666">);</span>
+        out<span style="color: #666666">.</span><span style="color: #BB4444">println</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;  &lt;HEAD&gt;&lt;TITLE&gt;页面访问统计&lt;/TITLE&gt;&lt;/HEAD&gt;&quot;</span><span style="color: #666666">);</span>
+        out<span style="color: #666666">.</span><span style="color: #BB4444">println</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;  &lt;BODY&gt;&quot;</span><span style="color: #666666">);</span>
+        out<span style="color: #666666">.</span><span style="color: #BB4444">print</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;该页面被访问了：&quot;</span><span style="color: #666666">+</span><span style="color: #BB4444">&quot;&lt;b&gt;&quot;</span><span style="color: #666666">+</span>count<span style="color: #666666">+</span><span style="color: #BB4444">&quot;&lt;/b&gt;&quot;</span><span style="color: #666666">+</span><span style="color: #BB4444">&quot;次&quot;</span><span style="color: #666666">);</span>
+        out<span style="color: #666666">.</span><span style="color: #BB4444">println</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;  &lt;/BODY&gt;&quot;</span><span style="color: #666666">);</span>
+        out<span style="color: #666666">.</span><span style="color: #BB4444">println</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;&lt;/HTML&gt;&quot;</span><span style="color: #666666">);</span>
+        context<span style="color: #666666">.</span><span style="color: #BB4444">setAttribute</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;counter&quot;</span><span style="color: #666666">,</span> count<span style="color: #666666">);</span>
+        out<span style="color: #666666">.</span><span style="color: #BB4444">flush</span><span style="color: #666666">();</span>
+        out<span style="color: #666666">.</span><span style="color: #BB4444">close</span><span style="color: #666666">();</span>
+    <span style="color: #666666">}</span>
+</pre></div>
+
+
+<p>通过getServletContext()的方法得到web应用程序的上下文对象。通过getAtrribute()方法获取属性counter的值，判断counter是否为空，为null就将它的初始值设为1，当servlet第一次被访问，设为1，以后再被访问就是加一，将count作为counter的属性保存到ServletContext对象中。</p>
+<h3 id="_3">问题</h3>
+<p>在用jsp连接数据库时出现连接不了数据库的现象，一直查不出什么原因，后来借鉴网友意见，把驱动包添加到WEB_INF下的lib中，就好了==</p>
+<h3 id="web">在web客户端的三种语言</h3>
+<p>@(2015/3/17)
+html(hyper text markup language),css,javascript是web客户端的三种语言，其中javascript即可被用在客户端，也可以被用在服务器端，主要是用在客户端。</p>
+<p><strong>html</strong>
+<code>meta</code>是元数据，描述文档本身的信息</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">&lt;meta</span> <span style="color: #BB4444">http-equiv=&quot;refresh&quot;</span> <span style="color: #BB4444">content =&quot;3;url=&quot;http:</span><span style="border: 1px solid #FF0000">//</span><span style="color: #BB4444">www</span><span style="border: 1px solid #FF0000">.</span><span style="color: #BB4444">baidu</span><span style="border: 1px solid #FF0000">.</span><span style="color: #BB4444">com</span><span style="border: 1px solid #FF0000">&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+</pre></div>
+
+
+<p>每隔3秒刷新当前页面到www.baidu.com</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">&lt;meta</span> <span style="color: #BB4444">http-equiv=&quot;content-type&quot;</span> <span style="color: #BB4444">content =&quot;text/html;charset=gb2312&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+</pre></div>
+
+
+<p>当前页面是html格式，编码是gb2312</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">&lt;meta</span> <span style="color: #BB4444">http-equiv=&quot;expires&quot;</span> <span style="color: #BB4444">content =&quot;0&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+</pre></div>
+
+
+<p>告知浏览器不要对本网页进行缓存</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">&lt;meta</span> <span style="color: #BB4444">http-equiv=&quot;pragma&quot;</span> <span style="color: #BB4444">content =&quot;no-cache&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+</pre></div>
+
+
+<p>不要在代理服务器上缓存</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">&lt;meta</span> <span style="color: #BB4444">name=&quot;author&quot;</span> <span style="color: #BB4444">content =&quot;sgy&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+</pre></div>
+
+
+<p>作者</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">&lt;meta</span> <span style="color: #BB4444">name=&quot;copyright&quot;</span> <span style="color: #BB4444">content =&quot;do not use this page without my permission&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+</pre></div>
+
+
+<p>版权声明</p>
+            </div>
+            <!-- /.entry-content -->
+
+
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="/javaxue-xi/" data-title="JAVA学习" data-url="http://sherryhaha.github.io/javaxue-xi/">
+<!-- 多说评论框 end --></div>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"notSherry"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://sherryhaha.github.io"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pat/">
+                            PAT
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/about/">
+                            About
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao/">
+                            博物馆媒体展呈项目介绍
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pai-xu/">
+                            排序
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/balanced-binary-tree/">
+                            Balanced Binary Tree
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/javaxue-xi/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> java学习
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/misc/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> misc
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/shua-ti/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 刷题
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/xiang-mu/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 项目
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="http://sherryhaha.github.io/tags/leetcode/index.html">
+                            Leetcode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
+                            算法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/jdbc/index.html">
+                            JDBC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/pat/index.html">
+                            pat
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/tu-xiang-pi-pei/index.html">
+                            图像匹配
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/android/index.html">
+                            android
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/java/index.html">
+                            java
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/javazheng-ze-biao-da/index.html">
+                            java正则表达
+                        </a>
+                    </li>
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://xuweitao.me/" target="_blank">
+                wuli涛涛
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 notSherry
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://sherryhaha.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://sherryhaha.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
+
+
+
+</body>
+</html>

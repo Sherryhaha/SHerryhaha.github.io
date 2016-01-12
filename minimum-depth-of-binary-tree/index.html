@@ -2,7 +2,7 @@
 <html lang="zh_cn"
 >
 <head>
-    <title>notSherry</title>
+    <title>Minimum Depth of Binary Tree - notSherry</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -10,15 +10,21 @@
 
 
 
-<link rel="canonical" href="http://sherryhaha.github.io">
-        <meta name="author" content="notSherry" />
+<link rel="canonical" href="http://sherryhaha.github.io/minimum-depth-of-binary-tree/">
 
-    <!-- Open Graph tags -->
+        <meta name="author" content="notSherry" />
+        <meta name="keywords" content="Leetcode" />
+        <meta name="description" content="Given a binary tree, find its minimum depth. The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node. 求一颗二叉树的最小深度。当二叉树只有一个节点时，它的深度是为1. 可以用递归求，求分别递归求左子树与右子树的深度，然后比较深度小的那个加一，值得注意的是，当一个节点，只有左子结点（或只有右子节点）时，这时他并不是一个叶子节点，还需要向下继续求深度，所以右子节点不能返回一个比左子结点求出的深度小的值，就付给他一个较大的值就可以了。 /** * Definition for a binary tree ..." />
+
         <meta property="og:site_name" content="notSherry" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="notSherry"/>
-        <meta property="og:url" content="http://sherryhaha.github.io"/>
-        <meta property="og:description" content="notSherry"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Minimum Depth of Binary Tree"/>
+        <meta property="og:url" content="http://sherryhaha.github.io/minimum-depth-of-binary-tree/"/>
+        <meta property="og:description" content="Given a binary tree, find its minimum depth. The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node. 求一颗二叉树的最小深度。当二叉树只有一个节点时，它的深度是为1. 可以用递归求，求分别递归求左子树与右子树的深度，然后比较深度小的那个加一，值得注意的是，当一个节点，只有左子结点（或只有右子节点）时，这时他并不是一个叶子节点，还需要向下继续求深度，所以右子节点不能返回一个比左子结点求出的深度小的值，就付给他一个较大的值就可以了。 /** * Definition for a binary tree ..."/>
+        <meta property="article:published_time" content="2015-06-20" />
+            <meta property="article:section" content="刷题" />
+            <meta property="article:tag" content="Leetcode" />
+            <meta property="article:author" content="notSherry" />
 
 
     <!-- Bootstrap -->
@@ -61,106 +67,98 @@ notSherry            </a>
     <div class="row">
         <div class="col-sm-9">
 
-            <article>
-                <h2><a href="http://sherryhaha.github.io/reverse-linked-list/">reverse Linked list</a></h2>
-                <div class="summary"><blockquote>
-<p>Reverse a singly linked list.
-这是个简单的问题，主要考察的是对于链表的操作，并没有涉及算法什么的。让我正好温习了一下c 中链表的处理。
-要翻转链表，首先考虑空元素，一个元素和两个元素的情况。然后用三个指针分别指向已经翻转部分的头pre，目前正呆处理的cur，还有cur的下一个，然后将cur的next指向pre，让pre等于cur,cur=post,post = post-&gt;next，这样依次往后移动进行处理。</p>
-</blockquote>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">struct</span> ListNode {
-     <span style="color: #00BB00; font-weight: bold">int</span> val;
-     <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>next;
-  };
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://sherryhaha.github.io/minimum-depth-of-binary-tree/"
+                       rel="bookmark"
+                       title="Permalink to Minimum Depth of Binary Tree">
+                        Minimum Depth of Binary Tree
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-06-20T00:00:00+08:00"> 六 20 六月 2015</time>
+    </span>
 
-<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> <span style="color: #00A000">reverseList</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> head) {
-   <span style="color: #008800; font-style: italic">//注意定义的时候不能少了struct，我一开始就是没有struct从而没有ac.</span>
-    <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>pre,<span style="color: #666666">*</span>cur,<span style="color: #666666">*</span>post;
-    <span style="color: #AA22FF; font-weight: bold">if</span>(head <span style="color: #666666">==</span> <span style="color: #AA22FF">NULL</span><span style="color: #666666">||</span>head<span style="color: #666666">-&gt;</span>next<span style="color: #666666">==</span><span style="color: #AA22FF">NULL ...</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/reverse-linked-list/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://sherryhaha.github.io/two-sum/">Two Sum</a></h2>
-                <div class="summary"><h4 id="hash-array">问题描述<code>hash</code> <code>Array</code></h4>
-<blockquote>
-<p>Given an array of integers, find two numbers such that they add up to a specific target number.
-The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your ...</p></blockquote>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/two-sum/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://sherryhaha.github.io/yong-shi-kan-long-tou-wen-ti/">勇士砍龙头问题</a></h2>
-                <div class="summary"><p>问题描述：你的王国里有一条n个头的恶龙，可以雇佣骑士把它杀死，村里有m个骑士，能力值为x的骑士可以砍掉一个恶龙直径不超过x的头，且需支付金币x，怎样才能杀死恶龙并且支付金币最少？(一个骑士只能砍一个头，雇佣一次）
-【格式输入】 每组数据的第一行为 n,m。下面n行每行为一个整数，代表恶龙头的直径，以下m行每行为一个整数，代表每个骑士的能力，输入结束标志是n=m=0。
-【样例输入】
-2 3
-5
-4
-7
-8
-4
-2 1
-5
-5
-10
-0 0 
-【样例输出】
-11
-Loowater is doomed!</p>
-<p>问题解答：将骑士按能力从大到小排序，头的直径也按从大到小排序，一个一个的砍。</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800">#include&lt;stdio.h&gt;</span>
-<span style="color: #008800">#include&lt;algorithm&gt;</span>
-using ...</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/yong-shi-kan-long-tou-wen-ti/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://sherryhaha.github.io/zigzag-conversion/">zigzag Conversion</a></h2>
-                <div class="summary"><p>The string &ldquo;PAYPALISHIRING&rdquo; is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)</p>
-<p>P   A   H   N
-A P L S I I G
-Y   I   R
-And then read line by ...</p>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/zigzag-conversion/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://sherryhaha.github.io/javaxue-xi/">JAVA学习</a></h2>
-                <div class="summary"><blockquote>
-<p>阅读了知乎上一些关于学习java的建议
-大多都是建议要先学习好java SE(standard Edition)，是基于JDK（没有它无法编译java程序）与JRE（java运行环境）
-可以先模仿着别人的代码，但一定要写，自己背着写。
-<strong>任何事情都要追求完美才敢继续往后进行是一种性格缺陷</strong></p>
-</blockquote>
-<h3 id="_1">正则表达式的学习</h3>
-<p>@(正则表达式)[2015/3/8]</p>
-<blockquote>
-<p>在java 中，有关于正则表达式的包是java.util.regex,它下面包含两个类Matcher与Pattern。一些具体参数或用法，都可以参展java的说明文档</p>
-</blockquote>
-<p>从昨天开始在观看网上马士兵老师的java教程视频，学习正则表达式的使用。其中比较实用的应用就是可以抓取一个网页上特定格式的东西，如所有的email。叫做emailSpider。以下是实现配对的主要函数：</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">private</span> <span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">parse</span><span style="color: #666666">(</span>String line<span style="color: #666666">)</span> <span style="color: #666666">{</span>
-        <span style="color: #008800; font-style: italic">/*从文件中一行一行的读取数据，在每一行中匹配具有email格式的字符串*/</span>
-        Pattern p <span style="color: #666666">=</span> Pattern<span style="color: #666666">.</span><span style="color: #BB4444">compile</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;[\\w[.-]]+@[\\w[-.]]+\\.[\\w]+&quot;</span><span style="color: #666666">);</span>
-        Matcher m <span style="color: #666666">=</span> p ...</pre></div>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/javaxue-xi/">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
-        <ul class="pagination">
-                <li class="prev"><a href="http://sherryhaha.github.io/index.html">&laquo;</a>
-                </li>
-                    <li class=""><a
-                            href="http://sherryhaha.github.io/index.html">1</a></li>
-                    <li class="active"><a
-                            href="http://sherryhaha.github.io/index2.html">2</a></li>
-                <li class="next disabled"><a href="#">&raquo;</a></li>
-        </ul>
+
+<span class="label label-default">Tags</span>
+	<a href="http://sherryhaha.github.io/tags/leetcode/index.html">Leetcode</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Given a binary tree, find its minimum depth.
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.</p>
+<p>求一颗二叉树的最小深度。当二叉树只有一个节点时，它的深度是为1.</p>
+<p>可以用递归求，求分别递归求左子树与右子树的深度，然后比较深度小的那个加一，值得注意的是，当一个节点，只有左子结点（或只有右子节点）时，这时他并不是一个叶子节点，还需要向下继续求深度，所以右子节点不能返回一个比左子结点求出的深度小的值，就付给他一个较大的值就可以了。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/**</span>
+<span style="color: #008800; font-style: italic"> * Definition for a binary tree node.</span>
+<span style="color: #008800; font-style: italic"> * struct TreeNode {</span>
+<span style="color: #008800; font-style: italic"> *     int val;</span>
+<span style="color: #008800; font-style: italic"> *     struct TreeNode *left;</span>
+<span style="color: #008800; font-style: italic"> *     struct TreeNode *right;</span>
+<span style="color: #008800; font-style: italic"> * };</span>
+<span style="color: #008800; font-style: italic"> */</span>
+<span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">minDepth</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> TreeNode<span style="color: #666666">*</span> root) {
+    <span style="color: #00BB00; font-weight: bold">int</span> leftdepth ,rightdepth;
+    <span style="color: #AA22FF; font-weight: bold">if</span>(root <span style="color: #666666">==</span> <span style="color: #AA22FF">NULL</span>) <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">0</span>;
+    <span style="color: #AA22FF; font-weight: bold">if</span>(root<span style="color: #666666">-&gt;</span>left <span style="color: #666666">==</span> <span style="color: #AA22FF">NULL</span><span style="color: #666666">&amp;&amp;</span>root<span style="color: #666666">-&gt;</span>right <span style="color: #666666">==</span> <span style="color: #AA22FF">NULL</span>) <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #666666">1</span>;
+    <span style="color: #AA22FF; font-weight: bold">else</span>{
+        <span style="color: #AA22FF; font-weight: bold">if</span>(root<span style="color: #666666">-&gt;</span>left<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span>) {
+            leftdepth <span style="color: #666666">=</span> minDepth(root<span style="color: #666666">-&gt;</span>left);
+        }
+        <span style="color: #AA22FF; font-weight: bold">else</span> leftdepth <span style="color: #666666">=</span> <span style="color: #666666">1000000</span>;
+        <span style="color: #AA22FF; font-weight: bold">if</span>(root<span style="color: #666666">-&gt;</span>right<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span>) 
+        {rightdepth <span style="color: #666666">=</span> minDepth(root<span style="color: #666666">-&gt;</span>right);}
+        <span style="color: #AA22FF; font-weight: bold">else</span> rightdepth <span style="color: #666666">=</span> <span style="color: #666666">1000000</span>;
+    }
+    <span style="color: #AA22FF; font-weight: bold">if</span>(leftdepth<span style="color: #666666">&gt;</span>rightdepth)
+    {
+        <span style="color: #AA22FF; font-weight: bold">return</span> rightdepth<span style="color: #666666">+1</span>;
+    }
+    <span style="color: #AA22FF; font-weight: bold">else</span>
+    {
+        <span style="color: #AA22FF; font-weight: bold">return</span> leftdepth<span style="color: #666666">+1</span>;
+    }
+
+}
+</pre></div>
+
+
+<blockquote>
+<p><code>知识普及</code>maxheight函数就是求二叉树的左子树与右子树中那个深度最大最大深度多少，minheight函数就是求二叉树的左子树与右子树中那个深度最小最小深度多少，Isbalance函数就是求左子树与右子树的深度差，只要不大于1就是平衡二叉树。
+平衡二叉树:它是一 棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。</p>
+</blockquote>
+            </div>
+            <!-- /.entry-content -->
+
+
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="/minimum-depth-of-binary-tree/" data-title="Minimum Depth of Binary Tree" data-url="http://sherryhaha.github.io/minimum-depth-of-binary-tree/">
+<!-- 多说评论框 end --></div>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"notSherry"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+        </article>
+    </section>
+
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -306,6 +304,7 @@ And then read line by ...</p>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
 <script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
+
 
 
 </body>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh_cn"
+>
+<head>
+    <title>Palindrome Linked List - notSherry</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://sherryhaha.github.io/palindrome-linked-list/">
+
+        <meta name="author" content="notSherry" />
+        <meta name="keywords" content="Leetcode" />
+        <meta name="description" content="问题描述：判断一个单链表是否是回文，即正着读和反向读是一样的 问题分析： 采用c语言书写，首先找到链表的中间节点，然后将中间节点以后的反转，比较两个半链表是否一样。 struct ListNode { int val; struct ListNode *next; }; //找中间节点，利用快指针和慢指针来控制 struct ListNode* getMid(struct ListNode* head) {// at least two nodes struct ListNode* slow = head; struct ListNode* fast = head; struct ListNode* preslow = head; //控制偶数链表时返回中间的第二个节点 while(fast!=NULL&amp;&amp;fast-&gt;next!=NULL){ fast=fast-&gt;next-&gt;next ..." />
+
+        <meta property="og:site_name" content="notSherry" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Palindrome Linked List"/>
+        <meta property="og:url" content="http://sherryhaha.github.io/palindrome-linked-list/"/>
+        <meta property="og:description" content="问题描述：判断一个单链表是否是回文，即正着读和反向读是一样的 问题分析： 采用c语言书写，首先找到链表的中间节点，然后将中间节点以后的反转，比较两个半链表是否一样。 struct ListNode { int val; struct ListNode *next; }; //找中间节点，利用快指针和慢指针来控制 struct ListNode* getMid(struct ListNode* head) {// at least two nodes struct ListNode* slow = head; struct ListNode* fast = head; struct ListNode* preslow = head; //控制偶数链表时返回中间的第二个节点 while(fast!=NULL&amp;&amp;fast-&gt;next!=NULL){ fast=fast-&gt;next-&gt;next ..."/>
+        <meta property="article:published_time" content="2015-06-20" />
+            <meta property="article:section" content="刷题" />
+            <meta property="article:tag" content="Leetcode" />
+            <meta property="article:author" content="notSherry" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://sherryhaha.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://sherryhaha.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://sherryhaha.github.io/" class="navbar-brand">
+notSherry            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/about.html">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://sherryhaha.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://sherryhaha.github.io/palindrome-linked-list/"
+                       rel="bookmark"
+                       title="Permalink to Palindrome Linked List">
+                        Palindrome Linked List
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-06-20T00:00:00+08:00"> 六 20 六月 2015</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://sherryhaha.github.io/tags/leetcode/index.html">Leetcode</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>问题描述：判断一个单链表是否是回文，即正着读和反向读是一样的</p>
+<p>问题分析：
+采用c语言书写，首先找到链表的中间节点，然后将中间节点以后的反转，比较两个半链表是否一样。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">struct</span> ListNode {
+      <span style="color: #00BB00; font-weight: bold">int</span> val;
+      <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>next;
+  };
+<span style="color: #008800; font-style: italic">//找中间节点，利用快指针和慢指针来控制</span>
+<span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> <span style="color: #00A000">getMid</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> head)
+    {<span style="color: #008800; font-style: italic">// at least two nodes</span>
+      <span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> slow <span style="color: #666666">=</span> head;
+      <span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> fast <span style="color: #666666">=</span> head;
+      <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> preslow <span style="color: #666666">=</span> head;
+      <span style="color: #008800; font-style: italic">//控制偶数链表时返回中间的第二个节点</span>
+      <span style="color: #AA22FF; font-weight: bold">while</span>(fast<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span><span style="color: #666666">&amp;&amp;</span>fast<span style="color: #666666">-&gt;</span>next<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span>){
+           fast<span style="color: #666666">=</span>fast<span style="color: #666666">-&gt;</span>next<span style="color: #666666">-&gt;</span>next;
+           preslow <span style="color: #666666">=</span> slow;  
+           slow <span style="color: #666666">=</span> slow<span style="color: #666666">-&gt;</span>next;
+
+       }
+        preslow<span style="color: #666666">-&gt;</span>next <span style="color: #666666">=</span> <span style="color: #AA22FF">NULL</span>;
+
+        <span style="color: #AA22FF; font-weight: bold">return</span> slow;
+    }
+<span style="color: #008800; font-style: italic">//反转链表    </span>
+ <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> <span style="color: #00A000">reverse</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> head)
+    {
+        <span style="color: #AA22FF; font-weight: bold">if</span>(head <span style="color: #666666">==</span> <span style="color: #AA22FF">NULL</span> <span style="color: #666666">||</span> head<span style="color: #666666">-&gt;</span>next <span style="color: #666666">==</span> <span style="color: #AA22FF">NULL</span>)
+            <span style="color: #AA22FF; font-weight: bold">return</span> head;
+        <span style="color: #AA22FF; font-weight: bold">else</span> <span style="color: #AA22FF; font-weight: bold">if</span>(head<span style="color: #666666">-&gt;</span>next<span style="color: #666666">-&gt;</span>next <span style="color: #666666">==</span> <span style="color: #AA22FF">NULL</span>)
+        {<span style="color: #008800; font-style: italic">// two nodes</span>
+            <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> tail <span style="color: #666666">=</span> head<span style="color: #666666">-&gt;</span>next;
+            head<span style="color: #666666">-&gt;</span>next <span style="color: #666666">=</span> <span style="color: #AA22FF">NULL</span>;
+            tail<span style="color: #666666">-&gt;</span>next <span style="color: #666666">=</span> head;
+            <span style="color: #AA22FF; font-weight: bold">return</span> tail;
+        }
+        <span style="color: #AA22FF; font-weight: bold">else</span>
+        {
+            <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> pre <span style="color: #666666">=</span> head;
+            <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> cur <span style="color: #666666">=</span> pre<span style="color: #666666">-&gt;</span>next;
+            pre<span style="color: #666666">-&gt;</span>next <span style="color: #666666">=</span> <span style="color: #AA22FF">NULL</span>;   <span style="color: #008800; font-style: italic">// set tail</span>
+            <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> post <span style="color: #666666">=</span> cur<span style="color: #666666">-&gt;</span>next;
+            <span style="color: #AA22FF; font-weight: bold">while</span>(post)
+            {
+                cur<span style="color: #666666">-&gt;</span>next <span style="color: #666666">=</span> pre;
+                pre <span style="color: #666666">=</span> cur;
+                cur <span style="color: #666666">=</span> post;
+                post <span style="color: #666666">=</span> post<span style="color: #666666">-&gt;</span>next;
+            }
+            cur<span style="color: #666666">-&gt;</span>next <span style="color: #666666">=</span> pre;
+            <span style="color: #AA22FF; font-weight: bold">return</span> cur;
+        }
+    }
+
+<span style="color: #00BB00; font-weight: bold">bool</span> <span style="color: #00A000">isPalindrome</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> head) {
+    <span style="color: #AA22FF; font-weight: bold">if</span>(head<span style="color: #666666">==</span><span style="color: #AA22FF">NULL</span><span style="color: #666666">||</span>head<span style="color: #666666">-&gt;</span>next<span style="color: #666666">==</span><span style="color: #AA22FF">NULL</span>) <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF">true</span>;
+
+    <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span>mid,<span style="color: #666666">*</span>h1,<span style="color: #666666">*</span>h2;
+    mid <span style="color: #666666">=</span> getMid(head);
+
+    h2 <span style="color: #666666">=</span> reverse(mid);
+
+    h1 <span style="color: #666666">=</span> head;
+
+    <span style="color: #AA22FF; font-weight: bold">while</span>(h1<span style="color: #666666">&amp;&amp;</span>h2){
+        <span style="color: #AA22FF; font-weight: bold">if</span>(h1<span style="color: #666666">-&gt;</span>val<span style="color: #666666">!=</span>h2<span style="color: #666666">-&gt;</span>val)
+            <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF">false</span>;
+        <span style="color: #AA22FF; font-weight: bold">else</span>{
+            h1 <span style="color: #666666">=</span> h1<span style="color: #666666">-&gt;</span>next;
+            h2 <span style="color: #666666">=</span> h2<span style="color: #666666">-&gt;</span>next;
+        }
+    }
+
+    <span style="color: #AA22FF; font-weight: bold">return</span> <span style="color: #AA22FF">true</span>;
+
+}
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+
+
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="/palindrome-linked-list/" data-title="Palindrome Linked List" data-url="http://sherryhaha.github.io/palindrome-linked-list/">
+<!-- 多说评论框 end --></div>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"notSherry"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://sherryhaha.github.io"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pat/">
+                            PAT
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/about/">
+                            About
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao/">
+                            博物馆媒体展呈项目介绍
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pai-xu/">
+                            排序
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/balanced-binary-tree/">
+                            Balanced Binary Tree
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/javaxue-xi/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> java学习
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/misc/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> misc
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/shua-ti/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 刷题
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/xiang-mu/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 项目
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://sherryhaha.github.io/tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="http://sherryhaha.github.io/tags/leetcode/index.html">
+                            Leetcode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
+                            算法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/jdbc/index.html">
+                            JDBC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/pat/index.html">
+                            pat
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/tu-xiang-pi-pei/index.html">
+                            图像匹配
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/android/index.html">
+                            android
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/java/index.html">
+                            java
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/javazheng-ze-biao-da/index.html">
+                            java正则表达
+                        </a>
+                    </li>
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://xuweitao.me/" target="_blank">
+                wuli涛涛
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 notSherry
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://sherryhaha.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://sherryhaha.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
+
+
+
+</body>
+</html>

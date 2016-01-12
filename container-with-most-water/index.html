@@ -2,7 +2,7 @@
 <html lang="zh_cn"
 >
 <head>
-    <title>算法 - notSherry</title>
+    <title>Container With Most Water - notSherry</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -10,16 +10,21 @@
 
 
 
+<link rel="canonical" href="http://sherryhaha.github.io/container-with-most-water/">
 
-    <meta name="author" content="notSherry" />
-    <meta name="keywords" content="算法" />
+        <meta name="author" content="notSherry" />
+        <meta name="keywords" content="Leetcode" />
+        <meta name="description" content="Given n non-negative integers a1, a2, …, an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container ..." />
 
-    <!-- Open Graph tags -->
         <meta property="og:site_name" content="notSherry" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="notSherry"/>
-        <meta property="og:url" content="http://sherryhaha.github.io"/>
-        <meta property="og:description" content="notSherry"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Container With Most Water"/>
+        <meta property="og:url" content="http://sherryhaha.github.io/container-with-most-water/"/>
+        <meta property="og:description" content="Given n non-negative integers a1, a2, …, an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container ..."/>
+        <meta property="article:published_time" content="2015-06-20" />
+            <meta property="article:section" content="刷题" />
+            <meta property="article:tag" content="Leetcode" />
+            <meta property="article:author" content="notSherry" />
 
 
     <!-- Bootstrap -->
@@ -62,22 +67,76 @@ notSherry            </a>
     <div class="row">
         <div class="col-sm-9">
 
-            <article>
-                <h2><a href="http://sherryhaha.github.io/pat/">PAT</a></h2>
-                <div class="summary"><p>@(刷题生活)</p>
-<h3 id="1002">1002</h3>
-<ol>
-<li>A+B for Polynomials (25)</li>
-</ol>
-<p>时间限制400 ms  内存限制65536 kB 代码长度限制16000 B </p>
-<p>This time, you are supposed to find A+B where A and B are two polynomials.
-2
-Input</p>
-<p>Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of ...</p>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/pat/">more ...</a>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://sherryhaha.github.io/container-with-most-water/"
+                       rel="bookmark"
+                       title="Permalink to Container With Most Water">
+                        Container With Most Water
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-06-20T00:00:00+08:00"> 六 20 六月 2015</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://sherryhaha.github.io/tags/leetcode/index.html">Leetcode</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 </div>
-            </article>
-            <hr/>
+                <p>Given n non-negative integers a1, a2, &hellip;, an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.</p>
+<p>Note: You may not slant the container.</p>
+<p>题意大概是：给一个数组height[n]，其中每一个元素height[i]=num,i代表它的横坐标，num代表纵坐标，要求由这个数组任意两个元素围成的面积最大的。
+可以想象，如果最大由【i，j】对应构成，假设i&lt;j,那么，i左边的所有元素高度都应当小于i 对应的高度，j右边所有元素高度都应该低于j对应的高度。所以可以从数组两边开始收缩，高度小的那边开始向中间收缩，直到找到一个高度比它高的才停止。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #00BB00; font-weight: bold">int</span> <span style="color: #00A000">maxArea</span>(<span style="color: #00BB00; font-weight: bold">int</span><span style="color: #666666">*</span> height, <span style="color: #00BB00; font-weight: bold">int</span> heightSize) {
+    <span style="color: #00BB00; font-weight: bold">int</span> maxarea <span style="color: #666666">=</span> <span style="color: #666666">-1</span>,area,head<span style="color: #666666">=0</span>,tail<span style="color: #666666">=</span>heightSize<span style="color: #666666">-1</span>,p;
+    <span style="color: #AA22FF; font-weight: bold">while</span>(head<span style="color: #666666">&lt;</span>tail){
+        area <span style="color: #666666">=</span> (height[head]<span style="color: #666666">&lt;</span>height[tail]<span style="color: #666666">?</span>height[head]<span style="color: #666666">:</span>height[tail])<span style="color: #666666">*</span>(tail<span style="color: #666666">-</span>head);
+        maxarea <span style="color: #666666">=</span> maxarea<span style="color: #666666">&gt;</span>area<span style="color: #666666">?</span><span style="color: #A0A000">maxarea</span>:area;
+        <span style="color: #AA22FF; font-weight: bold">if</span>(height[head]<span style="color: #666666">&lt;</span>height[tail]){
+            p <span style="color: #666666">=</span> head;
+            <span style="color: #AA22FF; font-weight: bold">while</span>(head<span style="color: #666666">&lt;</span>tail<span style="color: #666666">&amp;&amp;</span>height[head]<span style="color: #666666">&lt;=</span>height[p]) head<span style="color: #666666">++</span>;
+            }
+        <span style="color: #AA22FF; font-weight: bold">else</span>{
+            p <span style="color: #666666">=</span> tail;
+            <span style="color: #AA22FF; font-weight: bold">while</span>(head<span style="color: #666666">&lt;</span>tail<span style="color: #666666">&amp;&amp;</span>height[tail]<span style="color: #666666">&lt;=</span>height[p]) tail<span style="color: #666666">--</span>;
+        }
+    }
+    <span style="color: #AA22FF; font-weight: bold">return</span> maxarea;
+}
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+
+
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="/container-with-most-water/" data-title="Container With Most Water" data-url="http://sherryhaha.github.io/container-with-most-water/">
+<!-- 多说评论框 end --></div>
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"notSherry"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+        </article>
+    </section>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -96,6 +155,26 @@ Input</p>
                     <li class="list-group-item">
                         <a href="http://sherryhaha.github.io/pat/">
                             PAT
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/about/">
+                            About
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao/">
+                            博物馆媒体展呈项目介绍
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/pai-xu/">
+                            排序
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/balanced-binary-tree/">
+                            Balanced Binary Tree
                         </a>
                     </li>
                 </ul>
@@ -204,6 +283,7 @@ Input</p>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
 <script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
+
 
 
 </body>

@@ -2,7 +2,7 @@
 <html lang="zh_cn"
 >
 <head>
-    <title>notSherry</title>
+    <title>刷题 - notSherry</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -10,8 +10,9 @@
 
 
 
-<link rel="canonical" href="http://sherryhaha.github.io">
-        <meta name="author" content="notSherry" />
+
+    <meta name="author" content="notSherry" />
+    <meta name="keywords" content="刷题" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="notSherry" />
@@ -61,63 +62,6 @@ notSherry            </a>
     <div class="row">
         <div class="col-sm-9">
 
-            <article>
-                <h2><a href="http://sherryhaha.github.io/pat/">PAT</a></h2>
-                <div class="summary"><p>@(刷题生活)</p>
-<h3 id="1002">1002</h3>
-<ol>
-<li>A+B for Polynomials (25)</li>
-</ol>
-<p>时间限制400 ms  内存限制65536 kB 代码长度限制16000 B </p>
-<p>This time, you are supposed to find A+B where A and B are two polynomials.
-2
-Input</p>
-<p>Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of ...</p>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/pat/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://sherryhaha.github.io/about/">About</a></h2>
-                <div class="summary"><h1 id="_1">博客内容</h1>
-<p>欢迎来到我的博客［鼓掌］，在这里，我会纪录我的一些学习所得，一些生活心得，还有我的护肤心得［爱心］。
-专业方面，由于我研究生方向是医学图像处理，所以以后这方面的内容会比较多。目前在学习python。
-护肤方面，是我自己的一个小心愿，能将自己的实践告诉更多的人，当然，如果时间约束，可能不会经常更。</p>
-<h1 id="_2">自我介绍</h1>
-<p>2012.8~至今： 就读苏州大学计算机科学与技术专业
-2013.3~至今：进入苏州大学sklcc实验室
-2015.9:保研入东南大学计算机学院，研究医学图像处理方向</p>
-<h1 id="_3">交流</h1>
-<p>欢迎各位与我交流～～</p>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/about/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao/">博物馆媒体展呈项目介绍</a></h2>
-                <div class="summary"><p><code>what you see is what you can get more</code></p>
-<h2 id="_1">背景介绍</h2>
-<p>随着数字化与博物馆的碰撞，越来越多数字博物馆交互式鉴赏平台得以呈现，我们所做的这个小项目，是想让观光博物馆的人通过手机摄像头观看文物时，可以得到更多相关动态有趣的内容以及相应的语音讲解。</p>
-<hr />
-<h2 id="_2">研究方案</h2>
-<p>此项目采用<code>CS</code>（<code>Client-Server</code>）架构实现，客户端通过摄像头获取实时帧将图片传送给服务器，服务器获取图片后对其进行图像匹配处理，返回给客户端相对应的视频地址，客户端获取视频地址后进行全屏播放。
-服务器端，需要事先存储好视频，以及每个视频对应的关键帧。</p>
-<ul>
-<li><code>Client</code>：<code>iOS</code>版和<code>android</code>版本</li>
-<li><code>Server</code>：采用<code>java-struts</code>框架</li>
-</ul>
-<hr />
-<h2 id="_3">开发难点</h2>
-<h3 id="_4">图像匹配算法的选择</h3>
-<p>第一、二周，寻找各种图像匹配算法，其中被我们实验过的有
-- <code>SIFT</code>（<code>Sacle-invariant Feature Transform</code>）算法
-- 感知哈希算法
-- 均值哈希算法
-- <code>surf ...</code></p>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao/">more ...</a>
-                </div>
-            </article>
-            <hr/>
             <article>
                 <h2><a href="http://sherryhaha.github.io/pai-xu/">排序</a></h2>
                 <div class="summary"><p>@(刷题生活)</p>
@@ -225,15 +169,72 @@ The minimum depth is the number of nodes along the shortest path from the root n
                 </div>
             </article>
             <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/reverse-linked-list/">reverse Linked list</a></h2>
+                <div class="summary"><blockquote>
+<p>Reverse a singly linked list.
+这是个简单的问题，主要考察的是对于链表的操作，并没有涉及算法什么的。让我正好温习了一下c 中链表的处理。
+要翻转链表，首先考虑空元素，一个元素和两个元素的情况。然后用三个指针分别指向已经翻转部分的头pre，目前正呆处理的cur，还有cur的下一个，然后将cur的next指向pre，让pre等于cur,cur=post,post = post-&gt;next，这样依次往后移动进行处理。</p>
+</blockquote>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">struct</span> ListNode {
+     <span style="color: #00BB00; font-weight: bold">int</span> val;
+     <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>next;
+  };
+
+<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> <span style="color: #00A000">reverseList</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> head) {
+   <span style="color: #008800; font-style: italic">//注意定义的时候不能少了struct，我一开始就是没有struct从而没有ac.</span>
+    <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>pre,<span style="color: #666666">*</span>cur,<span style="color: #666666">*</span>post;
+    <span style="color: #AA22FF; font-weight: bold">if</span>(head <span style="color: #666666">==</span> <span style="color: #AA22FF">NULL</span><span style="color: #666666">||</span>head<span style="color: #666666">-&gt;</span>next<span style="color: #666666">==</span><span style="color: #AA22FF">NULL ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/reverse-linked-list/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/two-sum/">Two Sum</a></h2>
+                <div class="summary"><h4 id="hash-array">问题描述<code>hash</code> <code>Array</code></h4>
+<blockquote>
+<p>Given an array of integers, find two numbers such that they add up to a specific target number.
+The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your ...</p></blockquote>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/two-sum/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://sherryhaha.github.io/yong-shi-kan-long-tou-wen-ti/">勇士砍龙头问题</a></h2>
+                <div class="summary"><p>问题描述：你的王国里有一条n个头的恶龙，可以雇佣骑士把它杀死，村里有m个骑士，能力值为x的骑士可以砍掉一个恶龙直径不超过x的头，且需支付金币x，怎样才能杀死恶龙并且支付金币最少？(一个骑士只能砍一个头，雇佣一次）
+【格式输入】 每组数据的第一行为 n,m。下面n行每行为一个整数，代表恶龙头的直径，以下m行每行为一个整数，代表每个骑士的能力，输入结束标志是n=m=0。
+【样例输入】
+2 3
+5
+4
+7
+8
+4
+2 1
+5
+5
+10
+0 0 
+【样例输出】
+11
+Loowater is doomed!</p>
+<p>问题解答：将骑士按能力从大到小排序，头的直径也按从大到小排序，一个一个的砍。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800">#include&lt;stdio.h&gt;</span>
+<span style="color: #008800">#include&lt;algorithm&gt;</span>
+using ...</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/yong-shi-kan-long-tou-wen-ti/">more ...</a>
+                </div>
+            </article>
+            <hr/>
 
         <ul class="pagination">
                 <li class="prev disabled"><a href="#">&laquo;</a></li>
                     <li class="active"><a
-                            href="http://sherryhaha.github.io/index.html">1</a></li>
+                            href="http://sherryhaha.github.io/categories/shua-ti/index.html">1</a></li>
                     <li class=""><a
-                            href="http://sherryhaha.github.io/index2.html">2</a></li>
+                            href="http://sherryhaha.github.io/categories/shua-ti/index2.html">2</a></li>
                 <li class="next"><a
-                        href="http://sherryhaha.github.io/index2.html">&raquo;</a></li>
+                        href="http://sherryhaha.github.io/categories/shua-ti/index2.html">&raquo;</a></li>
         </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -250,21 +251,6 @@ The minimum depth is the number of nodes along the shortest path from the root n
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
-                        <a href="http://sherryhaha.github.io/pat/">
-                            PAT
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="http://sherryhaha.github.io/about/">
-                            About
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="http://sherryhaha.github.io/bo-wu-guan-mei-ti-zhan-cheng-xiang-mu-jie-shao/">
-                            博物馆媒体展呈项目介绍
-                        </a>
-                    </li>
-                    <li class="list-group-item">
                         <a href="http://sherryhaha.github.io/pai-xu/">
                             排序
                         </a>
@@ -272,6 +258,21 @@ The minimum depth is the number of nodes along the shortest path from the root n
                     <li class="list-group-item">
                         <a href="http://sherryhaha.github.io/balanced-binary-tree/">
                             Balanced Binary Tree
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/container-with-most-water/">
+                            Container With Most Water
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/count-primes/">
+                            Count primes
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/happy-number/">
+                            Happy Number
                         </a>
                     </li>
                 </ul>
@@ -365,7 +366,7 @@ The minimum depth is the number of nodes along the shortest path from the root n
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2016 notSherry
+         <div class="col-xs-10">&copy; 2015 notSherry
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>

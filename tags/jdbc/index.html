@@ -2,7 +2,7 @@
 <html lang="zh_cn"
 >
 <head>
-    <title>算法 - notSherry</title>
+    <title>JDBC - notSherry</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
 
 
     <meta name="author" content="notSherry" />
-    <meta name="keywords" content="算法" />
+    <meta name="keywords" content="JDBC" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="notSherry" />
@@ -63,18 +63,24 @@ notSherry            </a>
         <div class="col-sm-9">
 
             <article>
-                <h2><a href="http://sherryhaha.github.io/pat/">PAT</a></h2>
-                <div class="summary"><p>@(刷题生活)</p>
-<h3 id="1002">1002</h3>
-<ol>
-<li>A+B for Polynomials (25)</li>
-</ol>
-<p>时间限制400 ms  内存限制65536 kB 代码长度限制16000 B </p>
-<p>This time, you are supposed to find A+B where A and B are two polynomials.
-2
-Input</p>
-<p>Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of ...</p>
-                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/pat/">more ...</a>
+                <h2><a href="http://sherryhaha.github.io/javaxue-xi/">JAVA学习</a></h2>
+                <div class="summary"><blockquote>
+<p>阅读了知乎上一些关于学习java的建议
+大多都是建议要先学习好java SE(standard Edition)，是基于JDK（没有它无法编译java程序）与JRE（java运行环境）
+可以先模仿着别人的代码，但一定要写，自己背着写。
+<strong>任何事情都要追求完美才敢继续往后进行是一种性格缺陷</strong></p>
+</blockquote>
+<h3 id="_1">正则表达式的学习</h3>
+<p>@(正则表达式)[2015/3/8]</p>
+<blockquote>
+<p>在java 中，有关于正则表达式的包是java.util.regex,它下面包含两个类Matcher与Pattern。一些具体参数或用法，都可以参展java的说明文档</p>
+</blockquote>
+<p>从昨天开始在观看网上马士兵老师的java教程视频，学习正则表达式的使用。其中比较实用的应用就是可以抓取一个网页上特定格式的东西，如所有的email。叫做emailSpider。以下是实现配对的主要函数：</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">private</span> <span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">parse</span><span style="color: #666666">(</span>String line<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+        <span style="color: #008800; font-style: italic">/*从文件中一行一行的读取数据，在每一行中匹配具有email格式的字符串*/</span>
+        Pattern p <span style="color: #666666">=</span> Pattern<span style="color: #666666">.</span><span style="color: #BB4444">compile</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;[\\w[.-]]+@[\\w[-.]]+\\.[\\w]+&quot;</span><span style="color: #666666">);</span>
+        Matcher m <span style="color: #666666">=</span> p ...</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/javaxue-xi/">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -94,8 +100,8 @@ Input</p>
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
-                        <a href="http://sherryhaha.github.io/pat/">
-                            PAT
+                        <a href="http://sherryhaha.github.io/javaxue-xi/">
+                            JAVA学习
                         </a>
                     </li>
                 </ul>
@@ -189,7 +195,7 @@ Input</p>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2016 notSherry
+         <div class="col-xs-10">&copy; 2015 notSherry
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
