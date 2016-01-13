@@ -237,8 +237,8 @@ http://www.tipue.com/search
 
                                    if (score < 1000000000)
                                    {
-                                        console.log(tipuesearch_in.pages[i].loc);
-                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].loc;
+                                        //console.log(tipuesearch_in.pages[i].loc);此处代码针对bootstrap3主题不适用,从终端打印结果来看,pages元素是不含loc属性的,而应该替换为url属性
+                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].url;
                                    }
                               }
                          }
@@ -278,7 +278,7 @@ http://www.tipue.com/search
                                    if (score < 1000000000)
                                    {
 
-                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].loc;
+                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].url;
                                    }
                               }
                          }
