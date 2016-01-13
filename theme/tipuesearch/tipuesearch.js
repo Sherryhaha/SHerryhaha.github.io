@@ -82,7 +82,7 @@ http://www.tipue.com/search
 
                if (set.mode == 'static')
                {
-                    tipuesearch_in = $.extend({}, tipuesearch);
+                    tipuesearch_in = $.extend({}, tipuesearch); //{pages:[]}
                }
 
                var tipue_search_w = '';
@@ -122,17 +122,17 @@ http://www.tipue.com/search
 
                     var d = $('#tipue_search_input').val().toLowerCase();
                     d = $.trim(d);
-
+                    //对字符串预处理
                     if ((d.match("^\"") && d.match("\"$")) || (d.match("^'") && d.match("'$")))
                     {
                          standard = false;
-                    }
+                    }//标准字符串的判断
 
-                    if (standard)
+                    if (standard) //把原搜索字符串经过特殊符号修正删除之后,再进行断句处理,去除掉when,where,and之类的连词,声称
                     {
-                         var d_w = d.split(' ');
+                         var d_w = d.split(' '); //pat,d_w是个数组
                          d = '';
-                         for (var i = 0; i < d_w.length; i++)
+                         for (var i = 0; i < d_w.length; i++)//i是d_w数组下标,f是tipuesearch_stop_words下标
                          {
                               var a_w = true;
                               for (var f = 0; f < tipuesearch_stop_words.length; f++)
@@ -140,27 +140,29 @@ http://www.tipue.com/search
                                    if (d_w[i] == tipuesearch_stop_words[f])
                                    {
                                         a_w = false;
-                                        show_stop = true;
+                                        show_stop = true; //如果存在连词,show-stop为true
                                    }
                               }
-                              if (a_w)
+                              if (a_w)//a_w为false表示连词
                               {
-                                   d = d + ' ' + d_w[i];
+                                   d = d + ' ' + d_w[i];//把获取的非连词加到d
                               }
                          }
-                         d = $.trim(d);
-                         d_w = d.split(' ');
+                         d = $.trim(d);//去掉两端空格
+                         d_w = d.split(' '); //d_w是去掉连词之后的数组,d是去掉连词之后的字符串
                     }
                     else
                     {
                          d = d.substring(1, d.length - 1);
                     }
 
+
+
                     if (d.length >= set.minimumLength)
                     {
                          if (standard)
                          {
-                              if (replace)
+                              if (replace)//错词纠正
                               {
                                    var d_r = d;
                                    for (var i = 0; i < d_w.length; i++)
@@ -174,11 +176,11 @@ http://www.tipue.com/search
                                              }
                                         }
                                    }
-                                   d_w = d.split(' ');
+                                   d_w = d.split(' '); //d是没有错词的字符串,词组之间用空格分隔,d_w是没有错词的字符串数组
                               }
 
                               var d_t = d;
-                              for (var i = 0; i < d_w.length; i++)
+                              for (var i = 0; i < d_w.length; i++) //d_w中词组的关联
                               {
                                    for (var f = 0; f < tipuesearch_stem.words.length; f++)
                                    {
@@ -187,9 +189,9 @@ http://www.tipue.com/search
                                              d_t = d_t + ' ' + tipuesearch_stem.words[f].stem;
                                         }
                                    }
-                              }
+                              } //d_t返回的是原本的d加上关联的词组中相关的词组
                               d_w = d_t.split(' ');
-
+                              console.log(tipuesearch_in);
                               for (var i = 0; i < tipuesearch_in.pages.length; i++)
                               {
                                    var score = 1000000000;
@@ -397,7 +399,7 @@ http://www.tipue.com/search
                               out += '<div id="tipue_search_warning_head">Nothing found</div>';
                          }
                     }
-                    else
+                    else //如果没有连词且词长度小于最小的设定,就返回提示
                     {
                          if (show_stop)
                          {
