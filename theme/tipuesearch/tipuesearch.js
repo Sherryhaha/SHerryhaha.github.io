@@ -30,7 +30,7 @@ http://www.tipue.com/search
           return this.each(function() {
 
                var tipuesearch_in = {
-                    pages: []
+                    pages: [] //存放搜索到的结果文章
                };
                $.ajaxSetup({
                     async: false
@@ -194,8 +194,8 @@ http://www.tipue.com/search
                               console.log(tipuesearch_in);
                               for (var i = 0; i < tipuesearch_in.pages.length; i++)
                               {
-                                   var score = 1000000000;
-                                   var s_t = tipuesearch_in.pages[i].text;
+                                   var score = 1000000000; //搜索结果匹配度的一个标量值,该值越大,搜索结果越接近,反之与搜索词相关度越小.
+                                   var s_t = tipuesearch_in.pages[i].text; //搜到的文章的文本内容
                                    for (var f = 0; f < d_w.length; f++)
                                    {
                                         var pat = new RegExp(d_w[f], 'i');
@@ -237,7 +237,8 @@ http://www.tipue.com/search
 
                                    if (score < 1000000000)
                                    {
-                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].url;
+                                        console.log(tipuesearch_in.pages[i].loc);
+                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].loc;
                                    }
                               }
                          }
@@ -276,19 +277,20 @@ http://www.tipue.com/search
 
                                    if (score < 1000000000)
                                    {
-                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].url;
+
+                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].loc;
                                    }
                               }
                          }
 
-                         if (c != 0)
+                         if (c != 0) //搜到了结果
                          {
-                              if (show_replace == 1)
+                              if (show_replace == 1) //说明有纠正
                               {
                                    out += '<div id="tipue_search_warning_head">Showing results for ' + d + '</div>';
                                    out += '<div id="tipue_search_warning">Search instead for <a href="javascript:void(0)" id="tipue_search_replaced">' + d_r + '</a></div>';
                               }
-                              if (c == 1)
+                              if (c == 1) //只搜到了一个结果
                               {
                                    out += '<div id="tipue_search_results_count">1 result</div>';
                               }
@@ -298,18 +300,18 @@ http://www.tipue.com/search
                                    out += '<div id="tipue_search_results_count">' + c_c + ' results</div>';
                               }
 
-                              found.sort();
+                              found.sort(); //按score排序, 因为score在found元素字符串的第一位
                               var l_o = 0;
                               for (var i = 0; i < found.length; i++)
                               {
-                                   var fo = found[i].split('^');
+                                   var fo = found[i].split('^'); //把found元素按^分隔,分别是[搜索匹配度标量值,标题,文章内容,loc(应该是文章链接url)]
                                    if (l_o >= start && l_o < set.show + start)
                                    {
-                                        out += '<div class="tipue_search_content_title"><a href="' + 'ok'+fo[3] + '"' + tipue_search_w + '>' +  fo[1] + '</a></div>';
+                                        out += '<div class="tipue_search_content_title"><a href="' + fo[3] + '"' + tipue_search_w + '>' +  fo[1] + '</a></div>';
 
                                         if (set.showURL)
                                         {
-                                             out += '<div class="tipue_search_content_url"><a href="' + 'ok'+fo[3] + '"' + tipue_search_w + '>' + fo[3] + '</a></div>';
+                                             out += '<div class="tipue_search_content_url"><a href="' +fo[3] + '"' + tipue_search_w + '>' + fo[3] + '</a></div>';
                                         }
 
                                         var t = fo[2];
