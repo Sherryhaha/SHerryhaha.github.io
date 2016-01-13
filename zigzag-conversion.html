@@ -31,7 +31,8 @@
         <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/bootstrap.min.css" type="text/css"/>
     <link href="http://sherryhaha.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="http://sherryhaha.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="http://sherryhaha.github.io/theme/css/pygments/vim.css" rel="stylesheet">
+    <link href="http://sherryhaha.github.io/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
     <link rel="stylesheet" href="http://sherryhaha.github.io/theme/css/style.css" type="text/css"/>
 
 
@@ -55,6 +56,11 @@ notSherry            </a>
                     <li><a href="/about.html">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
               <li><a href="http://sherryhaha.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
@@ -86,7 +92,11 @@ notSherry            </a>
     <span class="published">
         <i class="fa fa-calendar"></i><time datetime="2015-06-20T00:00:00+08:00"> 六 20 六月 2015</time>
     </span>
+            <span class="label label-default">By</span>
+            <a href="http://sherryhaha.github.io/author/notsherry.html"><i class="fa fa-user"></i> notSherry</a>
 
+        <span class="label label-default">Category</span>
+        <a href="http://sherryhaha.github.io/category/shua-ti.html">刷题</a>
 
 
 <span class="label label-default">Tags</span>
@@ -174,7 +184,15 @@ var duoshuoQuery = {short_name:"notSherry"};
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
-
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="http://sherryhaha.github.io/SGY.jpg"/>
+        </p>
+    <p>
+        <strong>About notSherry</strong><br/>
+         
+    </p>
+</div>
 <section class="well well-sm">
     <ul class="list-group list-group-flush">
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
@@ -246,23 +264,8 @@ var duoshuoQuery = {short_name:"notSherry"};
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tag/tu-xiang-pi-pei.html">
-                            图像匹配
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://sherryhaha.github.io/tag/java.html">
                             java
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tag/jdbc.html">
-                            JDBC
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tag/suan-fa.html">
-                            算法
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -271,13 +274,28 @@ var duoshuoQuery = {short_name:"notSherry"};
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tag/javazheng-ze-biao-da.html">
-                            java正则表达
+                        <a href="http://sherryhaha.github.io/tag/jdbc.html">
+                            JDBC
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
                         <a href="http://sherryhaha.github.io/tag/android.html">
                             android
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/javazheng-ze-biao-da.html">
+                            java正则表达
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/suan-fa.html">
+                            算法
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tag/tu-xiang-pi-pei.html">
+                            图像匹配
                         </a>
                     </li>
                 </ul>
@@ -317,6 +335,23 @@ var duoshuoQuery = {short_name:"notSherry"};
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
 <script src="http://sherryhaha.github.io/theme/js/respond.min.js"></script>
 
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-72328662-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
 
 
 </body>
