@@ -191,7 +191,7 @@ http://www.tipue.com/search
                                    }
                               } //d_t返回的是原本的d加上关联的词组中相关的词组
                               d_w = d_t.split(' ');
-                              console.log(tipuesearch_in);
+                              //console.log(tipuesearch_in);
                               for (var i = 0; i < tipuesearch_in.pages.length; i++)
                               {
                                    var score = 1000000000; //搜索结果匹配度的一个标量值,该值越大,搜索结果越接近,反之与搜索词相关度越小.
@@ -277,7 +277,7 @@ http://www.tipue.com/search
 
                                    if (score < 1000000000)
                                    {
-
+                                        //此处原作者用的是tipuesearch_in.pages[i].url
                                         found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].url;
                                    }
                               }
@@ -302,7 +302,7 @@ http://www.tipue.com/search
 
                               found.sort(); //按score排序, 因为score在found元素字符串的第一位
 
-                              console.log(found);
+                              //console.log(found);
                               var l_o = 0;
                               for (var i = 0; i < found.length; i++)
                               {
