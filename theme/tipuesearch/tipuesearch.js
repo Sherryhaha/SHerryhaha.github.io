@@ -303,11 +303,11 @@ http://www.tipue.com/search
                                    var fo = found[i].split('^');
                                    if (l_o >= start && l_o < set.show + start)
                                    {
-                                        out += '<div class="tipue_search_content_title"><a href="' + fo[3] + '"' + tipue_search_w + '>' +  fo[1] + '</a></div>';
+                                        out += '<div class="tipue_search_content_title"><a href="' + 'ok'+fo[3] + '"' + tipue_search_w + '>' +  fo[1] + '</a></div>';
 
                                         if (set.showURL)
                                         {
-                                             out += '<div class="tipue_search_content_url"><a href="' + fo[3] + '"' + tipue_search_w + '>' + fo[3] + '</a></div>';
+                                             out += '<div class="tipue_search_content_url"><a href="' + 'ok'+fo[3] + '"' + tipue_search_w + '>' + fo[3] + '</a></div>';
                                         }
 
                                         var t = fo[2];
