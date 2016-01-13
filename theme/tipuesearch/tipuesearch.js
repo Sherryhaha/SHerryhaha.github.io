@@ -301,6 +301,8 @@ http://www.tipue.com/search
                               }
 
                               found.sort(); //按score排序, 因为score在found元素字符串的第一位
+
+                              console.log(found);
                               var l_o = 0;
                               for (var i = 0; i < found.length; i++)
                               {
