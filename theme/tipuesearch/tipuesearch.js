@@ -218,7 +218,7 @@ http://www.tipue.com/search
                                              {
                                                   var patr = new RegExp('(' + d_w[f] + ')', 'i');
                                              }
-                                             s_t = s_t.replace(patr, "<span class=\"h01\">$1</span>");
+                                             s_t = s_t.replace(patr, "<span class=\"h01\">$1</span>");//把匹配到的词高亮
                                         }
                                         if (tipuesearch_in.pages[i].tags.search(pat) != -1)
                                         {
@@ -237,7 +237,7 @@ http://www.tipue.com/search
 
                                    if (score < 1000000000)
                                    {
-                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].loc;
+                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].url;
                                    }
                               }
                          }
@@ -276,7 +276,7 @@ http://www.tipue.com/search
 
                                    if (score < 1000000000)
                                    {
-                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].loc;
+                                        found[c++] = score + '^' + tipuesearch_in.pages[i].title + '^' + s_t + '^' + tipuesearch_in.pages[i].url;
                                    }
                               }
                          }
