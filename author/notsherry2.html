@@ -68,6 +68,28 @@ notSherry            </a>
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="http://sherryhaha.github.io/palindrome-linked-list/">Palindrome Linked List</a></h2>
+                <div class="summary"><p>问题描述：判断一个单链表是否是回文，即正着读和反向读是一样的</p>
+<p>问题分析：
+采用c语言书写，首先找到链表的中间节点，然后将中间节点以后的反转，比较两个半链表是否一样。</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">struct</span> ListNode {
+      <span style="color: #00BB00; font-weight: bold">int</span> val;
+      <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>next;
+  };
+<span style="color: #008800; font-style: italic">//找中间节点，利用快指针和慢指针来控制</span>
+<span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> <span style="color: #00A000">getMid</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> head)
+    {<span style="color: #008800; font-style: italic">// at least two nodes</span>
+      <span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> slow <span style="color: #666666">=</span> head;
+      <span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> fast <span style="color: #666666">=</span> head;
+      <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> preslow <span style="color: #666666">=</span> head;
+      <span style="color: #008800; font-style: italic">//控制偶数链表时返回中间的第二个节点</span>
+      <span style="color: #AA22FF; font-weight: bold">while</span>(fast<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span><span style="color: #666666">&amp;&amp;</span>fast<span style="color: #666666">-&gt;</span>next<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span>){
+           fast<span style="color: #666666">=</span>fast<span style="color: #666666">-&gt;</span>next<span style="color: #666666">-&gt;</span>next ...</pre></div>
+                    <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/palindrome-linked-list/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="http://sherryhaha.github.io/reverse-linked-list/">reverse Linked list</a></h2>
                 <div class="summary"><blockquote>
 <p>Reverse a singly linked list.
@@ -190,6 +212,11 @@ And then read line by ...</p>
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/wang-guan-deng-lu-jiao-ben/">
+                            网关登陆脚本
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="http://sherryhaha.github.io/pat/">
                             PAT
                         </a>
@@ -209,11 +236,6 @@ And then read line by ...</p>
                             排序
                         </a>
                     </li>
-                    <li class="list-group-item">
-                        <a href="http://sherryhaha.github.io/balanced-binary-tree/">
-                            Balanced Binary Tree
-                        </a>
-                    </li>
                 </ul>
             </li>
 
@@ -227,6 +249,11 @@ And then read line by ...</p>
                     <li class="list-group-item">
                         <a href="http://sherryhaha.github.io/categories/misc/index.html">
                             <i class="fa fa-folder-open fa-lg"></i> misc
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://sherryhaha.github.io/categories/python/index.html">
+                            <i class="fa fa-folder-open fa-lg"></i> Python
                         </a>
                     </li>
                     <li class="list-group-item">
@@ -250,13 +277,8 @@ And then read line by ...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/jdbc/index.html">
-                            JDBC
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/java/index.html">
-                            java
+                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
+                            算法
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -265,18 +287,28 @@ And then read line by ...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
-                            算法
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://sherryhaha.github.io/tags/android/index.html">
                             android
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/jdbc/index.html">
+                            JDBC
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://sherryhaha.github.io/tags/tu-xiang-pi-pei/index.html">
                             图像匹配
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/python/index.html">
+                            Python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/java/index.html">
+                            java
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
