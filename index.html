@@ -72,22 +72,22 @@ notSherry            </a>
                 <div class="summary"><p>用python写了一个网关登陆脚本。
 就是模拟网关登陆页面向服务器发送数据验证进行登陆。
 代码如下：</p>
-<p><code>c</code>
-import base64, requests, json, sys
-def logGateway():
-    url = &lsquo;http://a.suda.edu.cn/index.php/index/login&rsquo;
-    ＃data1是一个字典数组，存放用于发送给服务器的数据
-    data1 = {}
-    #获取用户名与密码参数
-    uname = sys.argv[1]
-    pword = sys.argv[2]</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%">＃由于网关的页面对密码是进行base64加密后传输的，这里也要同样的模拟加密
-modifyPassword = base64.b64encode(pword)
-data1[&#39;username&#39;] = uname
-data1[&#39;password&#39;] = modifyPassword
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">base64</span><span style="color: #666666">,</span> <span style="color: #0000FF; font-weight: bold">requests</span><span style="color: #666666">,</span> <span style="color: #0000FF; font-weight: bold">json</span><span style="color: #666666">,</span> <span style="color: #0000FF; font-weight: bold">sys</span>
+<span style="color: #AA22FF; font-weight: bold">def</span> <span style="color: #00A000">logGateway</span>():
+    url <span style="color: #666666">=</span> <span style="color: #BB4444">&#39;http://a.suda.edu.cn/index.php/index/login&#39;</span>
+    <span style="border: 1px solid #FF0000">＃</span>data1<span style="border: 1px solid #FF0000">是一个字典数组，存放用于发送给服务器的数据</span>
+    data1 <span style="color: #666666">=</span> {}
+    <span style="color: #008800; font-style: italic">#获取用户名与密码参数</span>
+    uname <span style="color: #666666">=</span> sys<span style="color: #666666">.</span>argv[<span style="color: #666666">1</span>]
+    pword <span style="color: #666666">=</span> sys<span style="color: #666666">.</span>argv[<span style="color: #666666">2</span>]
+
+    <span style="border: 1px solid #FF0000">＃由于网关的页面对密码是进行</span>base64<span style="border: 1px solid #FF0000">加密后传输的，这里也要同样的模拟加密</span>
+    modifyPassword <span style="color: #666666">=</span> base64<span style="color: #666666">.</span>b64encode(pword)
+    data1[<span style="color: #BB4444">&#39;username&#39;</span>] <span style="color: #666666">=</span> uname
+    data1[<span style="color: #BB4444">&#39;password&#39;</span>] <span style="color: #666666">=</span> modifyPassword
 
 
-headers1 = {&#39;Host&#39;: &#39;a.suda.edu ...</pre></div>
+    headers1 <span style="color: #666666">=</span> {<span style="color: #BB4444">&#39;Host&#39;</span>: <span style="color: #BB4444">&#39;a ...</span></pre></div>
                     <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/wang-guan-deng-lu-jiao-ben/">more ...</a>
                 </div>
             </article>
@@ -332,13 +332,33 @@ The minimum depth is the number of nodes along the shortest path from the root n
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/pat/index.html">
-                            pat
+                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
+                            算法
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
                         <a href="http://sherryhaha.github.io/tags/javazheng-ze-biao-da/index.html">
                             java正则表达
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/tu-xiang-pi-pei/index.html">
+                            图像匹配
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/pat/index.html">
+                            pat
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/python/index.html">
+                            Python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/android/index.html">
+                            android
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -349,26 +369,6 @@ The minimum depth is the number of nodes along the shortest path from the root n
                     <li class="list-group-item tag-4">
                         <a href="http://sherryhaha.github.io/tags/java/index.html">
                             java
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/android/index.html">
-                            android
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
-                            算法
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/tu-xiang-pi-pei/index.html">
-                            图像匹配
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/python/index.html">
-                            Python
                         </a>
                     </li>
                 </ul>
