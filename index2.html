@@ -69,124 +69,49 @@ notSherry            </a>
 
             <article>
                 <h2><a href="http://sherryhaha.github.io/minimum-depth-of-binary-tree/">Minimum Depth of Binary Tree</a></h2>
-                <div class="summary"><p>Given a binary tree, find its minimum depth.
-The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.</p>
-<p>求一颗二叉树的最小深度。当二叉树只有一个节点时，它的深度是为1.</p>
-<p>可以用递归求，求分别递归求左子树与右子树的深度，然后比较深度小的那个加一，值得注意的是，当一个节点，只有左子结点（或只有右子节点）时，这时他并不是一个叶子节点，还需要向下继续求深度，所以右子节点不能返回一个比左子结点求出的深度小的值，就付给他一个较大的值就可以了。</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800; font-style: italic">/**</span>
-<span style="color: #008800; font-style: italic"> * Definition for a binary tree ...</span></pre></div>
+                <div class="summary"><p>Leetcode题目 Minimum Depth of Binary Tree</p>
                     <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/minimum-depth-of-binary-tree/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
                 <h2><a href="http://sherryhaha.github.io/palindrome-linked-list/">Palindrome Linked List</a></h2>
-                <div class="summary"><p>问题描述：判断一个单链表是否是回文，即正着读和反向读是一样的</p>
-<p>问题分析：
-采用c语言书写，首先找到链表的中间节点，然后将中间节点以后的反转，比较两个半链表是否一样。</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">struct</span> ListNode {
-      <span style="color: #00BB00; font-weight: bold">int</span> val;
-      <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>next;
-  };
-<span style="color: #008800; font-style: italic">//找中间节点，利用快指针和慢指针来控制</span>
-<span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> <span style="color: #00A000">getMid</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> head)
-    {<span style="color: #008800; font-style: italic">// at least two nodes</span>
-      <span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> slow <span style="color: #666666">=</span> head;
-      <span style="color: #AA22FF; font-weight: bold">struct</span>  ListNode<span style="color: #666666">*</span> fast <span style="color: #666666">=</span> head;
-      <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> preslow <span style="color: #666666">=</span> head;
-      <span style="color: #008800; font-style: italic">//控制偶数链表时返回中间的第二个节点</span>
-      <span style="color: #AA22FF; font-weight: bold">while</span>(fast<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span><span style="color: #666666">&amp;&amp;</span>fast<span style="color: #666666">-&gt;</span>next<span style="color: #666666">!=</span><span style="color: #AA22FF">NULL</span>){
-           fast<span style="color: #666666">=</span>fast<span style="color: #666666">-&gt;</span>next<span style="color: #666666">-&gt;</span>next ...</pre></div>
+                <div class="summary"><p>Leetcode题目 Palindrome Linked List</p>
                     <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/palindrome-linked-list/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
                 <h2><a href="http://sherryhaha.github.io/reverse-linked-list/">reverse Linked list</a></h2>
-                <div class="summary"><blockquote>
-<p>Reverse a singly linked list.
-这是个简单的问题，主要考察的是对于链表的操作，并没有涉及算法什么的。让我正好温习了一下c 中链表的处理。
-要翻转链表，首先考虑空元素，一个元素和两个元素的情况。然后用三个指针分别指向已经翻转部分的头pre，目前正呆处理的cur，还有cur的下一个，然后将cur的next指向pre，让pre等于cur,cur=post,post = post-&gt;next，这样依次往后移动进行处理。</p>
-</blockquote>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">struct</span> ListNode {
-     <span style="color: #00BB00; font-weight: bold">int</span> val;
-     <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>next;
-  };
-
-<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> <span style="color: #00A000">reverseList</span>(<span style="color: #AA22FF; font-weight: bold">struct</span> ListNode<span style="color: #666666">*</span> head) {
-   <span style="color: #008800; font-style: italic">//注意定义的时候不能少了struct，我一开始就是没有struct从而没有ac.</span>
-    <span style="color: #AA22FF; font-weight: bold">struct</span> ListNode <span style="color: #666666">*</span>pre,<span style="color: #666666">*</span>cur,<span style="color: #666666">*</span>post;
-    <span style="color: #AA22FF; font-weight: bold">if</span>(head <span style="color: #666666">==</span> <span style="color: #AA22FF">NULL</span><span style="color: #666666">||</span>head<span style="color: #666666">-&gt;</span>next<span style="color: #666666">==</span><span style="color: #AA22FF">NULL ...</span></pre></div>
+                <div class="summary"><p>LeetCode题目 reverse Linked list</p>
                     <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/reverse-linked-list/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
                 <h2><a href="http://sherryhaha.github.io/two-sum/">Two Sum</a></h2>
-                <div class="summary"><h4 id="hash-array">问题描述<code>hash</code> <code>Array</code></h4>
-<blockquote>
-<p>Given an array of integers, find two numbers such that they add up to a specific target number.
-The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your ...</p></blockquote>
+                <div class="summary"><p>leetcode题目 Two Sum</p>
                     <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/two-sum/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
                 <h2><a href="http://sherryhaha.github.io/yong-shi-kan-long-tou-wen-ti/">勇士砍龙头问题</a></h2>
-                <div class="summary"><p>问题描述：你的王国里有一条n个头的恶龙，可以雇佣骑士把它杀死，村里有m个骑士，能力值为x的骑士可以砍掉一个恶龙直径不超过x的头，且需支付金币x，怎样才能杀死恶龙并且支付金币最少？(一个骑士只能砍一个头，雇佣一次）
-【格式输入】 每组数据的第一行为 n,m。下面n行每行为一个整数，代表恶龙头的直径，以下m行每行为一个整数，代表每个骑士的能力，输入结束标志是n=m=0。
-【样例输入】
-2 3
-5
-4
-7
-8
-4
-2 1
-5
-5
-10
-0 0 
-【样例输出】
-11
-Loowater is doomed!</p>
-<p>问题解答：将骑士按能力从大到小排序，头的直径也按从大到小排序，一个一个的砍。</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008800">#include&lt;stdio.h&gt;</span>
-<span style="color: #008800">#include&lt;algorithm&gt;</span>
-using ...</pre></div>
+                <div class="summary"><p>算法 勇士砍龙头问题</p>
                     <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/yong-shi-kan-long-tou-wen-ti/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
                 <h2><a href="http://sherryhaha.github.io/zigzag-conversion/">zigzag Conversion</a></h2>
-                <div class="summary"><p>The string &ldquo;PAYPALISHIRING&rdquo; is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)</p>
-<p>P   A   H   N
-A P L S I I G
-Y   I   R
-And then read line by ...</p>
+                <div class="summary"><p>Leetcode题目 zigzag Conversion</p>
                     <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/zigzag-conversion/">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
                 <h2><a href="http://sherryhaha.github.io/javaxue-xi/">JAVA学习</a></h2>
-                <div class="summary"><blockquote>
-<p>阅读了知乎上一些关于学习java的建议
-大多都是建议要先学习好java SE(standard Edition)，是基于JDK（没有它无法编译java程序）与JRE（java运行环境）
-可以先模仿着别人的代码，但一定要写，自己背着写。
-<strong>任何事情都要追求完美才敢继续往后进行是一种性格缺陷</strong></p>
-</blockquote>
-<h3 id="_1">正则表达式的学习</h3>
-<p>@(正则表达式)[2015/3/8]</p>
-<blockquote>
-<p>在java 中，有关于正则表达式的包是java.util.regex,它下面包含两个类Matcher与Pattern。一些具体参数或用法，都可以参展java的说明文档</p>
-</blockquote>
-<p>从昨天开始在观看网上马士兵老师的java教程视频，学习正则表达式的使用。其中比较实用的应用就是可以抓取一个网页上特定格式的东西，如所有的email。叫做emailSpider。以下是实现配对的主要函数：</p>
-<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #AA22FF; font-weight: bold">private</span> <span style="color: #AA22FF; font-weight: bold">static</span> <span style="color: #00BB00; font-weight: bold">void</span> <span style="color: #00A000">parse</span><span style="color: #666666">(</span>String line<span style="color: #666666">)</span> <span style="color: #666666">{</span>
-        <span style="color: #008800; font-style: italic">/*从文件中一行一行的读取数据，在每一行中匹配具有email格式的字符串*/</span>
-        Pattern p <span style="color: #666666">=</span> Pattern<span style="color: #666666">.</span><span style="color: #BB4444">compile</span><span style="color: #666666">(</span><span style="color: #BB4444">&quot;[\\w[.-]]+@[\\w[-.]]+\\.[\\w]+&quot;</span><span style="color: #666666">);</span>
-        Matcher m <span style="color: #666666">=</span> p ...</pre></div>
+                <div class="summary"><p>关于java网络编程的初步学习</p>
                     <a class="btn btn-default btn-xs" href="http://sherryhaha.github.io/javaxue-xi/">more ...</a>
                 </div>
             </article>
@@ -294,8 +219,8 @@ And then read line by ...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/tu-xiang-pi-pei/index.html">
-                            图像匹配
+                        <a href="http://sherryhaha.github.io/tags/jdbc/index.html">
+                            JDBC
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -309,23 +234,23 @@ And then read line by ...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/java/index.html">
-                            java
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
-                            算法
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://sherryhaha.github.io/tags/javazheng-ze-biao-da/index.html">
                             java正则表达
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/jdbc/index.html">
-                            JDBC
+                        <a href="http://sherryhaha.github.io/tags/pat/index.html">
+                            pat
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/java/index.html">
+                            java
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://sherryhaha.github.io/tags/tu-xiang-pi-pei/index.html">
+                            图像匹配
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -334,8 +259,8 @@ And then read line by ...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://sherryhaha.github.io/tags/pat/index.html">
-                            pat
+                        <a href="http://sherryhaha.github.io/tags/suan-fa/index.html">
+                            算法
                         </a>
                     </li>
                 </ul>
